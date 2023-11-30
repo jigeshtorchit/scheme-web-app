@@ -1,7 +1,7 @@
 import { FaUserLock, FaUsersGear} from 'react-icons/fa6';
 import { BiCalendarEdit, BiNotepad, BiSolidPieChartAlt2, BiSolidUser, BiSolidUserDetail } from 'react-icons/bi';
 import { SiGooglesheets } from 'react-icons/si';
-import { MdOutlineAdminPanelSettings } from 'react-icons/md';
+import { MdOutlineAdminPanelSettings, MdOutlineSchema } from 'react-icons/md';
 import { AiOutlineProject } from 'react-icons/ai';
 import { GiShakingHands } from 'react-icons/gi';
 import { IoSettingsOutline} from 'react-icons/io5';
@@ -22,14 +22,14 @@ export const sidebarItems = [
       "order_index": 1,
       "url": "/admindashboard"
     },
-    // {
-    //   "id": 2,
-    //   "label": "Employee Dashboard",
-    //   "parent_id": null,
-    //   "icon": <BiSolidUserDetail size={20}/>,
-    //   "order_index": 2,
-    //   "url": "/employeeDashboard",
-    // },
+    {
+      "id": 2,
+      "label": "Schemes",
+      "parent_id": null,
+      "icon": <MdOutlineSchema size={20}/>,
+      "order_index": 2,
+      "url": "/scheme",
+    },
     // {
     //   "id": 3,
     //   "label": "All Employees",

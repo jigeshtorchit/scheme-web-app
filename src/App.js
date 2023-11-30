@@ -12,6 +12,7 @@ import MainNav from "./pages/Navbars/MainNav";
 import Sidebar from "./pages/Navbars/Sidebar";
 import { Col, Container, Row } from "react-bootstrap";
 import AdminDashBoard from "./pages/dashboards/AdminDashBoard";
+import Scheme from "./pages/scheme/Scheme";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   return (
@@ -47,6 +48,10 @@ function App() {
                 <Route
                   path="/admindashboard"
                   element={authenticated ? <AdminDashBoard /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/scheme"
+                  element={authenticated ? <Scheme /> : <Navigate to="/" />}
                 />
               </Routes>
             </Col>

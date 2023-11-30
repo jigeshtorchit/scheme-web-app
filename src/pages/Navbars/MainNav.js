@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MainLogo from "../../assets/images/logo.png";
 import "./MainNav.css";
-import { Col, Container, Dropdown,  Offcanvas,  Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Offcanvas, Row } from "react-bootstrap";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -27,7 +27,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
       <Container
         fluid
         className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center overflowX-hidden"
-        style={{ backgroundColor: "lightblue", position: "sticky", top: "0" }}
+        style={{ backgroundColor: "#00d4ff", position: "sticky", top: "0" ,zIndex: 1000}}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
           <Col className="d-lg-none d-xl-none d-sm-flex">
@@ -38,7 +38,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
             />
           </Col>
           <Col
-            className='d-lg-flex d-none d-sm-none  flex-row flex-wrap-wrap justify-content-between"align-items-center '
+            className="d-lg-flex d-none d-sm-none flex-row flex-wrap-wrap justify-content-between align-items-center"
             style={{ marginRight: "100px" }}
           >
             <img
@@ -79,10 +79,14 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                   <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
                 ) : (
                   <>
-                    <Dropdown.Item ><Link to={"/myProfile"} className="textDecoration-none  text-dark">
+                    <Dropdown.Item>
+                      <Link
+                        to={"/myProfile"}
+                        className="textDecoration-none  text-dark"
+                      >
                         My Profile
-                        </Link>
-                      </Dropdown.Item> {" "}
+                      </Link>
+                    </Dropdown.Item>{" "}
                     <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
                   </>
                 )}
@@ -110,9 +114,12 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                     <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
                   ) : (
                     <>
-                      <Dropdown.Item >
-                      <Link to={"/myProfile"} className="textDecoration-none  text-dark">
-                        My Profile
+                      <Dropdown.Item>
+                        <Link
+                          to={"/myProfile"}
+                          className="textDecoration-none  text-dark"
+                        >
+                          My Profile
                         </Link>
                       </Dropdown.Item>{" "}
                       <Dropdown.Item onClick={handleLogin}>
@@ -130,7 +137,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
       {/* canvas */}
 
       <Row className="d-sm-flex d-lg-none d-xl-none d-xxl-none">
-        <Offcanvas  show={show} onHide={handleClose}>
+        <Offcanvas scroll={true} show={show} onHide={handleClose}>
           <Offcanvas.Header className="bg-mainColor" closeButton>
             <Offcanvas.Title
               className="custom-title"
