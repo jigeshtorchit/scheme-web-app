@@ -6,7 +6,7 @@ import { schemSchema } from "./schemSchema";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import TextInput from "../../components/TextInput";
 
-const SchemeAddForm = () => {
+const SchemeEditForm = () => {
   const navigate = useNavigate();
   const [ni, setNi] = useState("");
   const [pwds, setPwds] = useState("");
@@ -41,7 +41,7 @@ const SchemeAddForm = () => {
     maxAge: "",
     disabilities: "",
   };
-  function handleAddData() {
+  function handleEditData() {
     // Handle form submission here
     console.log(schemeData);
     navigate("/scheme");
@@ -86,7 +86,7 @@ const SchemeAddForm = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={schemSchema}
-          onSubmit={handleAddData}
+          onSubmit={handleEditData}
         >
           {({
             values,
@@ -106,7 +106,7 @@ const SchemeAddForm = () => {
                       size={25}
                       className="m-1 pointer"
                     />
-                    <h4>Add Scheme Details</h4>
+                    <h4>Edit Scheme Details</h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
@@ -148,10 +148,10 @@ const SchemeAddForm = () => {
                         (touched.minAge && errors.minAge) ||
                         (touched.maxAge && errors.maxAge)
                           ? handleSubmit
-                          : handleAddData
+                          : handleEditData
                       }
                     >
-                      Save
+                      Update
                     </Button>
                   </Col>
                 </Row>
@@ -591,10 +591,10 @@ const SchemeAddForm = () => {
                         (touched.minAge && errors.minAge) ||
                         (touched.maxAge && errors.maxAge)
                           ? handleSubmit
-                          : handleAddData
+                          : handleEditData
                       }
                     >
-                      Save
+                      Update
                     </Button>
                   </Col>
                 </Row>
@@ -607,4 +607,4 @@ const SchemeAddForm = () => {
   );
 };
 
-export default SchemeAddForm;
+export default SchemeEditForm;

@@ -39,7 +39,7 @@ const BasicTable = (props) => {
   const { pageIndex } = state;
   return (
     <div>
-      <Container>
+      <Container fluid>
         <Row className="">
           <Form className="d-flex flex-lg-row flex-column flex-xxl-row flex-xl-row flex-sm-column flex-md-row">
             <Col className="m-4" xxl={3} xl={3} lg={3} sm={3} md={3}>
@@ -59,9 +59,8 @@ const BasicTable = (props) => {
               md={3}
             >
               <Button
-                className=" text-dark fw-bold "
+                className=" text-dark fw-bold bg-info"
                 style={{
-                  backgroundColor: "#00d4ff",
                   outline: "none",
                   border: "none",
                 }}

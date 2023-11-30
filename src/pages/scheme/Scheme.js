@@ -10,7 +10,7 @@ import DeleteModel from "../../components/DeleteModel";
 
 const Scheme = () => {
   const navigate = useNavigate();
-  const handleNavigateAddForm = () => navigate("/leaveAddForm");
+  const handleNavigateAddForm = () => navigate("/schemeAddForm");
   const [deleteShow, setDeleteShow] = useState(false);
 
   const deleteHandleClose = () => {
@@ -55,7 +55,7 @@ const Scheme = () => {
       accessor: 'action',
       Cell: () => (
         <div className="d-flex align-items-center justify-content-center flex-row">
-          <Link to="/leaveEditForm">
+          <Link to="/schemeEditForm">
             <Button variant="warning">
               <FaEdit />
             </Button>
@@ -74,8 +74,8 @@ const Scheme = () => {
         <Row>
           <Header
             ONCLICK={handleNavigateAddForm}
-            HEADING="Overtime"
-            BUTTON_NAME="Add Overtime"
+            HEADING="Schemes"
+            BUTTON_NAME="Add Scheme"
           />
         </Row>
 
@@ -86,8 +86,8 @@ const Scheme = () => {
       <DeleteModel
         DELETESTATE={deleteShow}
         ONCLICK={deleteHandleClose}
-        DESCRIPTION="Overtime"
-        DELETETITLE="Overtime"
+        DESCRIPTION="Scheme"
+        DELETETITLE="Schemes"
       />
     </div>
   );

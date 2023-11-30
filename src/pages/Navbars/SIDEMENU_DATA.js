@@ -16,7 +16,7 @@ import { VscSettings} from 'react-icons/vsc';
 export const sidebarItems = [
     {
       "id": 1,
-      "label": "Admin Dashboard",
+      "label": "Dashboard",
       "parent_id": null,
       "icon": <MdOutlineAdminPanelSettings  size={20} />,
       "order_index": 1,

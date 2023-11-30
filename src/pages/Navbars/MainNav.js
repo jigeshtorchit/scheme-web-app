@@ -19,15 +19,15 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
   const handleNavigateAddForm = () => setShow(true);
   const handleLogin = () => {
     setAuthenticated(false);
-    history("/login");
+    history("/admin/login");
   };
 
   return (
     <>
       <Container
         fluid
-        className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center overflowX-hidden"
-        style={{ backgroundColor: "#00d4ff", position: "sticky", top: "0" ,zIndex: 1000}}
+        className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center bg-info overflowX-hidden"
+        style={{  position: "sticky", top: "0" ,zIndex: 1000}}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
           <Col className="d-lg-none d-xl-none d-sm-flex">

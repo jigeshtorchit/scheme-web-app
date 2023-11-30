@@ -13,6 +13,8 @@ import Sidebar from "./pages/Navbars/Sidebar";
 import { Col, Container, Row } from "react-bootstrap";
 import AdminDashBoard from "./pages/dashboards/AdminDashBoard";
 import Scheme from "./pages/scheme/Scheme";
+import SchemeAddForm from "./pages/scheme/SchemeAddForm";
+import SchemeEditForm from "./pages/scheme/SchemeEditForm";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   return (
@@ -28,12 +30,12 @@ function App() {
         <Container fluid>
           <Row>
             {authenticated && (
-              <Col lg={3} xxl={2} xl={2}>
+              <Col lg={2} xxl={2} xl={2}>
                 <Sidebar />
               </Col>
             )}
             <Col
-              lg={authenticated ? 9 : 12}
+              lg={authenticated ? 10 : 12}
               xxl={authenticated ? 10 : 12}
               xl={authenticated ? 10 : 12}
               md={12}
@@ -52,6 +54,14 @@ function App() {
                 <Route
                   path="/scheme"
                   element={authenticated ? <Scheme /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/schemeAddForm"
+                  element={authenticated ? <SchemeAddForm/> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/schemeEditForm"
+                  element={authenticated ? <SchemeEditForm/> : <Navigate to="/" />}
                 />
               </Routes>
             </Col>
