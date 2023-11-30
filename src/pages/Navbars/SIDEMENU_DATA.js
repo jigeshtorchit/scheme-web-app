@@ -1,17 +1,17 @@
-import { FaUserLock, FaUsersGear} from 'react-icons/fa6';
-import { BiCalendarEdit, BiNotepad, BiSolidPieChartAlt2, BiSolidUser, BiSolidUserDetail } from 'react-icons/bi';
-import { SiGooglesheets } from 'react-icons/si';
+// import { FaUserLock, FaUsersGear} from 'react-icons/fa6';
+// import { BiCalendarEdit, BiNotepad, BiSolidPieChartAlt2, BiSolidUser, BiSolidUserDetail } from 'react-icons/bi';
+// import { SiGooglesheets } from 'react-icons/si';
 import { MdOutlineAdminPanelSettings, MdOutlineSchema } from 'react-icons/md';
-import { AiOutlineProject } from 'react-icons/ai';
-import { GiShakingHands } from 'react-icons/gi';
-import { IoSettingsOutline} from 'react-icons/io5';
-import { TbClockDollar, TbReportAnalytics, TbSpeakerphone } from 'react-icons/tb';
-import { PiStudentDuotone, PiUserSwitch } from 'react-icons/pi';
-import { BsBuildingGear, BsTicketPerforated } from 'react-icons/bs';
-import { LiaMoneyCheckAltSolid } from 'react-icons/lia';
-import { SlCalender} from 'react-icons/sl';
-import { RiChatSettingsLine, RiFileUserLine} from 'react-icons/ri';
-import { VscSettings} from 'react-icons/vsc';
+// import { AiOutlineProject } from 'react-icons/ai';
+// import { GiShakingHands } from 'react-icons/gi';
+// import { IoSettingsOutline} from 'react-icons/io5';
+// import { TbClockDollar, TbReportAnalytics, TbSpeakerphone } from 'react-icons/tb';
+// import { PiStudentDuotone, PiUserSwitch } from 'react-icons/pi';
+// import { BsBuildingGear, BsTicketPerforated } from 'react-icons/bs';
+// import { LiaMoneyCheckAltSolid } from 'react-icons/lia';
+// import { SlCalender} from 'react-icons/sl';
+// import { RiChatSettingsLine, RiFileUserLine} from 'react-icons/ri';
+// import { VscSettings} from 'react-icons/vsc';
 
 export const sidebarItems = [
     {

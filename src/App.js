@@ -15,10 +15,12 @@ import AdminDashBoard from "./pages/dashboards/AdminDashBoard";
 import Scheme from "./pages/scheme/Scheme";
 import SchemeAddForm from "./pages/scheme/SchemeAddForm";
 import SchemeEditForm from "./pages/scheme/SchemeEditForm";
+import { ToastContainer } from "react-toastify";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   return (
     <div className="App">
+      <ToastContainer/>
       <Router>
         {authenticated && (
           <MainNav

@@ -6,7 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Formik } from "formik";
 import { LogAndRegSchema } from "./LoginValidation";
 import TextInput from "../../components/TextInput";
-// import { useLoginUserMutation } from "../../Redux/api/AuthApi";
+import { useLoginUserMutation } from "../../redux/api/AuthApi";
 import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
 
@@ -15,7 +15,7 @@ const Login = ({ setAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useNavigate();
-  // const [loginApi, { isLoading }] = useLoginUserMutation();
+  const [loginApi, { isLoading }] = useLoginUserMutation();
 
   const initialValues = {
     email: "",
@@ -33,40 +33,40 @@ const Login = ({ setAuthenticated }) => {
     }
   };
 
-  const handleLogin = () =>{
-history("/admindashboard")
-setAuthenticated(true)
-  }
+//   const handleLogin = () =>{
+// history("/admindashboard")
+// setAuthenticated(true)
+//   }
 
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await loginApi({
-  //       Email: email,
-  //       Password: password,
-  //     });
-  //     console.log(response);
+  const handleLogin = async () => {
+    try {
+      const response = await loginApi({
+        Email: email,
+        Password: password,
+      });
+      console.log(response);
 
-  //     if (response.error.originalStatus === 200) {
-  //       setEmail("");
-  //       setPassword("");
-  //       // setTimeout(() => {
-  //         setAuthenticated(true);
-  //         history("/");
-  //       // }, 2000);
+      if (response.error.originalStatus === 200) {
+        setEmail("");
+        setPassword("");
+        // setTimeout(() => {
+          setAuthenticated(true);
+          history("/admin/login");
+        // }, 2000);
         
-  //       toast.success(response.error.data,{autoClose:1000});
-  //       console.log("if part");
-  //       console.log(response.error.data);
-  //     } else {
-  //       toast.error(response.error.data,{autoClose:1000});
-  //       console.log("else part");
-  //       console.log(response.error.data);
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred while logging in.");
-  //     console.error(error);
-  //   }
-  // };
+        toast.success(response.error.data,{autoClose:1000});
+        console.log("if part");
+        console.log(response.error.data);
+      } else {
+        toast.error(response.error.data,{autoClose:1000});
+        console.log("else part");
+        console.log(response.error.data);
+      }
+    } catch (error) {
+      toast.error("An error occurred while logging in.");
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -194,7 +194,7 @@ setAuthenticated(true)
                             ? handleSubmit
                             : handleLogin
                         }
-                        
+                        isLoading={isLoading}
                         label={"Login"}
                       />
                       
