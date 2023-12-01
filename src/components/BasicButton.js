@@ -12,6 +12,7 @@ const BasicButton = (props) => {
     isLoading,
     loaderVariant,
     loaderSize,
+    type
   } = props;
   const buttonStyle = {
     backgroundColor: color,
@@ -23,6 +24,7 @@ const BasicButton = (props) => {
       variant={variant}
       className={className}
       size={size}
+      type={type}
       onClick={onClick}
       disabled={!isLoading ? false : true}
     >

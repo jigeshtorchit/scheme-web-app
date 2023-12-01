@@ -15,6 +15,7 @@ import Scheme from "./pages/scheme/Scheme";
 import SchemeAddForm from "./pages/scheme/SchemeAddForm";
 import SchemeEditForm from "./pages/scheme/SchemeEditForm";
 import { ToastContainer } from "react-toastify";
+import  Page404 from './pages/404/Page404'
 import ChatBot from "./components/ChatBot";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -45,6 +46,7 @@ function App() {
             >
               <Routes>
                 <Route path="/" element={<ChatBot/>} />
+                <Route path="*" element={<Page404/>} />
                 <Route
                   path="/admin/login"
                   element={<Login setAuthenticated={setAuthenticated} />}

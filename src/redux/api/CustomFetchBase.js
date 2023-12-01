@@ -32,7 +32,7 @@ const CustomFetchBase = async (args, api, extraOptions) => {
     });
     <ToastContainer/>
     localStorage.clear();
-    window.location.href = "/";
+    window.location.href = "/admin/login";
   }
   return result;
 };

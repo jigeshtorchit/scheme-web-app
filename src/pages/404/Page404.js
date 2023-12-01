@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import BasicButton from '../../Components/BasicButton'
+import BasicButton from '../../components/BasicButton'
 import { Link } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
 
@@ -16,8 +16,8 @@ const Page404 = () => {
           <p className='text-bold fs-6 fw-bolder'>THE PAGE YOU REQUESTED COULD NOT FOUND</p>
           </Col>
           <Col className='d-flex flex-column  justify-content-center align-items-center text-center'>
-          <Link className='textDecoration-none' to={"/login"}>
-          <BasicButton label={"GO TO HOMEPAGE"} icon={<FaHome size={20} className='mx-2'/>} className={"bg-mainColor d-flex align-items-center  border-none outline-none text-bold fs-6 fw-400"}/>
+          <Link className='textDecoration-none' to={"/"}>
+          <BasicButton label={"GO TO HOMEPAGE"} icon={<FaHome size={20} className='mx-2'/>} className={"bg-mainColor d-flex align-items-center textDecoration-none border-none outline-none text-bold fs-6 fw-400"}/>
           </Link>
           </Col>
         </Row>
