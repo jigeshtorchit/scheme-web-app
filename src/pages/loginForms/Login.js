@@ -61,6 +61,7 @@ const Login = ({ setAuthenticated }) => {
         toast.error(response.error.data,{autoClose:1000});
         console.log("else part");
         console.log(response.error.data);
+        setAuthenticated(true);
         history("/admindashboard");
       }
     } catch (error) {
