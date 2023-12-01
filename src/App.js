@@ -17,7 +17,7 @@ import SchemeAddForm from "./pages/scheme/SchemeAddForm";
 import SchemeEditForm from "./pages/scheme/SchemeEditForm";
 import { ToastContainer } from "react-toastify";
 function App() {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   return (
     <div className="App">
       <ToastContainer/>
@@ -44,9 +44,9 @@ function App() {
               sm={12}
             >
               <Routes>
-                <Route path="/admin" element={<Demo />} />
+                <Route path="/" element={<Demo />} />
                 <Route
-                  path="/"
+                  path="/admin/login"
                   element={<Login setAuthenticated={setAuthenticated} />}
                 />
                 <Route

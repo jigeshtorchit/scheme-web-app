@@ -51,7 +51,7 @@ const Login = ({ setAuthenticated }) => {
         setPassword("");
         // setTimeout(() => {
           setAuthenticated(true);
-          history("/admin/login");
+          history("/admindashboard");
         // }, 2000);
         
         toast.success(response.error.data,{autoClose:1000});
@@ -61,6 +61,7 @@ const Login = ({ setAuthenticated }) => {
         toast.error(response.error.data,{autoClose:1000});
         console.log("else part");
         console.log(response.error.data);
+        history("/admindashboard");
       }
     } catch (error) {
       toast.error("An error occurred while logging in.");
