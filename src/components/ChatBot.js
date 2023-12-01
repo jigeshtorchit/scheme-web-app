@@ -86,9 +86,15 @@ const ChatBot = () => {
         </Card>
       )}
       <div style={{ marginBottom: '10px', marginRight: '10px', marginTop: '10px' }}>
-        <Button className="chat-icon" onClick={toggleChat}>
-          Chat
-        </Button>
+       {
+        !showChat ? ( <Button className="chat-icon" onClick={toggleChat}>
+        Chat
+      </Button>):(
+         <Button className="chat-icon" onClick={toggleChat}>
+         Close
+       </Button>
+      )
+       }
       </div>
     </div>
   );
