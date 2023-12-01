@@ -44,9 +44,9 @@ function App() {
               sm={12}
             >
               <Routes>
-                <Route path="/" element={<Demo />} />
+                <Route path="/admin" element={<Demo />} />
                 <Route
-                  path="/adminLogin"
+                  path="/"
                   element={<Login setAuthenticated={setAuthenticated} />}
                 />
                 <Route
