@@ -7,7 +7,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./pages/loginForms/Login";
-import Demo from "./pages/demo/Demo";
 import MainNav from "./pages/Navbars/MainNav";
 import Sidebar from "./pages/Navbars/Sidebar";
 import { Col, Container, Row } from "react-bootstrap";
@@ -16,6 +15,7 @@ import Scheme from "./pages/scheme/Scheme";
 import SchemeAddForm from "./pages/scheme/SchemeAddForm";
 import SchemeEditForm from "./pages/scheme/SchemeEditForm";
 import { ToastContainer } from "react-toastify";
+import ChatBot from "./components/ChatBot";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   return (
@@ -44,7 +44,7 @@ function App() {
               sm={12}
             >
               <Routes>
-                <Route path="/" element={<Demo />} />
+                <Route path="/" element={<ChatBot/>} />
                 <Route
                   path="/admin/login"
                   element={<Login setAuthenticated={setAuthenticated} />}

@@ -1,0 +1,29 @@
+/* DominoChatBot.css */
+.domino-chat-bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .chat-toggle-btn {
+    background-color: #d32f2f; /* Domino's red */
+    border: none;
+  }
+  
+  .chat-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .sent {
+    background-color: #d32f2f;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  
+  /* Add more styles as needed */
+  
