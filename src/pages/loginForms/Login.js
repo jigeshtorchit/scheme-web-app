@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  Col, Container, Form, Row } from "react-bootstrap";
 import MainLogo from "../../assets/images/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Formik } from "formik";
 import { LogAndRegSchema } from "./LoginValidation";

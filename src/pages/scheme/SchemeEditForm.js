@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import TextInput from "../../components/TextInput";
 
 const SchemeEditForm = () => {

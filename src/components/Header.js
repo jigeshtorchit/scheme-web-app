@@ -7,7 +7,7 @@ const Header = (props) => {
     <div>
       <Row className="d-flex flex-row justify-content-between align-items-center mt-2 mb-2">
         <Col className="d-flex flex-column flex-wrap-wrap align-content-center">
-          <h5 className="fw-bold">{props.HEADING}</h5>
+          <h4 className="fw-bold">{props.HEADING}</h4>
         </Col>
         <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center">
           <Button

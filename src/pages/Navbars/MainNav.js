@@ -6,7 +6,7 @@ import { Col, Container, Dropdown, Offcanvas, Row } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { sidebarItems } from "./SIDEMENU_DATA";
 import ReactSidebar from "./ReactSidebar";

@@ -40,35 +40,33 @@ const BasicTable = (props) => {
   return (
     <div>
       <Container fluid>
-        <Row className="">
-          <Form className="d-flex  flex-lg-row flex-column flex-xxl-row flex-xl-row justify-content-flexstart flex-sm-column flex-md-row">
-            <Col className="my-4" style={{marginLeft:'-15px'}} xxl={3} xl={3} lg={3} sm={3} md={3}>
-              <Form.Control
-                placeholder="Search here..."
-                value={state.globalFilter || ""}
-                onChange={(e) => setGlobalFilter(e.target.value.trim())}
-                className=""
-              />
-            </Col>
-            <Col
-              className="d-flex flex-column text-center my-4"
-              xxl={3}
-              xl={3}
-              lg={3}
-              sm={3}
-              md={3}
+        <Row className="d-flex  flex-lg-row flex-column flex-xxl-row flex-xl-row flex-sm-column flex-md-row">
+          <Col className="my-4" xxl={3} xl={3} lg={3} sm={3} md={3}>
+            <Form.Control
+              placeholder="Search here..."
+              value={state.globalFilter || ""}
+              onChange={(e) => setGlobalFilter(e.target.value.trim())}
+              className=""
+            />
+          </Col>
+          <Col
+            className="d-flex flex-column text-center my-4"
+            xxl={3}
+            xl={3}
+            lg={3}
+            sm={3}
+            md={3}
+          >
+            <Button
+              className=" text-white fw-bold bg-primary"
+              style={{
+                outline: "none",
+                border: "none",
+              }}
             >
-              <Button
-                className=" text-white fw-bold bg-primary"
-                style={{
-                  outline: "none",
-                  border: "none",
-                }}
-              >
-                Search
-              </Button>
-            </Col>
-          </Form>
+              Search
+            </Button>
+          </Col>
         </Row>
         <Row>
           <Table striped bordered hover {...getTableProps()} responsive={true}>

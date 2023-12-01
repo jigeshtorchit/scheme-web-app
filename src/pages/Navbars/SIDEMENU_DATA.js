@@ -1,7 +1,8 @@
 // import { FaUserLock, FaUsersGear} from 'react-icons/fa6';
 // import { BiCalendarEdit, BiNotepad, BiSolidPieChartAlt2, BiSolidUser, BiSolidUserDetail } from 'react-icons/bi';
 // import { SiGooglesheets } from 'react-icons/si';
-import { MdOutlineAdminPanelSettings, MdOutlineSchema } from 'react-icons/md';
+// import { MdOutlineAdminPanelSettings, MdOutlineSchema } from 'react-icons/md';
+import { MdOutlineSchema } from 'react-icons/md';
 // import { AiOutlineProject } from 'react-icons/ai';
 // import { GiShakingHands } from 'react-icons/gi';
 // import { IoSettingsOutline} from 'react-icons/io5';

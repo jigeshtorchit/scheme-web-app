@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
+import { FaWhatsapp, FaTimes } from 'react-icons/fa';
 
 const ChatBot = () => {
   const [showChat, setShowChat] = useState(false);
@@ -30,13 +31,19 @@ const ChatBot = () => {
     setSelectedMessages([...selectedMessages, message]);
   };
 
+  const cancelChat = () => {
+    setShowChat(false);
+    setSelectedMessages([]);
+  };
+
   return (
-    <div className="chat-bot" style={{ position: 'fixed', bottom: '10px', right: '10px', zIndex: 1000 }}>
+    <div className="chat-bot-container" style={{ position: 'fixed', bottom: '10px', right: '10px', zIndex: 1000 }}>
+      
       {showChat && (
         <Card style={{ width: '300px' }}>
           <Card.Header>
-            <Button variant="link" onClick={closeChat} style={{ float: 'right', padding: '0' }}>
-              Close
+            <Button variant="link" onClick={cancelChat} style={{ float: 'right', padding: '0' }}>
+              Cancel
             </Button>
             ChatBot
           </Card.Header>
@@ -68,7 +75,7 @@ const ChatBot = () => {
               ))}
             </ListGroup>
           </Card.Body>
-          <Card.Footer style={{ marginTop: '10px' }}>
+          <Card.Footer style={{ marginTop: '10px', textAlign: 'center' }}>
             <div className="selectable-messages">
               {selectableMessages.map((message) => (
                 <Button
@@ -85,16 +92,10 @@ const ChatBot = () => {
           </Card.Footer>
         </Card>
       )}
-      <div style={{ marginBottom: '10px', marginRight: '10px', marginTop: '10px' }}>
-       {
-        !showChat ? ( <Button className="chat-icon" onClick={toggleChat}>
-        Chat
-      </Button>):(
-         <Button className="chat-icon" onClick={toggleChat}>
-         Close
-       </Button>
-      )
-       }
+      <div className={`chat-icon-container  ${showChat ?'my-2 mx-6':''} ${showChat ? 'open' : ''}`}>
+        <Button className={`chat-icon`} onClick={showChat ? closeChat : toggleChat}>
+          {showChat ? <FaTimes /> : <FaWhatsapp />}
+        </Button>
       </div>
     </div>
   );
