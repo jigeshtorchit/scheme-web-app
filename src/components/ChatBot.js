@@ -15,14 +15,14 @@ const ChatBot = () => {
   };
 
   const messages = [
-    { id: 1, text: 'Hello! How can I help you?' },
-    { id: 2, text: 'Sure, we offer a some Schemes' },
+    { id: 1, text: 'Hello! How can I help you?', sender: 'bot' },
+    { id: 2, text: 'Sure, we offer a Some Scheme', sender: 'bot' },
     // Add more messages as needed
   ];
 
   const selectableMessages = [
-    { id: 101, text: 'Tell me about your Scheme' },
-    { id: 102, text: 'What are your Scheme?' },
+    { id: 101, text: 'Tell me about your Scheme', sender: 'user' },
+    { id: 102, text: 'What are your Scheme?', sender: 'user' },
     // Add more selectable messages as needed
   ];
 
@@ -40,17 +40,35 @@ const ChatBot = () => {
             </Button>
             ChatBot
           </Card.Header>
-          <Card.Body>
+          <Card.Body style={{ maxHeight: '200px', overflowY: 'auto' }}>
             <ListGroup variant="flush">
               {selectedMessages.map((message) => (
-                <ListGroup.Item key={message.id}>{message.text}</ListGroup.Item>
+                <ListGroup.Item
+                  key={message.id}
+                  style={{ textAlign: 'left', border: '0' }}
+                >
+                  Bot: {message.text}
+                </ListGroup.Item>
               ))}
               {messages.map((message) => (
-                <ListGroup.Item key={message.id}>{message.text}</ListGroup.Item>
+                <ListGroup.Item
+                  key={message.id}
+                  style={{ textAlign: 'left', border: '0' }}
+                >
+                  Bot: {message.text}
+                </ListGroup.Item>
+              ))}
+              {selectableMessages.map((message) => (
+                <ListGroup.Item
+                  key={message.id}
+                  style={{ textAlign: 'right', border: '0' }}
+                >
+                  User: {message.text}
+                </ListGroup.Item>
               ))}
             </ListGroup>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer style={{ marginTop: '10px' }}>
             <div className="selectable-messages">
               {selectableMessages.map((message) => (
                 <Button
@@ -58,6 +76,7 @@ const ChatBot = () => {
                   variant={selectedMessages.includes(message) ? 'primary' : 'outline-primary'}
                   onClick={() => handleSelectMessage(message)}
                   className="message-button"
+                  style={{ marginBottom: '5px' }}
                 >
                   {message.text}
                 </Button>
@@ -66,9 +85,11 @@ const ChatBot = () => {
           </Card.Footer>
         </Card>
       )}
-      <Button className="chat-icon" onClick={toggleChat}>
-        Chat
-      </Button>
+      <div style={{ marginBottom: '10px', marginRight: '10px', marginTop: '10px' }}>
+        <Button className="chat-icon" onClick={toggleChat}>
+          Chat
+        </Button>
+      </div>
     </div>
   );
 };
