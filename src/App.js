@@ -65,7 +65,7 @@ function App() {
                   element={authenticated ? <SchemeAddForm/> : <Navigate to="/" />}
                 />
                 <Route
-                  path="/schemeEditForm"
+                  path="/schemeEditForm/:id"
                   element={authenticated ? <SchemeEditForm/> : <Navigate to="/" />}
                 />
               </Routes>
