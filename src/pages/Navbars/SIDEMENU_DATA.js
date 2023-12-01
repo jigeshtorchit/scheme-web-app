@@ -14,16 +14,9 @@ import { MdOutlineAdminPanelSettings, MdOutlineSchema } from 'react-icons/md';
 // import { VscSettings} from 'react-icons/vsc';
 
 export const sidebarItems = [
+   
     {
       "id": 1,
-      "label": "Dashboard",
-      "parent_id": null,
-      "icon": <MdOutlineAdminPanelSettings  size={20} />,
-      "order_index": 1,
-      "url": "/admindashboard"
-    },
-    {
-      "id": 2,
       "label": "Schemes",
       "parent_id": null,
       "icon": <MdOutlineSchema size={20}/>,

@@ -41,8 +41,8 @@ const BasicTable = (props) => {
     <div>
       <Container fluid>
         <Row className="">
-          <Form className="d-flex flex-lg-row flex-column flex-xxl-row flex-xl-row flex-sm-column flex-md-row">
-            <Col className="m-4" xxl={3} xl={3} lg={3} sm={3} md={3}>
+          <Form className="d-flex  flex-lg-row flex-column flex-xxl-row flex-xl-row justify-content-flexstart flex-sm-column flex-md-row">
+            <Col className="my-4" style={{marginLeft:'-15px'}} xxl={3} xl={3} lg={3} sm={3} md={3}>
               <Form.Control
                 placeholder="Search here..."
                 value={state.globalFilter || ""}
@@ -51,7 +51,7 @@ const BasicTable = (props) => {
               />
             </Col>
             <Col
-              className="d-flex flex-column text-center m-4"
+              className="d-flex flex-column text-center my-4"
               xxl={3}
               xl={3}
               lg={3}
@@ -59,7 +59,7 @@ const BasicTable = (props) => {
               md={3}
             >
               <Button
-                className=" text-dark fw-bold bg-info"
+                className=" text-white fw-bold bg-primary"
                 style={{
                   outline: "none",
                   border: "none",
@@ -125,7 +125,7 @@ const BasicTable = (props) => {
             } flex-row justify-content-center align-items-center`}
           >
             <span className="m-1 d-flex justify-content-start align-items-center">
-              page
+              Page
               <strong className="m-2">
                 {pageIndex + 1} of {pageOptions.length}
               </strong>{" "}
@@ -136,7 +136,7 @@ const BasicTable = (props) => {
                 disabled={!canPreviousPage}
                 className="m-2"
               >
-                previous
+                Previous
               </Button>
               <Button onClick={() => nextPage()} disabled={!canNextPage}>
                 Next

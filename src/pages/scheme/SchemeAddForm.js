@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import TextInput from "../../components/TextInput";
 
 const SchemeAddForm = () => {
@@ -101,12 +100,8 @@ const SchemeAddForm = () => {
               <Form>
                 <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
                   <Col className="d-flex justify-content-start align-items-center">
-                    <AiOutlineArrowLeft
-                      onClick={handleCancel}
-                      size={25}
-                      className="m-1 pointer"
-                    />
-                    <h4>Add Scheme Details</h4>
+                    
+                    <h4 style={{marginLeft:'-15px'}}>Add Scheme Details</h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
@@ -155,8 +150,8 @@ const SchemeAddForm = () => {
                     </Button>
                   </Col>
                 </Row>
-                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column ">
-                  <Col className="m-1 p-4 d-flex w-100 h-100  flex-wrap flex-column shadow rounded">
+                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded ">
+                  <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
                         Government Schemes Information
@@ -386,7 +381,7 @@ const SchemeAddForm = () => {
                       </Form.Group>
                     </Col>
                   </Col>
-                  <Col className="m-1 p-4 d-flex w-100 h-100  flex-wrap flex-column shadow rounded ">
+                  <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column  ">
                     <Col>
                       <h6 className="fw-bold">Disability Information</h6>
                     </Col>

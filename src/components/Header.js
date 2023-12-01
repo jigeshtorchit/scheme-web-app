@@ -11,7 +11,7 @@ const Header = (props) => {
         </Col>
         <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center">
           <Button
-            variant="success"
+            variant="primary"
             className="d-lg-none d-xxl-none d-flex d-sm-flex d-md-flex rounded fw-bold"
             size="sm"
             onClick={props.ONCLICK}
@@ -19,7 +19,7 @@ const Header = (props) => {
             <FaPlus className="m-2" />
           </Button>
           <Button
-            variant="success"
+            variant="primary"
             className="d-lg-block d-xxl-block d-none d-sm-none rounded fw-bold"
             size="sm"
             onClick={props.ONCLICK}

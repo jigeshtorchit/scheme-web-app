@@ -50,13 +50,14 @@ function App() {
                   element={<Login setAuthenticated={setAuthenticated} />}
                 />
                 <Route
-                  path="/admindashboard"
-                  element={authenticated ? <AdminDashBoard /> : <Navigate to="/" />}
-                />
-                <Route
                   path="/scheme"
                   element={authenticated ? <Scheme /> : <Navigate to="/" />}
                 />
+                <Route
+                  path="/admindashboard"
+                  element={authenticated ? <AdminDashBoard /> : <Navigate to="/" />}
+                />
+                
                 <Route
                   path="/schemeAddForm"
                   element={authenticated ? <SchemeAddForm/> : <Navigate to="/" />}

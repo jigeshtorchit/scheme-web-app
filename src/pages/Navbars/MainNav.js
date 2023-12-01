@@ -26,8 +26,8 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
     <>
       <Container
         fluid
-        className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center bg-info overflowX-hidden"
-        style={{  position: "sticky", top: "0" ,zIndex: 1000}}
+        className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center  overflowX-hidden"
+        style={{  position: "sticky", top: "0" ,zIndex: 1000,backgroundColor:'#00C9E5'}}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
           <Col className="d-lg-none d-xl-none d-sm-flex">
@@ -80,12 +80,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                 ) : (
                   <>
                     <Dropdown.Item>
-                      <Link
-                        to={"/myProfile"}
-                        className="textDecoration-none  text-dark"
-                      >
-                        My Profile
-                      </Link>
+                     
                     </Dropdown.Item>{" "}
                     <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
                   </>
@@ -115,12 +110,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                   ) : (
                     <>
                       <Dropdown.Item>
-                        <Link
-                          to={"/myProfile"}
-                          className="textDecoration-none  text-dark"
-                        >
-                          My Profile
-                        </Link>
+                        
                       </Dropdown.Item>{" "}
                       <Dropdown.Item onClick={handleLogin}>
                         Logout

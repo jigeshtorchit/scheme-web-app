@@ -56,13 +56,13 @@ const Scheme = () => {
       Cell: () => (
         <div className="d-flex align-items-center justify-content-center flex-row">
           <Link to="/schemeEditForm">
-            <Button variant="warning">
-              <FaEdit />
-            </Button>
+            
+              <FaEdit size={20} color="#00C9E5" />
+           
           </Link>
-          <Button variant="danger" className="m-1" onClick={deleteHandleShow}>
-            <MdDelete />
-          </Button>
+          <span  className="m-1" onClick={deleteHandleShow}>
+            <MdDelete size={20} color="#00C9E5" />
+          </span>
         </div>
       )
     }
@@ -78,6 +78,7 @@ const Scheme = () => {
             BUTTON_NAME="Add Scheme"
           />
         </Row>
+        <hr className="bg-secondary"/>
 
         <Row className="">
           <BasicTable COLUMNS={COLUMNS} MOCK_DATA={SCHEME_DATA} />
