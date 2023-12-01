@@ -17,7 +17,7 @@ import SchemeAddForm from "./pages/scheme/SchemeAddForm";
 import SchemeEditForm from "./pages/scheme/SchemeEditForm";
 import { ToastContainer } from "react-toastify";
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   return (
     <div className="App">
       <ToastContainer/>
