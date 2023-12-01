@@ -12,7 +12,6 @@ import { FaSort } from "react-icons/fa";
 const BasicTable = (props) => {
   const columns = useMemo(() => props.COLUMNS, [props.COLUMNS]);
   const data = useMemo(() => props.MOCK_DATA || [], [props.MOCK_DATA]);
-  console.log(columns);
   const {
     getTableProps,
     getTableBodyProps,
@@ -20,11 +19,6 @@ const BasicTable = (props) => {
     setGlobalFilter,
     prepareRow,
     page,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
     state,
   } = useTable(
     {
@@ -36,7 +30,6 @@ const BasicTable = (props) => {
     usePagination
   );
 
-  const { pageIndex } = state;
   return (
     <div>
       <Container fluid>
@@ -51,11 +44,11 @@ const BasicTable = (props) => {
           </Col>
           <Col
             className="d-flex flex-column text-center my-4"
-            xxl={3}
-            xl={3}
-            lg={3}
-            sm={3}
-            md={3}
+            xxl={1}
+            xl={1}
+            lg={1}
+            sm={1}
+            md={1}
           >
             <Button
               className=" text-white fw-bold bg-primary"
@@ -123,32 +116,40 @@ const BasicTable = (props) => {
             } flex-row justify-content-center align-items-center`}
           >
             <span className="m-1 d-flex justify-content-start align-items-center">
-              Page
+              page
               <strong className="m-2">
-                {pageIndex + 1} of {pageOptions.length}
+                {props.currentPage} of {props.totalPages}
               </strong>{" "}
             </span>
             <Col className="d-none d-sm-none d-md-none d-xxl-flex d-xl-flex d-lg-flex justify-content-end align-items-center">
               <Button
-                onClick={() => previousPage()}
-                disabled={!canPreviousPage}
+                onClick={() => props.setCurrentPage(props.currentPage - 1)}
+                disabled={props.currentPage === 1}
                 className="m-2"
               >
-                Previous
+                previous
               </Button>
-              <Button onClick={() => nextPage()} disabled={!canNextPage}>
+              <Button
+                onClick={() => props.setCurrentPage(props.currentPage + 1)}
+                disabled={props.currentPage === props.totalPages}
+              >
                 Next
               </Button>
             </Col>
             <Col className="d-flex d-sm-flex d-md-flex d-xxl-none d-xl-none d-lg-none justify-content-end align-items-center">
               <Button
-                onClick={() => previousPage()}
-                disabled={!canPreviousPage}
+                onClick={() => props.setCurrentPage(props.currentPage - 1)}
+                disabled={props.currentPage === 1}
                 className="m-2"
               >
                 <BiLeftArrow size={16} />
               </Button>
-              <Button onClick={() => nextPage()} disabled={!canNextPage}>
+              <Button
+                onClick={() => {
+                  props.setCurrentPage(props.currentPage + 1);
+                }}
+                disabled={props.currentPage === props.totalPages}
+              >
                 <BiRightArrow size={16} />
               </Button>
             </Col>
@@ -158,5 +159,4 @@ const BasicTable = (props) => {
     </div>
   );
 };
-
 export default BasicTable;
