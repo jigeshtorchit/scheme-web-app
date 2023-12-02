@@ -34,7 +34,7 @@ const BasicTable = (props) => {
     <div>
       <Container fluid>
         <Row className="d-flex  flex-lg-row flex-column flex-xxl-row flex-xl-row flex-sm-column flex-md-row">
-          <Col className="my-4" xxl={3} xl={3} lg={3} sm={3} md={3}>
+          <Col className="my-4" xxl={3} xl={3} lg={3} sm={6} md={6}>
             <Form.Control
               placeholder="Search here..."
               value={state.globalFilter || ""}
@@ -47,8 +47,8 @@ const BasicTable = (props) => {
             xxl={1}
             xl={1}
             lg={1}
-            sm={1}
-            md={1}
+            sm={3}
+            md={3}
           >
             <Button
               className=" text-white fw-bold bg-primary"
