@@ -32,7 +32,7 @@ const MainNav = () => {
           position: "sticky",
           top: "0",
           zIndex: 1000,
-          backgroundColor: "#00C9E5",
+          backgroundColor: "#3498db",
         }}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
@@ -131,7 +131,7 @@ const MainNav = () => {
               Demo App
             </Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body style={{ backgroundColor: "#313947" }}>
+          <Offcanvas.Body style={{ backgroundColor: "#2c3e50" }}>
             <ReactSidebar onClick={handleClose} sidebarItems={sidebarItems} />
           </Offcanvas.Body>
         </Offcanvas>

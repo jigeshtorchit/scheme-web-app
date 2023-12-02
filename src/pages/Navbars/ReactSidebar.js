@@ -15,7 +15,7 @@ const ReactSidebar = ({ sidebarItems, onClick }) => {
             className="fs-15 text-bolder"
             active={isActive}
             rootStyles={{
-              backgroundColor: "#313947",
+              backgroundColor: "#2c3e50",
               color: "white",
               ":hover": {
                 color: "black",
@@ -37,10 +37,11 @@ const ReactSidebar = ({ sidebarItems, onClick }) => {
               className="fs-15 text-bolder"
               active={isActive}
               rootStyles={{
-                backgroundColor: "#313947",
+                backgroundColor: "#2c3e50",
                 color: "white",
                 ":hover": {
                   color: "black",
+                  
                 },
               }}
               key={item.id}
@@ -57,12 +58,12 @@ const ReactSidebar = ({ sidebarItems, onClick }) => {
   return (
     <div>
       <Sidebar
-        backgroundColor="#313947"
+        backgroundColor="#2c3e50"
         rootStyles={{
-          backgroundColor: "#313947",
+          backgroundColor: "#2c3e50",
           color: "white",
           fontWeight: "bolder",
-          borderColor: "#313947",
+          borderColor: "#2c3e50",
         }}
       >
         <Menu iconShape="circle">{renderMenuItems(sidebarItems)}</Menu>
