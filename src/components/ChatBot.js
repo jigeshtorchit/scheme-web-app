@@ -175,31 +175,29 @@ const ChatBot = () => {
                       padding: "8px",
                       display:'flex',
                       flexDirection:'column',
-                      justifyContent:''
+                      justifyContent:'space-around',
+                      width:'400px',
                     }}
                   >
+                    <div className="d-flex ">
                     {message.sender === "You" && (
                       <FaUser
-                        style={{
-                          marginRight: "8px",
-                          width: "20px",
-                          height: "20px",
-                        }}
+                      size={20}
                       />
                     )}
                     {message.sender === "bot" && (
-                      <FaAndroid
-                        style={{
-                          marginRight: "8px",
-                          width: "20px",
-                          height: "20px",
-                        }}
+                     
+                        <FaAndroid
+                        size={25}
+                        
                       />
+                     
                     )}
-                    <strong>
+                    <strong className="mx-2" >
                       {message.sender === "You" ? "You:" : "Bot:"}
                     </strong>{" "}
                     <p className="text-wrap">{message.text}</p>
+                    </div>
                     <br />
                     <small style={{textAlign:'right'}}>{message.time}</small>
                   </ListGroup.Item>
