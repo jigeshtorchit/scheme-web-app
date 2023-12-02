@@ -12,6 +12,7 @@ import { FaSort } from "react-icons/fa";
 const BasicTable = (props) => {
   const columns = useMemo(() => props.COLUMNS, [props.COLUMNS]);
   const data = useMemo(() => props.MOCK_DATA || [], [props.MOCK_DATA]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -62,7 +63,7 @@ const BasicTable = (props) => {
           </Col>
         </Row>
         <Row>
-          <Table striped bordered hover {...getTableProps()} responsive={true}>
+          <Table style={{ minWidth: '500px' }} striped bordered hover {...getTableProps()} responsive={true}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
@@ -70,6 +71,7 @@ const BasicTable = (props) => {
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                       key={column.id}
+                      style={{ minWidth: `${column.width}px` }}
                     >
                       {column.render("Header") === "ACTIONS" ? (
                         <>{column.render("Header")}</>
@@ -84,14 +86,14 @@ const BasicTable = (props) => {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody {...getTableBodyProps()} >
               {page.length > 0 ? (
                 page.map((row) => {
                   prepareRow(row);
                   return (
                     <tr {...row.getRowProps()} key={row.id}>
                       {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} key={cell.column.id}>
+                        <td {...cell.getCellProps()} key={cell.column.id} style={{ minWidth: `${cell.column.width}px` }}>
                           {cell.render("Cell")}
                         </td>
                       ))}
