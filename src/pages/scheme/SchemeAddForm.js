@@ -1,10 +1,12 @@
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
 import TextInput from "../../components/TextInput";
-
+import { useAddSchemeMutation } from "../../redux/api/SchemeApi";
+import { toast } from "react-toastify";
+import BasicButton from "../../components/BasicButton";
 const SchemeAddForm = () => {
   const navigate = useNavigate();
   const [ni, setNi] = useState("");
@@ -20,7 +22,7 @@ const SchemeAddForm = () => {
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
   const [disabilities, setDisabilities] = useState("");
-  const [schemeData, setSchemeData] = useState({});
+  const [addSchemeData, { isLoading }] = useAddSchemeMutation();
   const handleCancel = () => {
     navigate("/admin/scheme");
   };
@@ -40,44 +42,50 @@ const SchemeAddForm = () => {
     maxAge: "",
     disabilities: "",
   };
-  function handleAddData() {
-    // Handle form submission here
-    console.log(schemeData);
-    navigate("/scheme");
-  }
-
-  useEffect(() => {
-    const schemeData = {
-      ni,
-      pwds,
-      schemes,
-      email,
-      eligible,
-      attachmentLink,
-      websitesLink,
-      state,
-      percentofDisability,
-      annualIncome,
-      minAge,
-      maxAge,
-      disabilities,
-    };
-    setSchemeData(schemeData);
-  }, [
-    ni,
-    pwds,
-    schemes,
-    email,
-    eligible,
-    attachmentLink,
-    websitesLink,
-    state,
-    percentofDisability,
-    annualIncome,
-    minAge,
-    maxAge,
-    disabilities,
-  ]);
+  const handleAddData = async () => {
+    try {
+      const response = await addSchemeData({
+        niProvider: ni,
+        domainDescription: pwds,
+        schemeName: schemes,
+        emailAddress: email,
+        genderEligibility: eligible,
+        attachments: attachmentLink,
+        comments: websitesLink,
+        implementedBy: state,
+        percentageOfDisability: percentofDisability,
+        incomeLimit: annualIncome,
+        minAge: minAge,
+        maxAge: maxAge,
+        eligibleDisabilities: disabilities,
+      });
+      console.log(response);
+      if (response.error.originalStatus === 200) {
+        setAnnualIncome("");
+        setAttachmentLink("");
+        setDisabilities("");
+        setEligible("");
+        setEmail("");
+        setMaxAge("");
+        setMinAge("");
+        setNi("");
+        setPercentofDisability("");
+        setPwds("");
+        setState("");
+        setWebsitesLink("");
+        toast.success(response.error.data, { autoClose: 2000 });
+        setTimeout(() => navigate("/admin/scheme"), 3000);
+        console.log(response.error.data);
+      } else {
+        toast.error(response.error.data, { autoClose: 2000 });
+        console.log("else part");
+        console.log(response.error.data);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Internal Server Error", { autoClose: 2000 });
+    }
+  };
 
   return (
     <div>
@@ -112,8 +120,10 @@ const SchemeAddForm = () => {
                     >
                       Cancel
                     </Button>
-                    <Button
-                      className="m-1"
+
+                    <BasicButton
+                     
+                      variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -146,9 +156,9 @@ const SchemeAddForm = () => {
                           ? handleSubmit
                           : handleAddData
                       }
-                    >
-                      Save
-                    </Button>
+                      isLoading={isLoading}
+                      label={"Save"}
+                    />
                   </Col>
                 </Row>
                 <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded  mt-5">
@@ -555,8 +565,8 @@ const SchemeAddForm = () => {
                     </Button>
                   </Col>
                   <Col className="d-flex justify-content-end align-items-center">
-                    <Button
-                      className="m-1"
+                    <BasicButton
+                      variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -589,9 +599,9 @@ const SchemeAddForm = () => {
                           ? handleSubmit
                           : handleAddData
                       }
-                    >
-                      Save
-                    </Button>
+                      isLoading={isLoading}
+                      label={"Save"}
+                    />
                   </Col>
                 </Row>
               </Form>

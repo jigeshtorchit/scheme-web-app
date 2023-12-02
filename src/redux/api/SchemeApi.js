@@ -38,7 +38,7 @@ export const SchemeApi = createApi({
     // }),
     addScheme: builder.mutation({
       query: (data) => ({
-        url: "/scheme/schemeView",
+        url: "scheme/schemeAdd",
         method: "POST",
         body: data,
         headers: {

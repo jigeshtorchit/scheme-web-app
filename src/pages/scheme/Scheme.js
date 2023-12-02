@@ -23,7 +23,7 @@ const Scheme = () => {
   const { data: getSchemeData, isLoading } = useGetSchemeQuery(currentPage);
   const [deleteSchemeMutation] = useDeleteSchemeMutation();
   const handleNavigateAddForm = () => navigate("/admin/add-scheme");
-
+console.log(getSchemeData);
   useEffect(() => {
     if (getSchemeData && getSchemeData.data) {
       setData(getSchemeData.data);
@@ -77,11 +77,15 @@ const Scheme = () => {
     },
     {
       Header: "Eligible",
-      accessor: "eligibleDisabilities",
+      accessor: "genderEligibility",
     },
     {
       Header: "Attachment Link",
       accessor: "attachments",
+    },
+    {
+      Header: "Website Link",
+      accessor: "comments",
     },
     {
       Header: "State",
@@ -89,7 +93,7 @@ const Scheme = () => {
     },
     {
       Header: "Disablities",
-      accessor: "",
+      accessor: "eligibleDisabilities",
     },
     {
       Header: "% of Disablitiy",
@@ -101,11 +105,11 @@ const Scheme = () => {
     },
     {
       Header: "Min Age",
-      accessor: "",
+      accessor: "minAge",
     },
     {
       Header: "Max Age",
-      accessor: "",
+      accessor: "maxAge",
     },
     {
       Header: "Email Address",
