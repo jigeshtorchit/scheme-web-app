@@ -13,10 +13,11 @@ export const schemSchema = Yup.object().shape({
   eligible: Yup.string()
     .transform((value) => value.trim())
     .required("Eligible is required"),
-  email: Yup.string()
-    .transform((value) => value.trim())
-    .email("Invalid email format")
-    .required("Email is required"),
+    email: Yup.string().transform((value) => value.trim())
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      'Invalid email format'
+    ),
   attachmentLink: Yup.string()
     .transform((value) => value.trim())
     .required("Attachment Link is required"),
