@@ -22,7 +22,7 @@ const SchemeEditForm = () => {
   const [disabilities, setDisabilities] = useState("");
   const [schemeData, setSchemeData] = useState({});
   const handleCancel = () => {
-    navigate("/scheme");
+    navigate("/admin/scheme");
   };
 
   const initialValues = {
@@ -100,8 +100,7 @@ const SchemeEditForm = () => {
               <Form>
                 <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
                   <Col className="d-flex justify-content-start align-items-center">
-                    
-                    <h4 style={{marginLeft:'-15px'}}>Edit Scheme Details</h4>
+                    <h4 style={{ marginLeft: "-15px" }}>Edit Scheme Details</h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button

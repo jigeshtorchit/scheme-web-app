@@ -16,3 +16,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@keyframes blink {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.chat-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.chat-icon-container.open .chat-icon {
+  transform: scale(1.2);
+  animation: blink 1s infinite;
+}
+
+.whatsapp-icon {
+  font-size: 24px;
+}
+
+.close-icon {
+  font-size: 24px;
+  color: red; /* Change color to red or any other color for the close icon */
+}

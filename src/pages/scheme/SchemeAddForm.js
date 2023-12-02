@@ -22,7 +22,7 @@ const SchemeAddForm = () => {
   const [disabilities, setDisabilities] = useState("");
   const [schemeData, setSchemeData] = useState({});
   const handleCancel = () => {
-    navigate("/scheme");
+    navigate("/admin/scheme");
   };
 
   const initialValues = {
@@ -100,8 +100,9 @@ const SchemeAddForm = () => {
               <Form>
                 <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
                   <Col className="d-flex justify-content-start align-items-center">
-                    
-                    <h4 style={{marginLeft:'-15px'}}>Add Scheme Details</h4>
+                    <h4 className="fw-bold" style={{ marginLeft: "-15px" }}>
+                      Add Scheme Details
+                    </h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
@@ -150,7 +151,7 @@ const SchemeAddForm = () => {
                     </Button>
                   </Col>
                 </Row>
-                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded ">
+                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded  mt-5">
                   <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">

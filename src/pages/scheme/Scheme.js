@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BasicTable from "../../components/BasicTable";
 import Header from "../../components/Header";
 import DeleteModel from "../../components/DeleteModel";
-import Loader from '../loader/Loader'
+import Loader from "../loader/Loader";
 import {
   useGetSchemeQuery,
   useDeleteSchemeMutation,
@@ -22,8 +22,8 @@ const Scheme = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: getSchemeData, isLoading } = useGetSchemeQuery(currentPage);
   const [deleteSchemeMutation] = useDeleteSchemeMutation();
-  const handleNavigateAddForm = () => navigate("/schemeAddForm");
- 
+  const handleNavigateAddForm = () => navigate("/admin/add-scheme");
+
   useEffect(() => {
     if (getSchemeData && getSchemeData.data) {
       setData(getSchemeData.data);
@@ -42,17 +42,15 @@ const Scheme = () => {
     setDeleteShow(true);
   };
 
-  
-
   const delTimeSheetData = async () => {
     try {
       const response = await deleteSchemeMutation(idToDelete);
       setDeleteShow(false);
       setIdToDelete("");
       if (response.error.originalStatus === 200) {
-        toast.success(response.error.data,{autoClose:1000});
+        toast.success(response.error.data, { autoClose: 1000 });
       } else {
-        toast.error(response.error.data,{autoClose:1000});
+        toast.error(response.error.data, { autoClose: 1000 });
       }
     } catch (error) {
       console.error(error);
@@ -116,62 +114,60 @@ const Scheme = () => {
     {
       Header: "ACTIONS",
       accessor: "action",
-      Cell: (props) =>{ 
+      Cell: (props) => {
         const rowIdx = props.row.original._id;
-        
-      return(
-        <div className="d-flex align-items-center justify-content-center flex-row">
-          <Link to={`/schemeEditForm/${rowIdx}`}>
-            <FaEdit size={20} color="#00C9E5" />
-          </Link>
-          <span className="m-1" onClick={()=>deleteHandleShow(rowIdx)}> 
-            <MdDelete size={20} color="#00C9E5" />
-          </span>
-        </div>
-      )
-      }
+
+        return (
+          <div className="d-flex align-items-center justify-content-center flex-row">
+            <Link to={`/admin/edit-scheme/${rowIdx}`}>
+              <FaEdit size={20} color="#00C9E5" />
+            </Link>
+            <span className="m-1" onClick={() => deleteHandleShow(rowIdx)}>
+              <MdDelete size={20} color="#00C9E5" />
+            </span>
+          </div>
+        );
+      },
     },
   ];
 
   return (
-   <>
-   {
-    !isLoading ?(
-      <>
-       <div>
-      <Container fluid className="">
-        <Row>
-          <Header
-            ONCLICK={handleNavigateAddForm}
-            HEADING="Schemes"
-            BUTTON_NAME="Add Scheme"
-          />
-        </Row>
-        <hr className="bg-secondary"/>
-        <Row className="">
-          <BasicTable
-            COLUMNS={COLUMNS}
-            MOCK_DATA={data}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />{" "}
-        </Row>
-      </Container>
-      <DeleteModel
-        DELETESTATE={deleteShow}
-        ONCLICK={deleteHandleClose}
-        YES={delTimeSheetData}
-        DESCRIPTION="Scheme"
-        DELETETITLE="Schemes"
-      />
-    </div>
-      </>
-    ):(
-      <Loader/>
-    )
-   }
-   </>
+    <>
+      {!isLoading ? (
+        <>
+          <div>
+            <Container fluid className="">
+              <Row>
+                <Header
+                  ONCLICK={handleNavigateAddForm}
+                  HEADING="Schemes"
+                  BUTTON_NAME="Add Scheme"
+                />
+              </Row>
+              <hr className="bg-secondary" />
+              <Row className="">
+                <BasicTable
+                  COLUMNS={COLUMNS}
+                  MOCK_DATA={data}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  setCurrentPage={setCurrentPage}
+                />{" "}
+              </Row>
+            </Container>
+            <DeleteModel
+              DELETESTATE={deleteShow}
+              ONCLICK={deleteHandleClose}
+              YES={delTimeSheetData}
+              DESCRIPTION="Scheme"
+              DELETETITLE="Schemes"
+            />
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 

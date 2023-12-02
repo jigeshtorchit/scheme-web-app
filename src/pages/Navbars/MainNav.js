@@ -11,15 +11,16 @@ import { useNavigate } from "react-router-dom";
 import { sidebarItems } from "./SIDEMENU_DATA";
 import ReactSidebar from "./ReactSidebar";
 
-const MainNav = ({ authenticated, setAuthenticated }) => {
+const MainNav = () => {
   const [show, setShow] = useState(false);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleNavigateAddForm = () => setShow(true);
   const handleLogin = () => {
-    setAuthenticated(false);
-    history("/admin/login");
+    localStorage.clear();
+    navigate("/auth/login");
+    window.location.reload();
   };
 
   return (
@@ -27,7 +28,12 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
       <Container
         fluid
         className="d-flex  flex-row flex-wrap-wrap justify-content-between align-items-center  overflowX-hidden"
-        style={{  position: "sticky", top: "0" ,zIndex: 1000,backgroundColor:'#00C9E5'}}
+        style={{
+          position: "sticky",
+          top: "0",
+          zIndex: 1000,
+          backgroundColor: "#00C9E5",
+        }}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
           <Col className="d-lg-none d-xl-none d-sm-flex">
@@ -75,16 +81,8 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                {!authenticated ? (
-                  <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
-                ) : (
-                  <>
-                    <Dropdown.Item>
-                     
-                    </Dropdown.Item>{" "}
-                    <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
-                  </>
-                )}
+                <Dropdown.Item></Dropdown.Item>{" "}
+                <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>s
               </Dropdown.Menu>
             </Dropdown>
           </Col>
@@ -105,18 +103,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  {!authenticated ? (
-                    <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
-                  ) : (
-                    <>
-                      <Dropdown.Item>
-                        
-                      </Dropdown.Item>{" "}
-                      <Dropdown.Item onClick={handleLogin}>
-                        Logout
-                      </Dropdown.Item>
-                    </>
-                  )}
+                  <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -141,7 +128,7 @@ const MainNav = ({ authenticated, setAuthenticated }) => {
                 className="rounded-circle p-2"
                 alt="..."
               ></img>
-              DriftMark Technologies
+              Demo App
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body style={{ backgroundColor: "#313947" }}>

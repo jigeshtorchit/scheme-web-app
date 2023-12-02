@@ -1,18 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/Store";
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { BrowserRouter } from "react-router-dom";
+
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const container = document.getElementById("root");
+const root = createRoot(container);
+const queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-    <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <ToastContainer
+          hideProgressBar={true}
+          autoClose={2000}
+          closeOnClick={true}
+          pauseOnHover={false}
+        />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

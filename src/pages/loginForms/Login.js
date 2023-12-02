@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import { LogAndRegSchema } from "./LoginValidation";
 import TextInput from "../../components/TextInput";
 import { useLoginUserMutation } from "../../redux/api/AuthApi";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
 
 const Login = ({ setAuthenticated }) => {
@@ -33,50 +33,23 @@ const Login = ({ setAuthenticated }) => {
     }
   };
 
-    const handleLogin = () =>{
-  history("/scheme")
-  setAuthenticated(true)
+  const handleLogin = async () => {
+    try {
+      const response = await loginApi({
+        email: email,
+        password: password,
+      });
+
+      if (response?.data) {
+        toast.success(response?.data?.message, { autoClose: 1000 });
+        history("/admin/scheme");
+      } else {
+        toast.error(response?.error?.data?.message, { autoClose: 1000 });
+      }
+    } catch (error) {
+      console.error(error);
     }
-
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await loginApi({
-  //       email: email,
-  //       password: password,
-  //     });
-  //     console.log(response);
-  //     if (response?.data) {
-  //       setEmail("");
-  //     setPassword("");
-  //       setAuthenticated(true);
-
-  //       toast.success(response?.data?.message, { autoClose: 1000 });
-  //       history("/scheme");
-  //     }else{
-  //       toast.error(response?.error?.data?.message,{autoClose:1000});
-  //     }
-
-  //     // if (response.error.status === 200) {
-  //     //   setEmail("");
-  //     //   setPassword("");
-  //     //   // setTimeout(() => {
-  //     //     setAuthenticated(true);
-  //     //     history("/scheme");
-  //     //   // }, 2000);
-
-  //     //   toast.success(response.error.data.message,{autoClose:1000});
-  //     //   console.log("if part");
-  //     //   console.log(response.error.data.message);
-  //     // } else {
-  //     //   toast.error(response.error.data.message,{autoClose:1000});
-  //     //   console.log("else part");
-  //     //   console.log(response.error.data.message);
-  //     // }
-  //   } catch (error) {
-  //     // toast.error("An error occurred while logging in.");
-  //     console.error(error);
-  //   }
-  // };
+  };
 
   return (
     <>

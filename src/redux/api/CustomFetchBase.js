@@ -1,12 +1,12 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { Mutex } from "async-mutex";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 // Create a new mutex
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-  baseUrl:`${baseUrl}`,
+  baseUrl: `${baseUrl}`,
   prepareHeaders: (headers) => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
@@ -28,11 +28,11 @@ const CustomFetchBase = async (args, api, extraOptions) => {
   // result = await baseQuery(args, api, extraOptions);
   if (result.error?.status === 401) {
     toast.warning("UnAuthorized", {
-        position: toast.POSITION.BOTTOM_LEFT
+      position: toast.POSITION.BOTTOM_LEFT,
     });
-    <ToastContainer/>
+    <ToastContainer />;
     localStorage.clear();
-    window.location.href = "/admin/login";
+    window.location.href = "/auth/login";
   }
   return result;
 };
