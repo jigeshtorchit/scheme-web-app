@@ -26,16 +26,16 @@ export const SchemeApi = createApi({
     //   }),
     //   providesTags:["TRAINING"],
     // }),
-    // getTrainingById: builder.query({
-    //   query: (_id) => ({
-    //     url: `/training/${_id}`,
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json; charset=UTF-8",
-    //     },
-    //   }),
-    //   providesTag:["TRAINING"],
-    // }),
+    getSchemeById: builder.query({
+      query: (_id) => ({
+        url: `/scheme/${_id}`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      }),
+      providesTag:["SCHEME"],
+    }),
     addScheme: builder.mutation({
       query: (data) => ({
         url: "scheme/schemeAdd",
@@ -75,7 +75,7 @@ export const {
   useAddSchemeMutation,
   useDeleteSchemeMutation,
   useEditTrainingMutation,
-  useGetTrainingByIdQuery,
+  useGetSchemeByIdQuery,
   useGetSchemeQuery,
   useSearchTrainingDataQuery,
 } = SchemeApi;

@@ -1,11 +1,14 @@
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
 import TextInput from "../../components/TextInput";
-
-const SchemeEditForm = () => {
+import { useAddSchemeMutation,useGetSchemeByIdQuery } from "../../redux/api/SchemeApi";
+import { toast } from "react-toastify";
+import BasicButton from "../../components/BasicButton";
+import { useEffect } from "react";
+const SchemeAddForm = () => {
   const navigate = useNavigate();
   const [ni, setNi] = useState("");
   const [pwds, setPwds] = useState("");
@@ -20,11 +23,31 @@ const SchemeEditForm = () => {
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
   const [disabilities, setDisabilities] = useState("");
-  const [schemeData, setSchemeData] = useState({});
+  const { id } = useParams();
+  const Id = id.startsWith(":") ? id.slice(1) : id;
+  const [addSchemeData, { isLoading }] = useAddSchemeMutation();
+  const { data: schemeData,} = useGetSchemeByIdQuery(Id);
+
   const handleCancel = () => {
     navigate("/admin/scheme");
   };
-
+  useEffect(() => {
+    if (schemeData) {
+      setAnnualIncome(schemeData.incomeLimit)
+      setAttachmentLink(schemeData.attachments)
+      setDisabilities(schemeData.eligibleDisabilities)
+      setEligible(schemeData.genderEligibility)
+      setEmail(schemeData.emailAddress)
+      setMaxAge(schemeData.maxAge)
+      setMinAge(schemeData.minAge)
+      setNi(schemeData.niProvider)
+      setPercentofDisability(schemeData.percentageOfDisability)
+      setPwds(schemeData.domainDescription)
+      setSchemes(schemeData.schemeName)
+      setState(schemeData.implementedBy)
+      setWebsitesLink(schemeData.comments)
+    }
+  }, [schemeData]);
   const initialValues = {
     ni: "",
     pwds: "",
@@ -40,44 +63,50 @@ const SchemeEditForm = () => {
     maxAge: "",
     disabilities: "",
   };
-  function handleEditData() {
-    // Handle form submission here
-    console.log(schemeData);
-    navigate("/scheme");
-  }
-
-  useEffect(() => {
-    const schemeData = {
-      ni,
-      pwds,
-      schemes,
-      email,
-      eligible,
-      attachmentLink,
-      websitesLink,
-      state,
-      percentofDisability,
-      annualIncome,
-      minAge,
-      maxAge,
-      disabilities,
-    };
-    setSchemeData(schemeData);
-  }, [
-    ni,
-    pwds,
-    schemes,
-    email,
-    eligible,
-    attachmentLink,
-    websitesLink,
-    state,
-    percentofDisability,
-    annualIncome,
-    minAge,
-    maxAge,
-    disabilities,
-  ]);
+  const handleEditData = async () => {
+    try {
+      const response = await addSchemeData({
+        niProvider: ni,
+        domainDescription: pwds,
+        schemeName: schemes,
+        emailAddress: email,
+        genderEligibility: eligible,
+        attachments: attachmentLink,
+        comments: websitesLink,
+        implementedBy: state,
+        percentageOfDisability: percentofDisability,
+        incomeLimit: annualIncome,
+        minAge: minAge,
+        maxAge: maxAge,
+        eligibleDisabilities: disabilities,
+      });
+      console.log(response);
+      if (response.error.originalStatus === 200) {
+        setAnnualIncome("");
+        setAttachmentLink("");
+        setDisabilities("");
+        setEligible("");
+        setEmail("");
+        setMaxAge("");
+        setMinAge("");
+        setNi("");
+        setPercentofDisability("");
+        setPwds("");
+        setState("");
+        setWebsitesLink("");
+        toast.success(response.error.data, { autoClose: 2000 });
+        setTimeout(() => navigate("/admin/scheme"), 3000);
+        console.log(response.error.data);
+      } else {
+        toast.error(response.error.data, { autoClose: 2000 });
+        console.log("else part");
+        console.log(response.error.data);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Internal Server Error", { autoClose: 2000 });
+    }
+  };
 
   return (
     <div>
@@ -100,7 +129,9 @@ const SchemeEditForm = () => {
               <Form>
                 <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
                   <Col className="d-flex justify-content-start align-items-center">
-                    <h4 style={{ marginLeft: "-15px" }}>Edit Scheme Details</h4>
+                    <h4 className="fw-bold" style={{ marginLeft: "-15px" }}>
+                      Edit Scheme Details
+                    </h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
@@ -110,8 +141,10 @@ const SchemeEditForm = () => {
                     >
                       Cancel
                     </Button>
-                    <Button
-                      className="m-1"
+
+                    <BasicButton
+                     
+                      variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -144,13 +177,13 @@ const SchemeEditForm = () => {
                           ? handleSubmit
                           : handleEditData
                       }
-                    >
-                      Update
-                    </Button>
+                      isLoading={isLoading}
+                      label={"Update"}
+                    />
                   </Col>
                 </Row>
-                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded">
-                  <Col className=" p-4 d-flex w-100 h-100  flex-wrap flex-column ">
+                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded  mt-5">
+                  <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
                         Government Schemes Information
@@ -163,6 +196,7 @@ const SchemeEditForm = () => {
                         name={"ni"}
                         id={"ni"}
                         type={"text"}
+                        value={ni}
                         onChange={(e) => {
                           setNi(e.target.value);
                           handleChange(e);
@@ -187,6 +221,7 @@ const SchemeEditForm = () => {
                         name={"pwds"}
                         id={"pwds"}
                         type={"text"}
+                        value={pwds}
                         onChange={(e) => {
                           setPwds(e.target.value);
                           handleChange(e);
@@ -211,6 +246,7 @@ const SchemeEditForm = () => {
                         name={"schemes"}
                         id={"schemes"}
                         type={"text"}
+                        value={schemes}
                         onChange={(e) => {
                           setSchemes(e.target.value);
                           handleChange(e);
@@ -235,6 +271,7 @@ const SchemeEditForm = () => {
                         name={"eligible"}
                         id={"eligible"}
                         type={"text"}
+                        value={eligible}
                         onChange={(e) => {
                           setEligible(e.target.value);
                           handleChange(e);
@@ -256,6 +293,7 @@ const SchemeEditForm = () => {
                     </Col>
                     <Col className="m-2">
                       <TextInput
+                      value={attachmentLink}
                         label={"Attachment Link"}
                         htmlFor={"attachmentLink"}
                         name={"attachmentLink"}
@@ -289,6 +327,7 @@ const SchemeEditForm = () => {
                         name={"websitesLink"}
                         id={"websitesLink"}
                         type={"text"}
+                        value={websitesLink}
                         onChange={(e) => {
                           setWebsitesLink(e.target.value);
                           handleChange(e);
@@ -312,6 +351,7 @@ const SchemeEditForm = () => {
                       <Form.Group className="">
                         <Form.Label>State</Form.Label>
                         <Form.Select
+                        value={state}
                           name="state"
                           className={`form-control ${
                             touched.state && errors.state ? "is-invalid" : ""
@@ -380,7 +420,7 @@ const SchemeEditForm = () => {
                       </Form.Group>
                     </Col>
                   </Col>
-                  <Col className=" p-4 d-flex w-100 h-100  flex-wrap flex-column ">
+                  <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column  ">
                     <Col>
                       <h6 className="fw-bold">Disability Information</h6>
                     </Col>
@@ -391,6 +431,7 @@ const SchemeEditForm = () => {
                         name={"disabilities"}
                         id={"disabilities"}
                         type={"text"}
+                        value={disabilities}
                         onChange={(e) => {
                           setDisabilities(e.target.value);
                           handleChange(e);
@@ -417,6 +458,7 @@ const SchemeEditForm = () => {
                         name={"percentofDisability"}
                         id={"percentofDisability"}
                         type={"number"}
+                        value={percentofDisability}
                         onChange={(e) => {
                           setPercentofDisability(e.target.value);
                           handleChange(e);
@@ -447,6 +489,7 @@ const SchemeEditForm = () => {
                         name={"annualIncome"}
                         id={"annualIncome"}
                         type={"number"}
+                        value={annualIncome}
                         onChange={(e) => {
                           setAnnualIncome(e.target.value);
                           handleChange(e);
@@ -474,6 +517,7 @@ const SchemeEditForm = () => {
                         name={"minAge"}
                         id={"minAge"}
                         type={"number"}
+                        value={minAge}
                         onChange={(e) => {
                           setMinAge(e.target.value);
                           handleChange(e);
@@ -498,6 +542,7 @@ const SchemeEditForm = () => {
                         htmlFor={"maxAge"}
                         name={"maxAge"}
                         id={"maxAge"}
+                        value={maxAge}
                         type={"number"}
                         onChange={(e) => {
                           setMaxAge(e.target.value);
@@ -523,6 +568,7 @@ const SchemeEditForm = () => {
                         name={"email"}
                         id={"email"}
                         type={"email"}
+                        value={email}
                         onChange={(e) => {
                           setEmail(e.target.value);
                           handleChange(e);
@@ -553,8 +599,8 @@ const SchemeEditForm = () => {
                     </Button>
                   </Col>
                   <Col className="d-flex justify-content-end align-items-center">
-                    <Button
-                      className="m-1"
+                    <BasicButton
+                      variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -587,9 +633,9 @@ const SchemeEditForm = () => {
                           ? handleSubmit
                           : handleEditData
                       }
-                    >
-                      Update
-                    </Button>
+                      isLoading={isLoading}
+                      label={"Update"}
+                    />
                   </Col>
                 </Row>
               </Form>
@@ -601,4 +647,4 @@ const SchemeEditForm = () => {
   );
 };
 
-export default SchemeEditForm;
+export default SchemeAddForm;
