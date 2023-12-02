@@ -3,7 +3,7 @@ import { Button, Card, ListGroup, Form, Spinner } from "react-bootstrap";
 import { FaWhatsapp, FaTimes, FaUser, FaAndroid } from "react-icons/fa";
 import axios from "axios";
 import FilterComponent from "./FilterComponent";
-
+const REACT_APP_OPEN_AI_KEY = process.env.REACT_APP_OPEN_AI_KEY;
 const ChatBot = () => {
   const [showChat, setShowChat] = useState(false);
   const [selectedMessages, setSelectedMessages] = useState([]);
@@ -17,9 +17,7 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     },
   ]);
-  const [openAiApiKey] = useState(
-    process.env.REACT_APP_OPEN_AI_KEY
-  ); // Set your OpenAI API key here
+  const [openAiApiKey] = useState(REACT_APP_OPEN_AI_KEY); // Set your OpenAI API key here
   const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => {
