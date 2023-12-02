@@ -137,10 +137,10 @@ console.log(getSchemeData);
         return (
           <div className="d-flex align-items-center justify-content-center flex-row">
             <Link to={`/admin/edit-scheme/${rowIdx}`}>
-              <FaEdit size={20} color="#00C9E5" />
+              <FaEdit size={20} color="#5046e5" />
             </Link>
             <span className="m-1" onClick={() => deleteHandleShow(rowIdx)}>
-              <MdDelete size={20} color="#00C9E5" />
+              <MdDelete size={20} color="#5046e5" />
             </span>
           </div>
         );

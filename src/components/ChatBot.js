@@ -162,7 +162,6 @@ const ChatBot = () => {
                     key={message.id}
                     style={{
                       textAlign: message.sender === "You" ? "left" : "right",
-
                       border: "0",
                       backgroundColor: "#ffffff",
                       borderRadius: "10px",
@@ -239,7 +238,7 @@ const ChatBot = () => {
             position: "absolute",
             bottom: "0",
             right: "0",
-            height: "50px", // Adjust the height based on your preference
+            height: "50px", 
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

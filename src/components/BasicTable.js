@@ -130,7 +130,7 @@ const BasicTable = (props) => {
                 disabled={props.currentPage === 1}
                 className="m-2"
               >
-                previous
+                Previous
               </Button>
               <Button
                 onClick={() => props.setCurrentPage(props.currentPage + 1)}
