@@ -57,7 +57,7 @@ export const SchemeApi = createApi({
       }),
       invalidatesTags:["SCHEME"],
     }),
-    editTraining: builder.mutation({
+    editScheme: builder.mutation({
       query: ({id, data }) => ({
         url: `/scheme/schemeEdit/${id}`,
         method: "PATCH",
@@ -74,7 +74,7 @@ export const SchemeApi = createApi({
 export const {
   useAddSchemeMutation,
   useDeleteSchemeMutation,
-  useEditTrainingMutation,
+  useEditSchemeMutation,
   useGetSchemeByIdQuery,
   useGetSchemeQuery,
   useSearchTrainingDataQuery,

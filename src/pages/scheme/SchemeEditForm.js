@@ -4,7 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
 import TextInput from "../../components/TextInput";
-import { useAddSchemeMutation,useGetSchemeByIdQuery } from "../../redux/api/SchemeApi";
+import { useEditSchemeMutation,useGetSchemeByIdQuery } from "../../redux/api/SchemeApi";
 import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ const SchemeAddForm = () => {
   const [disabilities, setDisabilities] = useState("");
   const { id } = useParams();
   const Id = id.startsWith(":") ? id.slice(1) : id;
-  const [addSchemeData, { isLoading }] = useAddSchemeMutation();
+  const [EditSchemeData, { isLoading }] = useEditSchemeMutation();
   const { data: schemeData,} = useGetSchemeByIdQuery(Id);
 
   const handleCancel = () => {
@@ -65,7 +65,9 @@ const SchemeAddForm = () => {
   };
   const handleEditData = async () => {
     try {
-      const response = await addSchemeData({
+      const response = await EditSchemeData({
+        id:Id,
+        data:{
         niProvider: ni,
         domainDescription: pwds,
         schemeName: schemes,
@@ -79,7 +81,7 @@ const SchemeAddForm = () => {
         minAge: minAge,
         maxAge: maxAge,
         eligibleDisabilities: disabilities,
-      });
+    }});
       console.log(response);
       if (response.error.originalStatus === 200) {
         setAnnualIncome("");
