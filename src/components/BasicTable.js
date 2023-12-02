@@ -24,6 +24,7 @@ const BasicTable = (props) => {
     {
       columns,
       data,
+      autoResetWidth: false,
     },
     useGlobalFilter,
     useSortBy,
@@ -44,9 +45,9 @@ const BasicTable = (props) => {
           </Col>
           <Col
             className="d-flex flex-column text-center my-4"
-            xxl={1}
-            xl={1}
-            lg={1}
+            xxl={2}
+            xl={2}
+            lg={2}
             sm={3}
             md={3}
           >
@@ -62,7 +63,7 @@ const BasicTable = (props) => {
           </Col>
         </Row>
         <Row>
-          <Table striped bordered hover {...getTableProps()} responsive={true}>
+          <Table striped bordered hover {...getTableProps()} responsive={true} style={{ width: '100%' }}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
@@ -70,6 +71,8 @@ const BasicTable = (props) => {
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                       key={column.id}
+                      className="text-dark"
+                      style={{ width: `${column.width}px`, whiteSpace: 'nowrap' }}
                     >
                       {column.render("Header") === "ACTIONS" ? (
                         <>{column.render("Header")}</>
@@ -91,7 +94,7 @@ const BasicTable = (props) => {
                   return (
                     <tr {...row.getRowProps()} key={row.id}>
                       {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} key={cell.column.id}>
+                        <td {...cell.getCellProps()} key={cell.column.id} className="text-secondary text-center text-nowrap" >
                           {cell.render("Cell")}
                         </td>
                       ))}

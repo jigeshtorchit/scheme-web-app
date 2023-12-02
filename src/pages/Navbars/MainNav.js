@@ -32,7 +32,7 @@ const MainNav = () => {
           position: "sticky",
           top: "0",
           zIndex: 1000,
-          backgroundColor: "#00C9E5",
+          backgroundColor: "#5046e5",
         }}
       >
         <Row className="d-flex flex-row flex-wrap-wrap justify-content-around align-items-center p-2">
@@ -66,23 +66,24 @@ const MainNav = () => {
             ></img>
           </Col>
         </Row>
+        
         <Row className="d-flex mt-1">
           <Col className="d-lg-none d-sm-flex">
             <Dropdown>
               <Dropdown.Toggle
                 className="mobile-view-dropdown"
                 id="dropdown-basic"
-                style={{ backgroundColor: "transparent", border: "none" }}
+                style={{ backgroundColor: "transparent", border: "none",color:"white" }}
               >
                 <BsThreeDotsVertical
                   size={25}
-                  style={{ cursor: "pointer", color: "black" }}
+                  style={{ cursor: "pointer", color: "white" }}
                 />
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item></Dropdown.Item>{" "}
-                <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>s
+                <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
@@ -91,11 +92,12 @@ const MainNav = () => {
             <div>
               <Dropdown>
                 <Dropdown.Toggle
+                color="white"
                   id="dropdown-basic"
-                  style={{ backgroundColor: "transparent", border: "none" }}
+                  style={{ backgroundColor: "transparent", border: "none",color:"white" }}
                 >
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                    src="https://p7.hiclipart.com/preview/636/702/321/computer-icons-user-profile-avatar-black-man.jpg"
                     className="rounded-circle"
                     style={{ width: "30px" }}
                     alt="Avatar"

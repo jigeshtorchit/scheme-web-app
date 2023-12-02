@@ -66,10 +66,14 @@ console.log(getSchemeData);
     {
       Header: "NI Provider",
       accessor: "niProvider",
+      width: 'auto', // Set width to auto
+    minWidth: 800,
     },
     {
       Header: "Schemes for PWDS",
       accessor: "domainDescription",
+      width: 'auto', // Set width to auto
+    minWidth: 100,
     },
     {
       Header: "Shemes",

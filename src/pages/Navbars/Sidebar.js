@@ -5,12 +5,12 @@ import { sidebarItems } from "./SIDEMENU_DATA";
 
 const Sidebar = () => {
   return (
-    <div className="rounded position-fixed">
+    <div className="rounded position-fixed ">
       <Container
         fluid
-        className="d-sm-none sidebar d-md-none d-lg-block d-xxl-block d-xl-block  justify-content-start align-items-start d-none "
+        className="d-sm-none  sidebar d-md-none d-lg-block d-xxl-block d-xl-block  justify-content-start align-items-start d-none "
         style={{
-          backgroundColor: "#313947",
+          backgroundColor: "#fff",
           height: "100vh",
           width: "90%",
           overflowY: "auto",
