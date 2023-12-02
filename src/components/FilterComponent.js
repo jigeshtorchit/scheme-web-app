@@ -4,7 +4,6 @@ import {
   Form,
   Button,
   ListGroup,
-  Spinner,
   Row,
   Col,
 } from "react-bootstrap";
@@ -12,25 +11,18 @@ import DataCard from "./DataCard";
 import { Formik } from "formik";
 import { FilterSchema } from "./FilterValidation";  
 import { useGetFilterQuery } from "../redux/api/FilterApi";
-const FilterComponent = ({ onFilterSubmit, isLoading, filteredMessages }) => {
+
+import { InfinitySpin } from "react-loader-spinner";
+const FilterComponent = ({ onFilterSubmit,  filteredMessages }) => {
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
   const [additionalFilter, setAdditionalFilter] = useState("");
   const [gender, setGender] = useState("");
   const [state, setState] = useState("");
   const [disabilities, setDisabilities] = useState("");
-  const { data: getFilterData } = useGetFilterQuery();
+  const { data: getFilterData, isLoading } = useGetFilterQuery();
   console.log(getFilterData);
-  // const handleFilterSubmit = () => {
-  //   onFilterSubmit({
-  //     minAge,
-  //     maxAge,
-  //     additionalFilter,
-  //     gender,
-  //     disabilities,
-  //     state,
-  //   });
-  // };
+ 
   const initialValues = {
     minAge: "",
     maxAge: "",
@@ -89,7 +81,7 @@ const FilterComponent = ({ onFilterSubmit, isLoading, filteredMessages }) => {
       }) => (
         <>
           <Card.Body>
-            <Form>
+            <Form className="mb-5">
               <Row className="d-flex flex-wrap flex-lg-noWrap flex-xxl-noWrap flex-xl-noWrap">
                 <Col className="m-0" xs={12} sm={6} md={4} lg={4}>
                   <Form.Group controlId="minAge" className="mb-1">
@@ -309,40 +301,54 @@ const FilterComponent = ({ onFilterSubmit, isLoading, filteredMessages }) => {
                 </Col>
               </Row>
             </Form>
-            {isLoading && (
-              <div className="text-center mt-3">
-                <Spinner animation="border" variant="primary" />
-              </div>
-            )}
-            {getFilterData?.length > 0 ? (
-              <Card>
-                {/* <Card.Body>
-           <ListGroup variant="flush">
-              {getFilterData.map((message) => (
-        //         <ListGroup.Item key={message._id}> */}
-                {/*
-        //           {message.niProvider}
-        //         </ListGroup.Item>
-        //       ))}
-        //     </ListGroup>
-        //   </Card.Body>*/}
-              </Card>
+            
+            
+            {isLoading ? (
+                <div className="text-center mt-3">
+            <InfinitySpin 
+            width='200'
+            color="#00d4ff"
+          />
+          </div>
             ) : (
-              !isLoading && <></>
+              <>
+                {getFilterData && getFilterData.length > 0 ? (
+                  <Card className="mt-5">
+                    <Card.Body>
+                      <ListGroup variant="flush">
+                        {getFilterData.map((message) => (
+                          <DataCard
+                            key={message._id}
+                            niProvider={message.niProvider}
+                            schemeName={message.schemeName}
+                            implementedBy={message.implementedBy}
+                            domainDescription={message.domainDescription}
+                            eligibleDisabilities={message.eligibleDisabilities}
+                            percentageOfDisability={message.percentageOfDisability}
+                            minAge={message.minAge}
+                            maxAge={message.maxAge}
+                            incomeLimit={message.incomeLimit}
+                            genderEligibility={message.genderEligibility}
+                            comments={message.comments}
+                          />
+                        ))}
+                      </ListGroup>
+                    </Card.Body>
+                  </Card>
+                ) : (
+                  <div className="text-center mt-3">
+                     <Card className="mt-5">
+                    <Card.Body>
+                      <p>No data found</p>
+                    </Card.Body>
+                    </Card>
+                  
+                  </div>
+                )}
+              </>
             )}
-            <hr className="bg-primary" />
-            <DataCard
-              date="9/8/2023 16:02:15"
-              instituteName="National Institute for Empowerment of Persons with Multiple Disabilities (NIEPMD), Chennai"
-              centerName="State Resource Cum Training Center-Chennai"
-              state="TAMIL NADU"
-              servicesProvided="Specialized service/ information are provided under one roof to all categories of differently-abled persons"
-              disabilities="All the 21 disabilities"
-              minimumPercentage="Minimum 40"
-              male="Both"
-              female="Both"
-              website="https://www.scd.tn.gov.in/state_resource_cum_tr_centre.php"
-            />
+         
+      
           </Card.Body>
         </>
       )}

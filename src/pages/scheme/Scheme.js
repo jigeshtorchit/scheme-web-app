@@ -83,15 +83,7 @@ console.log(getSchemeData);
       Header: "Eligible",
       accessor: "genderEligibility",
     },
-    {
-      Header: "Attachment Link",
-      accessor: "attachments",
-      Cell: props => (
-        <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
-          {props.value}
-        </a>
-      ) 
-    },
+   
     {
       Header: "Website Link",
       accessor: "comments",

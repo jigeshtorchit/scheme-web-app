@@ -119,7 +119,7 @@ const BasicTable = (props) => {
             } flex-row justify-content-center align-items-center`}
           >
             <span className="m-1 d-flex justify-content-start align-items-center">
-              page
+              Page
               <strong className="m-2">
                 {props.currentPage} of {props.totalPages}
               </strong>{" "}

@@ -135,23 +135,34 @@ const ChatBot = () => {
             right:'10px'
           }}
           >
-            <Card.Header
-              style={{
-                backgroundColor: "#007BFF",
-                color: "white",
-                borderRadius: "15px 15px 0 0",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px",
-                
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <span className="text-center">ChatBot</span>
-              </div>
-              <div style={{ flex: "1" }}></div>
-            </Card.Header>
+       <Card.Header
+  style={{
+    backgroundColor: "#007BFF",
+    color: "white",
+    borderRadius: "15px 15px 0 0",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "8px",
+    position: "relative", // Add this line
+  }}
+>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <span className="text-center">ChatBot</span>
+  </div>
+  <Button
+    variant="outline-light"
+    onClick={closeChat}
+    style={{
+      position: "absolute", // Add this line
+      right: "8px", // Add this line
+      top: "50%", // Add this line
+      transform: "translateY(-50%)", // Add this line
+    }}
+  >
+    <FaTimes size={20} />
+  </Button>
+</Card.Header>
             <Card.Body
               id="chat-body"
               style={{
