@@ -130,8 +130,9 @@ const ChatBot = () => {
             flexDirection: "column",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             bottom:'100px',
-            height:'350px'
-            
+            height:'350px',
+            position:'fixed',
+            right:'10px'
           }}
           >
             <Card.Header
@@ -176,7 +177,7 @@ const ChatBot = () => {
                       display:'flex',
                       flexDirection:'column',
                       justifyContent:'space-around',
-                      width:'400px',
+                      
                     }}
                   >
                     <div className="d-flex ">
