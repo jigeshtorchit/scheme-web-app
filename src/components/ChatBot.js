@@ -18,7 +18,7 @@ const ChatBot = () => {
     },
   ]);
   const [openAiApiKey] = useState(
-    "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"
+    "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"
   ); // Set your OpenAI API key here
   const [isLoading, setIsLoading] = useState(false);
 
