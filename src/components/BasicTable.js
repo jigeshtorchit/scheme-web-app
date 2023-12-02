@@ -94,7 +94,7 @@ const BasicTable = (props) => {
                   return (
                     <tr {...row.getRowProps()} key={row.id}>
                       {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} key={cell.column.id} className="text-secondary text-center text-nowrap" >
+                        <td {...cell.getCellProps()} key={cell.column.id} className="text-secondary text-center " style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '20ch' }}>
                           {cell.render("Cell")}
                         </td>
                       ))}
