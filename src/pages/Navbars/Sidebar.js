@@ -10,7 +10,7 @@ const Sidebar = () => {
         fluid
         className="d-sm-none sidebar d-md-none d-lg-block d-xxl-block d-xl-block  justify-content-start align-items-start d-none "
         style={{
-          backgroundColor: "#2c3e50",
+          backgroundColor: "#313947",
           height: "100vh",
           width: "90%",
           overflowY: "auto",

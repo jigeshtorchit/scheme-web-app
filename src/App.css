@@ -43,9 +43,7 @@
 .bg-ccfeff{
   background-color:#ccfeff;
 }
-.bg-E5008C{
-  background-color: #E5008C;
-}
+
 .bg-313947{
   background-color: #313947;
 }
@@ -53,10 +51,10 @@
   border-radius: 200px;
 }
 .mainColor{
-  color: #3498db;
+  color: #00d4ff;
 }
 .bg-mainColor{
-  background-color: #3498db;
+  background-color: #00d4ff;
 }
 .textDecoration-none{
   text-decoration: none;
@@ -83,18 +81,14 @@
   text-decoration: none;
   } */
 
-  .table th {
-    background-color: #00E5A1; 
-    color: white; 
-    width: 100%;
-    text-align: center;
-    white-space: nowrap; 
-    padding: 10px; 
-    font-weight: bold; 
-    border-bottom: 2px solid white;
-    opacity: 0.9;
-  }
-  
+.table th {
+  background-color:#00E5A1;
+  color: white;
+  width: '100%';
+  text-align: center;
+  text-wrap: nowrap;
+  opacity: 0.;
+}
 ::-webkit-scrollbar {
   width: 0;
   height: 0;

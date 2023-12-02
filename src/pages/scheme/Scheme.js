@@ -82,11 +82,20 @@ console.log(getSchemeData);
     {
       Header: "Attachment Link",
       accessor: "attachments",
+      Cell: props => (
+        <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
+          {props.value}
+        </a>
+      ) 
     },
     {
       Header: "Website Link",
       accessor: "comments",
-    },
+      Cell: props => (
+        <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
+          {props.value}
+        </a>
+      )    },
     {
       Header: "State",
       accessor: "implementedBy",
