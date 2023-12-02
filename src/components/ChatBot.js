@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Card, ListGroup, Form, Spinner } from "react-bootstrap";
 import { FaWhatsapp, FaTimes, FaUser, FaAndroid } from "react-icons/fa";
 import axios from "axios";
+import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
 const REACT_APP_OPEN_AI_KEY = process.env.REACT_APP_OPEN_AI_KEY;
 const ChatBot = () => {
@@ -118,17 +119,20 @@ const ChatBot = () => {
           position: "fixed",
           bottom: "10px",
           right: "10px",
-          width: "350px",
           top: "55%", // Adjust the top position as needed
         }}
       >
         {showChat && (
           <Card
-            style={{
-              borderRadius: "15px",
-              display: "flex",
-              flexDirection: "column",
-            }}
+          style={{
+            borderRadius: "15px",
+            display: "flex",
+            flexDirection: "column",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            bottom:'100px',
+            height:'350px'
+            
+          }}
           >
             <Card.Header
               style={{
@@ -139,21 +143,24 @@ const ChatBot = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "8px",
+                
               }}
             >
               <div style={{ display: "flex", alignItems: "center" }}>
-                <span>ChatBot</span>
+                <span className="text-center">ChatBot</span>
               </div>
               <div style={{ flex: "1" }}></div>
             </Card.Header>
             <Card.Body
               id="chat-body"
               style={{
-                maxHeight: "200px", // Increase the height as needed
+                maxHeight: "300px", // Increase the height as needed
                 overflowY: "auto",
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
-                flexDirection: "column-reverse", // Align messages to the bottom
+                flexDirection: "column-reverse",
+                
+                 // Align messages to the bottom
               }}
             >
               <ListGroup variant="flush">
@@ -161,14 +168,14 @@ const ChatBot = () => {
                   <ListGroup.Item
                     key={message.id}
                     style={{
-                      textAlign: message.sender === "You" ? "left" : "right",
                       border: "0",
                       backgroundColor: "#ffffff",
                       borderRadius: "10px",
                       margin: "5px 0",
                       padding: "8px",
-                      marginLeft: message.sender === "bot" ? "10px" : "0",
-                      marginRight: message.sender === "You" ? "10px" : "0",
+                      display:'flex',
+                      flexDirection:'column',
+                      justifyContent:''
                     }}
                   >
                     {message.sender === "You" && (
@@ -192,9 +199,9 @@ const ChatBot = () => {
                     <strong>
                       {message.sender === "You" ? "You:" : "Bot:"}
                     </strong>{" "}
-                    {message.text}
+                    <p className="text-wrap">{message.text}</p>
                     <br />
-                    <small>{message.time}</small>
+                    <small style={{textAlign:'right'}}>{message.time}</small>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
@@ -227,7 +234,7 @@ const ChatBot = () => {
                 style={{ borderRadius: "0 10px 10px 0", marginLeft: "-1px" }}
                 disabled={isLoading}
               >
-                {isLoading ? <Spinner animation="border" size="sm" /> : "Send"}
+                {isLoading ? <Spinner animation="border" size="sm" /> : <FiSend size={20}/>}
               </Button>
             </Card.Footer>
           </Card>
@@ -249,10 +256,16 @@ const ChatBot = () => {
             onClick={showChat ? closeChat : toggleChat}
             style={{
               width: "50px",
-              animation: "blink 1s infinite", // Apply blink animation when chat is open
+              height:"50px",
+              animation: "blink 1s infinite",
+              // Add more styling as needed
+              background: showChat ? "#dc3545" : "#007BFF", // Red when open, green when closed
+              borderRadius: "50%",
+              border: "none",
+              color: "#fff",
             }}
           >
-            {showChat ? <FaTimes width={100} /> : <FaWhatsapp width={100} />}
+            {showChat ? <FaTimes width={100} size={20}/> : <FaWhatsapp width={100} size={20} />}
           </Button>
         </div>
       </div>

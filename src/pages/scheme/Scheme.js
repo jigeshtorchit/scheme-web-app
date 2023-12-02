@@ -161,7 +161,7 @@ console.log(getSchemeData);
                   BUTTON_NAME="Add Scheme"
                 />
               </Row>
-              <hr className="bg-secondary" />
+              <hr className="bg-primary" />
               <Row className="">
                 <BasicTable
                   COLUMNS={COLUMNS}
