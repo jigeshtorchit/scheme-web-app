@@ -120,6 +120,7 @@ const ChatBot = () => {
           bottom: "10px",
           right: "10px",
           top: "55%", // Adjust the top position as needed
+       
         }}
       >
         {showChat && (
@@ -132,12 +133,14 @@ const ChatBot = () => {
             bottom:'100px',
             height:'350px',
             position:'fixed',
-            right:'10px'
+            right:'10px',
+            width: "45%"
+
           }}
           >
        <Card.Header
   style={{
-    backgroundColor: "#007BFF",
+    backgroundColor: "green",
     color: "white",
     borderRadius: "15px 15px 0 0",
     display: "flex",
@@ -177,42 +180,44 @@ const ChatBot = () => {
             >
               <ListGroup variant="flush">
                 {allMessages.map((message) => (
+                  <>
                   <ListGroup.Item
                     key={message.id}
-                    style={{
+                    style={  message.sender === "You" ?  {
                       border: "0",
-                      backgroundColor: "#ffffff",
+                      backgroundColor: "white",
                       borderRadius: "10px",
                       margin: "5px 0",
                       padding: "8px",
                       display:'flex',
                       flexDirection:'column',
                       justifyContent:'space-around',
+                      marginLeft: "50px"
                       
+                    }: {
+                      border: "0",
+                      backgroundColor: "lightgray",
+                      borderRadius: "10px",
+                      margin: "5px 0",
+                      padding: "8px",
+                      display:'flex',
+                      flexDirection:'column',
+                      justifyContent:'space-around',
+                      marginRight: "50px"
                     }}
                   >
                     <div className="d-flex ">
-                    {message.sender === "You" && (
-                      <FaUser
-                      size={20}
-                      />
-                    )}
-                    {message.sender === "bot" && (
-                     
-                        <FaAndroid
-                        size={25}
-                        
-                      />
-                     
-                    )}
+                   
                     <strong className="mx-2" >
                       {message.sender === "You" ? "You:" : "Bot:"}
                     </strong>{" "}
                     <p className="text-wrap">{message.text}</p>
                     </div>
                     <br />
-                    <small style={{textAlign:'right'}}>{message.time}</small>
+                  
                   </ListGroup.Item>
+                    <small style={{textAlign:'right'}}>{message.time}</small>
+                  </>
                 ))}
               </ListGroup>
             </Card.Body>
@@ -239,7 +244,7 @@ const ChatBot = () => {
                 }}
               />
               <Button
-                variant="primary"
+                variant="success"
                 onClick={handleSendMessage}
                 style={{ borderRadius: "0 10px 10px 0", marginLeft: "-1px" }}
                 disabled={isLoading}
@@ -269,7 +274,7 @@ const ChatBot = () => {
               height:"50px",
               animation: "blink 1s infinite",
               // Add more styling as needed
-              background: showChat ? "#dc3545" : "#007BFF", // Red when open, green when closed
+              background: showChat ? "#dc3545" : "green", // Red when open, green when closed
               borderRadius: "50%",
               border: "none",
               color: "#fff",
