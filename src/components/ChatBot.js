@@ -341,8 +341,8 @@ const ChatBot = () => {
             position:'fixed',
             right:'10px',
             width: "45%"
-
           }}
+          className="card-res"
           >
        <Card.Header
   style={{

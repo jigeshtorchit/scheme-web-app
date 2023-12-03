@@ -47,3 +47,10 @@ code {
   font-size: 24px;
   color: red; /* Change color to red or any other color for the close icon */
 }
+
+/* Styles for devices up to 767px wide (typically mobile devices) */
+@media only screen and (max-width: 767px) {
+ .card-res {
+  width: 100% !important;
+ }
+}
