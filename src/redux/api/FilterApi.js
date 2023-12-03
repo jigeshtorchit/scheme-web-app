@@ -1,21 +1,28 @@
+
+
 import { createApi } from "@reduxjs/toolkit/query/react";
 import CustomFetchBase from "./CustomFetchBase";
+
 export const FilterApi = createApi({
   reducerPath: "FilterApi",
   baseQuery: CustomFetchBase,
-  tagTypes: ["FILTER"],
-  endpoints: (build) => ({
-    getFilter: build.query({
+  endpoints: (builder) => ({
+    getFilter: builder.mutation({
       query: (data) => ({
-        url: `/filterFacilities`,
+        url: "/filterFacilities",
         method: "GET",
-        body:data,
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
+        body: data,
       }),
-      providesTags: ["FILTER"],
+      onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+        } catch (error) {}
+      },
     }),
+   
   }),
 });
-export const { useGetFilterQuery } = FilterApi;
+
+export const {
+  useGetFilterMutation
+} = FilterApi;

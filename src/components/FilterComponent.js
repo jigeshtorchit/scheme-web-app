@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Form,
@@ -10,7 +10,7 @@ import {
 import DataCard from "./DataCard";
 import { Formik } from "formik";
 import { FilterSchema } from "./FilterValidation";  
-import { useGetFilterQuery } from "../redux/api/FilterApi";
+import { useGetFilterMutation } from "../redux/api/FilterApi";
 
 import { InfinitySpin } from "react-loader-spinner";
 const FilterComponent = ({ onFilterSubmit,  filteredMessages }) => {
@@ -20,8 +20,12 @@ const FilterComponent = ({ onFilterSubmit,  filteredMessages }) => {
   const [gender, setGender] = useState("");
   const [state, setState] = useState("");
   const [disabilities, setDisabilities] = useState("");
-  const { data: getFilterData, isLoading } = useGetFilterQuery();
-  console.log(getFilterData);
+  const [getFilterDataFunc, { data: getFilterData, isLoading }] = useGetFilterMutation();
+
+  useEffect(()=> {
+    getFilterDataFunc()
+  },[])
+
  
   const initialValues = {
     minAge: "",

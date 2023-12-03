@@ -4,11 +4,22 @@ import { FaWhatsapp, FaTimes, FaUser, FaAndroid } from "react-icons/fa";
 import axios from "axios";
 import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
+import notificationSound from "../assets/images/notification.mp3";
+import { useGetFilterMutation } from "../redux/api/FilterApi";
+
+
 const REACT_APP_OPEN_AI_KEY = process.env.REACT_APP_OPEN_AI_KEY;
+
+
 const ChatBot = () => {
   const [showChat, setShowChat] = useState(false);
   const [selectedMessages, setSelectedMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [suggestions, setSuggestions] = useState(["View Scheme"]); // Initial suggestions
+  const [selectedSuggestions, setSelectedSuggestions] = useState([]);
+  const [getFilterDataFunc] = useGetFilterMutation();
+
+  const [audio] = useState(new Audio(notificationSound)); // Replace with the path to your sound file
 
   const [allMessages, setAllMessages] = useState([
     {
@@ -90,13 +101,208 @@ const ChatBot = () => {
     }
   };
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== "") {
+
+  useEffect(() => {
+    // Cleanup audio when component unmounts
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [audio]);
+
+
+  const handleSuggestionClick = async (suggestion) => {
+    audio.play();
+    const indianStates = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
+
+    if (suggestion === "View Scheme") {
+      const newMessages = [
+        {
+          id: Date.now(),
+          text: suggestion,
+          sender: "You",
+          time: new Date().toLocaleTimeString(),
+        },
+        {
+          id: Date.now() + 1,
+          text: "Please select Disabilities",
+          sender: "Bot",
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      const key = {
+        "test" : suggestion
+      }
+      setSelectedSuggestions((prevSuggestions) => [...prevSuggestions, key]);
+
+      setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
+  
+      // Change the suggestions array when "View Scheme" is clicked
+      setSuggestions(["100%", "Minimum 40%", "Minimum 60%", "Minimum 80%"]); // Add more suggestions as needed
+    } else if (["100%", "Minimum 40%", "Minimum 60%", "Minimum 80%"].includes(suggestion)) {
+      const newMessages = [
+        {
+          id: Date.now(),
+          text: suggestion,
+          sender: "You",
+          time: new Date().toLocaleTimeString(),
+        },
+        {
+          id: Date.now() + 1,
+          text: "Please select Gender",
+          sender: "Bot",
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      const key = {
+        "genderEligibility" : suggestion
+      }
+      setSelectedSuggestions((prevSuggestions) => [...prevSuggestions, key]);
+
+      setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
+  
+      // Update suggestions based on the user's selection
+      if (suggestion === "100%" || suggestion === "Minimum 40%" || suggestion === "Minimum 60%" || suggestion === "Minimum 80%") {
+        setSuggestions(["Male", "Female", "Other"]);
+      }
+    } else if (["Male", "Female", "Other"].includes(suggestion)) {
+      const newMessages = [
+        {
+          id: Date.now(),
+          text: suggestion,
+          sender: "You",
+          time: new Date().toLocaleTimeString(),
+        },
+        {
+          id: Date.now() + 1,
+          text: "Please select Age Group",
+          sender: "Bot",
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      const key = {
+        "age" : suggestion
+      }
+      setSelectedSuggestions((prevSuggestions) => [...prevSuggestions, key]);
+
+      setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
+  
+      // Update suggestions based on the user's gender selection
+      if (suggestion === "Male" || suggestion === "Female" || suggestion === "Other") {
+        setSuggestions(["1 to 12", "12 to 18", "18 to 40", "40 above"]);
+      }
+    } else if (["1 to 12", "12 to 18", "18 to 40", "40 above"].includes(suggestion)) {
+      const newMessages = [
+        {
+          id: Date.now(),
+          text: suggestion,
+          sender: "You",
+          time: new Date().toLocaleTimeString(),
+        },
+        {
+          id: Date.now() + 1,
+          text: "Please select State",
+          sender: "Bot",
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      const key = {
+        "State" : suggestion
+      }
+      setSelectedSuggestions((prevSuggestions) => [...prevSuggestions, key]);
+
+      setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
+
+      // Update suggestions based on the user's age group selection
+      if (suggestion === "1 to 12" || suggestion === "12 to 18" || suggestion === "18 to 40" || suggestion === "40 above") {
+        // Fetch and set the list of Indian states as suggestions
+        setSuggestions(indianStates);
+      }
+    } else if (indianStates.includes(suggestion)) {
+      const newMessages = [
+        {
+          id: Date.now(),
+          text: suggestion,
+          sender: "You",
+          time: new Date().toLocaleTimeString(),
+        },
+        {
+          id: Date.now() + 1,
+          text: "Please select Income Limit",
+          sender: "Bot",
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      
+      const key = {
+        "Income" : suggestion
+      }
+      setSelectedSuggestions((prevSuggestions) => [...prevSuggestions, key]);
+
+      setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
+  
+      // Update suggestions based on the user's state selection
+      if (
+        suggestion === "Andhra Pradesh" ||
+        suggestion === "Arunachal Pradesh" ||
+        suggestion === "Assam" ||
+        suggestion === "Bihar" ||
+        suggestion === "Chhattisgarh" ||
+        suggestion === "Goa" ||
+        suggestion === "Gujarat" ||
+        suggestion === "Haryana" ||
+        suggestion === "Himachal Pradesh" ||
+        suggestion === "Jharkhand" ||
+        suggestion === "Karnataka" ||
+        suggestion === "Kerala" ||
+        suggestion === "Madhya Pradesh" ||
+        suggestion === "Maharashtra" ||
+        suggestion === "Manipur" ||
+        suggestion === "Meghalaya" ||
+        suggestion === "Mizoram" ||
+        suggestion === "Nagaland" ||
+        suggestion === "Odisha" ||
+        suggestion === "Punjab" ||
+        suggestion === "Rajasthan" ||
+        suggestion === "Sikkim" ||
+        suggestion === "Tamil Nadu" ||
+        suggestion === "Telangana" ||
+        suggestion === "Tripura" ||
+        suggestion === "Uttar Pradesh" ||
+        suggestion === "Uttarakhand" ||
+        suggestion === "West Bengal"
+      ) {
+
+        setSuggestions(["0 to 50,000 INR", "50,000 to 1,00,000 INR", "1,00,000 INR above"]);
+      }
+      
+    } else {
+      setSuggestions([])
+    
+     
+      const mergedSuggestions = selectedSuggestions.reduce((acc, suggestion) => {
+        return { ...acc, ...suggestion };
+      }, {});
+  
+      console.log(mergedSuggestions, 'mergedSuggestions'); 
+      await getFilterDataFunc(mergedSuggestions) 
+     
+         handleSendMessage(suggestion);
+    }
+  };
+  
+  
+  
+  
+  
+
+  const handleSendMessage = (msg) => {
+    if (msg.trim() !== "") {
       // Add the user's message
-      addMessage(newMessage, "You");
+      addMessage(msg, "You");
 
       // Get and add the OpenAI response
-      getOpenAiResponse(newMessage);
+      getOpenAiResponse(msg);
 
       // Clear the input field
       setNewMessage("");
@@ -220,7 +426,28 @@ const ChatBot = () => {
                   </>
                 ))}
               </ListGroup>
+              <div
+    style={{
+      display: "flex",
+      gap: "8px",
+      marginBottom: "8px",
+      flexWrap: "wrap",
+    }}
+  >
+    {suggestions.map((suggestion) => (
+      <Button
+        key={suggestion}
+        variant="outline-primary"
+        style={{ borderRadius: "20px" }}
+        onClick={() => handleSuggestionClick(suggestion)}
+      >
+        {suggestion}
+      </Button>
+    ))}
+  </div>
             </Card.Body>
+             {/* Message suggestions as rounded buttons */}
+  
             <Card.Footer
               style={{
                 backgroundColor: "#f4f4f4",
@@ -229,6 +456,7 @@ const ChatBot = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                display: "none"
               }}
             >
               <Form.Control
