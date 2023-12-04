@@ -8,9 +8,9 @@ export const FilterApi = createApi({
   baseQuery: CustomFetchBase,
   endpoints: (builder) => ({
     getFilter: builder.mutation({
-      query: (data) => ({
-        url: "/filterFacilities",
-        method: "GET",
+      query: (data,page) => ({
+        url: `/filterFacilities?page=${page}`,
+        method: "POST",
         body: data,
       }),
       onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
