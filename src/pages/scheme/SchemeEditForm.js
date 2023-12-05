@@ -20,8 +20,7 @@ const SchemeAddForm = () => {
   const [state, setState] = useState("");
   const [percentofDisability, setPercentofDisability] = useState("");
   const [annualIncome, setAnnualIncome] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  const [Age, setAge] = useState("");
   const [disabilities, setDisabilities] = useState("");
   const { id } = useParams();
   const Id = id.startsWith(":") ? id.slice(1) : id;
@@ -38,8 +37,7 @@ const SchemeAddForm = () => {
       setDisabilities(schemeData.eligibleDisabilities)
       setEligible(schemeData.genderEligibility)
       setEmail(schemeData.emailAddress)
-      setMaxAge(schemeData.maxAge)
-      setMinAge(schemeData.minAge)
+      setAge(schemeData.Age)
       setNi(schemeData.niProvider)
       setPercentofDisability(schemeData.percentageOfDisability)
       setPwds(schemeData.domainDescription)
@@ -59,8 +57,7 @@ const SchemeAddForm = () => {
     percentofDisability: "",
     websitesLink: "",
     annualIncome: "",
-    minAge: "",
-    maxAge: "",
+    Age: "",
     disabilities: "",
   };
   const handleEditData = async () => {
@@ -78,8 +75,7 @@ const SchemeAddForm = () => {
         implementedBy: state,
         percentageOfDisability: percentofDisability,
         incomeLimit: annualIncome,
-        minAge: minAge,
-        maxAge: maxAge,
+        age: Age,
         eligibleDisabilities: disabilities,
     }});
       console.log(response);
@@ -89,8 +85,7 @@ const SchemeAddForm = () => {
         setDisabilities("");
         setEligible("");
         setEmail("");
-        setMaxAge("");
-        setMinAge("");
+        setAge("");
         setNi("");
         setPercentofDisability("");
         setPwds("");
@@ -129,15 +124,15 @@ const SchemeAddForm = () => {
           }) => (
             <>
               <Form>
-                <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
-                  <Col className="d-flex justify-content-start align-items-center">
-                    <h4 className="fw-bold" style={{ marginLeft: "-15px" }}>
+              <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
+    <Col className="text-center mb-2 mb-sm-1">
+         <h4 className="fw-bold" style={{ marginLeft: "-15px" }}>
                       Edit Scheme Details
                     </h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
-                      className="m-1"
+                      className="m-2 d-flex justify-content-start align-items-center"
                       variant="secondary"
                       onClick={handleCancel}
                     >
@@ -145,8 +140,8 @@ const SchemeAddForm = () => {
                     </Button>
 
                     <BasicButton
-                     
-                      variant={"primary"}
+                       className="m-2 d-flex justify-content-start align-items-center"
+                       variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -160,8 +155,7 @@ const SchemeAddForm = () => {
                         state === "" ||
                         percentofDisability === "" ||
                         annualIncome === "" ||
-                        minAge === "" ||
-                        maxAge === "" ||
+                        Age === "" ||
                         disabilities === "" ||
                         (touched.ni && errors.ni) ||
                         (touched.pwds && errors.pwds) ||
@@ -174,8 +168,7 @@ const SchemeAddForm = () => {
                           errors.percentofDisability) ||
                         (touched.websitesLink && errors.websitesLink) ||
                         (touched.annualIncome && errors.annualIncome) ||
-                        (touched.minAge && errors.minAge) ||
-                        (touched.maxAge && errors.maxAge)
+                        (touched.Age && errors.Age)
                           ? handleSubmit
                           : handleEditData
                       }
@@ -184,7 +177,7 @@ const SchemeAddForm = () => {
                     />
                   </Col>
                 </Row>
-                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5">
+                <Row className=" m-md-3 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5">
                   <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
@@ -455,7 +448,7 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <TextInput
-                        label={"% of Disability"}
+                        label={"Disability Percentage"}
                         htmlFor={"percentofDisability"}
                         name={"percentofDisability"}
                         id={"percentofDisability"}
@@ -513,57 +506,37 @@ const SchemeAddForm = () => {
                     </Col>
 
                     <Col className="m-2">
-                      <TextInput
-                        label={"Min Age"}
-                        htmlFor={"minAge"}
-                        name={"minAge"}
-                        id={"minAge"}
-                        type={"number"}
-                        value={minAge}
-                        onChange={(e) => {
-                          setMinAge(e.target.value);
-                          handleChange(e);
-                        }}
-                        onBlur={handleBlur}
-                        className={`form-control ${
-                          touched.minAge && errors.minAge ? "is-invalid" : ""
-                        }`}
-                        validation={
-                          touched.minAge && errors.minAge ? (
-                            <p className="text-danger">{errors.minAge}</p>
-                          ) : (
-                            ""
-                          )
-                        }
-                      />
+                    <Form.Group controlId="Age">
+                  <Form.Label>Age:</Form.Label>
+                  <Form.Select
+                    as="select"
+                    value={Age}
+                    onChange={(e) => {
+                      setAge(e.target.value);
+                      handleChange(e);
+                    }}
+                    className={`form-control ${
+                      touched.Age && errors.Age ? "is-invalid" : ""
+                    }`}
+                    onBlur={handleBlur}
+                  >
+                   <option value="">Select Age</option>
+                    <option value="0">0</option>
+                    <option value="0-6">0-6</option>
+                    <option value="0-18">0-18</option>
+                    <option value="6-18">6-18</option>
+                    <option value="18-24">18-24</option>
+                    <option value="18-55">18-55</option>
+                    
+                 
+                 
+                  </Form.Select>
+                  {touched.Age && errors.Age && (
+                    <p className="text-danger">{errors.Age}</p>
+                  )}
+                </Form.Group>
                     </Col>
-
-                    <Col className="m-2">
-                      <TextInput
-                        label={"Max Age"}
-                        htmlFor={"maxAge"}
-                        name={"maxAge"}
-                        id={"maxAge"}
-                        value={maxAge}
-                        type={"number"}
-                        onChange={(e) => {
-                          setMaxAge(e.target.value);
-                          handleChange(e);
-                        }}
-                        onBlur={handleBlur}
-                        className={`form-control ${
-                          touched.maxAge && errors.maxAge ? "is-invalid" : ""
-                        }`}
-                        validation={
-                          touched.maxAge && errors.maxAge ? (
-                            <p className="text-danger">{errors.maxAge}</p>
-                          ) : (
-                            ""
-                          )
-                        }
-                      />
-                    </Col>
-                    <Col className="m-2">
+                  <Col className="m-2">
                       <TextInput
                         label={"Email Address"}
                         htmlFor={"email"}
@@ -590,7 +563,7 @@ const SchemeAddForm = () => {
                     </Col>
                   </Col>
                 </Row>
-                <Row className="d-sm-flex d-flex d-md-flex d-lg-none d-xxl-none d-xl-none flex-row justify-content-between align-items-center">
+                <Row className=" mt-3  d-sm-flex d-flex d-md-flex d-lg-none d-xxl-none d-xl-none flex-row justify-content-between align-items-center">
                   <Col className="d-flex justify-content-start align-items-center">
                     <Button
                       className="m-1"
@@ -616,8 +589,7 @@ const SchemeAddForm = () => {
                         state === "" ||
                         percentofDisability === "" ||
                         annualIncome === "" ||
-                        minAge === "" ||
-                        maxAge === "" ||
+                        Age === "" ||
                         disabilities === "" ||
                         (touched.ni && errors.ni) ||
                         (touched.pwds && errors.pwds) ||
@@ -630,8 +602,7 @@ const SchemeAddForm = () => {
                           errors.percentofDisability) ||
                         (touched.websitesLink && errors.websitesLink) ||
                         (touched.annualIncome && errors.annualIncome) ||
-                        (touched.minAge && errors.minAge) ||
-                        (touched.maxAge && errors.maxAge)
+                        (touched.Age && errors.Age)
                           ? handleSubmit
                           : handleEditData
                       }
