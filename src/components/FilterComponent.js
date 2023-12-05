@@ -7,8 +7,8 @@ import { useGetFilterMutation } from "../redux/api/FilterApi";
 import { InfinitySpin } from "react-loader-spinner";
 
 const FilterComponent = () => {
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  
+  const [Age, setAge] = useState("");
   const [additionalFilter, setAdditionalFilter] = useState("");
   const [gender, setGender] = useState("");
   const [state, setState] = useState("");
@@ -26,12 +26,12 @@ const FilterComponent = () => {
         
         const response = await getFilterDataFunc();
   
-        console.log(response?.data);
-  
-        if (response.data) {
-          setData(response.data);
-          setTotalPage(response.totalPages);
-          setCurrentPage(response.currentPage);
+        console.log(response);
+
+        if (response?.data) {
+          setData(response?.data.data);
+          setTotalPage(response?.data.pageSize);
+          setCurrentPage(response?.data.currentPage)
         } else {
           console.log("Error in API response:", response.error && response.error.data);
         }
@@ -44,9 +44,18 @@ const FilterComponent = () => {
   }, [getFilterDataFunc, currentPage]);
   
    
+
+  // useEffect(() => {
+  //   if (getFilterDataFunc && getFilterDataFunc.data) {
+  //     setData(getFilterDataFunc?.data.data);
+  //             setTotalPage(getFilterDataFunc?.data.pageSize);
+  //             setCurrentPage(getFilterDataFunc?.datacurrentPage)
+  //           }
+  // }, [getFilterDataFunc, currentPage]);
+ 
   const initialValues = {
-    minAge: "",
-    maxAge: "",
+  
+    Age: "",
     additionalFilter: "",
     gender: "",
     disabilities: "",
@@ -54,8 +63,8 @@ const FilterComponent = () => {
   };
 
   const onClearFilter = () => {
-    setMinAge("");
-    setMaxAge("");
+    
+    setAge("");
     setAdditionalFilter("");
     setGender("");
     setState("");
@@ -70,6 +79,7 @@ const FilterComponent = () => {
         incomeLimit: additionalFilter,
         genderEligibility: gender,
         percentageOfDisability: disabilities,
+        age:Age,
       });
 
       if (response.error && response.error.originalStatus === 200) {
@@ -106,49 +116,38 @@ const FilterComponent = () => {
         <Card.Body>
           <Form className="mb-5 ">
             <Row className="mb-3">
-              <Col xs={12} sm={6} md={4}>
-                <Form.Group controlId="minAge">
-                  <Form.Label>Min Age:</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Min Age"
-                    value={minAge}
+            <Col xs={12} sm={6} md={4}>
+                <Form.Group controlId="Age">
+                  <Form.Label>Age:</Form.Label>
+                  <Form.Select
+                    as="select"
+                    value={Age}
                     onChange={(e) => {
-                      setMinAge(e.target.value);
+                      setAge(e.target.value);
                       handleChange(e);
                     }}
-                    className={` mb-2 form-control ${
-                      touched.minAge && errors.minAge ? "is-invalid" : ""
+                    className={`form-control ${
+                      touched.Age && errors.Age ? "is-invalid" : ""
                     }`}
                     onBlur={handleBlur}
-                  />
-                  {touched.minAge && errors.minAge && (
-                    <p className="text-danger">{errors.minAge}</p>
+                  >
+                   <option value="">Select Age</option>
+                    <option value="0">0</option>
+                    <option value="0-6">0-6</option>
+                    <option value="0-18">0-18</option>
+                    <option value="6-18">6-18</option>
+                    <option value="18-24">18-24</option>
+                    <option value="18-55">18-55</option>
+                    
+                 
+                 
+                  </Form.Select>
+                  {touched.Age && errors.Age && (
+                    <p className="text-danger">{errors.Age}</p>
                   )}
                 </Form.Group>
               </Col>
-              <Col xs={12} sm={6} md={4}>
-                <Form.Group controlId="maxAge">
-                  <Form.Label>Max Age:</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Max Age"
-                    value={maxAge}
-                    onChange={(e) => {
-                      setMaxAge(e.target.value);
-                      handleChange(e);
-                    }}
-                    className={`mb-2 form-control ${
-                      touched.maxAge && errors.maxAge ? "is-invalid" : ""
-                    }`}
-                    onBlur={handleBlur}
-                  />
-                  {touched.maxAge && errors.maxAge && (
-                    <p className="text-danger">{errors.maxAge}</p>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col xs={12} sm={6} md={4}>
+   <Col xs={12} sm={6} md={4}>
                 <Form.Group controlId="gender">
                   <Form.Label>Gender:</Form.Label>
                   <Form.Select
@@ -173,6 +172,76 @@ const FilterComponent = () => {
                   )}
                 </Form.Group>
               </Col>
+              <Col xs={12} sm={6} md={4}>
+                <Form.Group controlId="state">
+                  <Form.Label>State:</Form.Label>
+                  <Form.Select
+                    as="select"
+                    value={state}
+                    onChange={(e) => {
+                      setState(e.target.value);
+                      handleChange(e);
+                    }}
+                    className={`mb-2 form-control ${
+                      touched.state && errors.state ? "is-invalid" : ""
+                    }`}
+                    onBlur={handleBlur}
+                  >
+                    <option value="" selected disabled>
+                            select state
+                          </option>
+                          <option value="Andhra Pradesh">Andhra Pradesh</option>
+                          <option value="Arunachal Pradesh">
+                            Arunachal Pradesh
+                          </option>
+                          <option value="Assam">Assam</option>
+                          <option value="Bihar">Bihar</option>
+                          <option value="Chhattisgarh">Chhattisgarh</option>
+                          <option value="Goa">Goa</option>
+                          <option value="Gujarat">Gujarat</option>
+                          <option value="Haryana">Haryana</option>
+                          <option value="Himachal Pradesh">
+                            Himachal Pradesh
+                          </option>
+                          <option value="Jharkhand">Jharkhand</option>
+                          <option value="Karnataka">Karnataka</option>
+                          <option value="Kerala">Kerala</option>
+                          <option value="Madhya Pradesh">Madhya Pradesh</option>
+                          <option value="Maharashtra">Maharashtra</option>
+                          <option value="Manipur">Manipur</option>
+                          <option value="Meghalaya">Meghalaya</option>
+                          <option value="Mizoram">Mizoram</option>
+                          <option value="Nagaland">Nagaland</option>
+                          <option value="Odisha">Odisha</option>
+                          <option value="Punjab">Punjab</option>
+                          <option value="Rajasthan">Rajasthan</option>
+                          <option value="Sikkim">Sikkim</option>
+                          <option value="Tamil Nadu">Tamil Nadu</option>
+                          <option value="Telangana">Telangana</option>
+                          <option value="Tripura">Tripura</option>
+                          <option value="Uttar Pradesh">Uttar Pradesh</option>
+                          <option value="Uttarakhand">Uttarakhand</option>
+                          <option value="West Bengal">West Bengal</option>
+                          <option value="Andaman and Nicobar Islands">
+                            Andaman and Nicobar Islands
+                          </option>
+                          <option value="Chandigarh">Chandigarh</option>
+                          <option value="Dadra and Nagar Haveli and Daman and Diu">
+                            Dadra and Nagar Haveli and Daman and Diu
+                          </option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Jammu and Kashmir">
+                            Jammu and Kashmir
+                          </option>
+                          <option value="Ladakh">Ladakh</option>
+                          <option value="Lakshadweep">Lakshadweep</option>
+                          <option value="Puducherry">Puducherry</option>
+                  </Form.Select>
+                  {touched.state && errors.state && (
+                    <p className="text-danger">{errors.state}</p>
+                  )}
+                </Form.Group>
+              </Col>
             </Row>
 
             <Row className="mb-3">
@@ -193,7 +262,7 @@ const FilterComponent = () => {
                     }`}
                     onBlur={handleBlur}
                   >
-                    <option value="">% of Disability:</option>
+                    <option value="">Disability Percentage</option>
                     <option value="100%">100%</option>
                     <option value="Minimum 40%">Minimum 40%</option>
                     <option value="Minimum 60%">Minimum 60%</option>
@@ -208,7 +277,7 @@ const FilterComponent = () => {
               </Col>
               <Col xs={12} sm={6} md={4}>
                 <Form.Group controlId="additionalFilter">
-                  <Form.Label>Income Limit:</Form.Label>
+                  <Form.Label>Annual Income:</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Income Limit"
@@ -229,41 +298,7 @@ const FilterComponent = () => {
                   )}
                 </Form.Group>
               </Col>
-              <Col xs={12} sm={6} md={4}>
-                <Form.Group controlId="state">
-                  <Form.Label>State:</Form.Label>
-                  <Form.Select
-                    as="select"
-                    value={state}
-                    onChange={(e) => {
-                      setState(e.target.value);
-                      handleChange(e);
-                    }}
-                    className={`mb-2 form-control ${
-                      touched.state && errors.state ? "is-invalid" : ""
-                    }`}
-                    onBlur={handleBlur}
-                  >
-                    <option value="">Select State</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Andra Pradesh">Andra Pradesh</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="New Delhi">New Delhi</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Pondicherry">Pondicherry</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Mumbai">Mumbai</option>
-                  </Form.Select>
-                  {touched.state && errors.state && (
-                    <p className="text-danger">{errors.state}</p>
-                  )}
-                </Form.Group>
-              </Col>
+             
             </Row>
 
             <Row className="justify-content-end">
