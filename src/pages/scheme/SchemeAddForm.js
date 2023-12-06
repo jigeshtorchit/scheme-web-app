@@ -104,7 +104,7 @@ const SchemeAddForm = () => {
                           <Form>
                           <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
     <Col className="text-center mb-2 mb-sm-1">
-      <h4 className="fw-bold fs-md mt-1">Add Scheme Details</h4>
+      <h4 className="fw-bold mt-1">Add Scheme Details</h4>
     </Col>
     <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
       <Button
@@ -155,7 +155,7 @@ const SchemeAddForm = () => {
                     />
                   </Col>
                 </Row>
-                <Row className=" m-md-3 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5">
+                <Row className=" m-md-5 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5 justify-content-center">
                   <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
