@@ -120,6 +120,7 @@ console.log(getSchemeData);
     {
       Header: "ACTIONS",
       accessor: "action",
+      fixed:"right",
       Cell: (props) => {
         const rowIdx = props.row.original._id;
 
@@ -154,7 +155,7 @@ console.log(getSchemeData);
             </Row>
             <hr className="bg-primary" />
             <Row>
-              <Col xs={12} className="table-responsive m-md-4 m-xl-2">
+              <Col xs={12} className="table-responsive m-md-3 m-xl-2">
                 <BasicTable
                   COLUMNS={COLUMNS}
                   MOCK_DATA={data}
