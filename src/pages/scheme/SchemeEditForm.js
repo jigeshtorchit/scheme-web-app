@@ -125,8 +125,8 @@ const SchemeAddForm = () => {
             <>
               <Form>
               <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
-              <Col className="text-center mb-2 mb-sm-1">
-      <h4 className="fw-bold mt-1">Edit Scheme Details</h4>
+              <Col className="text-center mb-2 mb-sm-1" >
+      <h4 className="fw-bold mt-3 ">Edit Scheme Details</h4>
     </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
@@ -505,7 +505,7 @@ const SchemeAddForm = () => {
 
                     <Col className="m-2">
                     <Form.Group controlId="Age">
-                  <Form.Label>Age:</Form.Label>
+                  <Form.Label>Age</Form.Label>
                   <Form.Select
                     as="select"
                     value={Age}
