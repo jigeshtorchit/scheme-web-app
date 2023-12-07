@@ -485,7 +485,7 @@ const SchemeAddForm = () => {
 
                     <Col className="m-2">
                     <Form.Group controlId="Age">
-                  <Form.Label>Age:</Form.Label>
+                  <Form.Label>Age</Form.Label>
                   <Form.Select
                     as="select"
                     value={Age}
