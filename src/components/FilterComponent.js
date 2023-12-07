@@ -43,17 +43,20 @@ const FilterComponent = () => {
     setTotalPage(1);
   };
 
-  const handleFilterSubmit = async (page) => {
+  const handleFilterSubmit = async () => {
     try {
       const response = await dataFilter(
         {
-          implementedBy: state,
-          incomeLimit: additionalFilter,
-          genderEligibility: gender,
-          percentageOfDisability: disabilities,
-          age: Age,
-        },
-        page
+          data:{
+            implementedBy: state,
+            incomeLimit: additionalFilter,
+            genderEligibility: gender,
+            percentageOfDisability: disabilities,
+            age: Age,
+          },
+          page:currentFilterPage
+        }
+        
       );
       console.log(response?.data.totalPages);
       if (response?.data) {
@@ -62,6 +65,7 @@ const FilterComponent = () => {
         setCurrentFilterPage(response?.data.currentPage);
         setTotalFilterPage(response?.data.totalPages);
         console.log(data);
+        console.log(response?.data.currentPage);
       } else {
         console.log("else part");
         console.log(response?.error.data);
@@ -309,15 +313,17 @@ const FilterComponent = () => {
               marginPagesDisplayed={-1}
               pageRangeDisplayed={-1}
               onPageChange={(selected) => {
-                const selectedPage = selected.selected + 1;
-                const selectedFilterPage = selected.selected + 1;
-
                 if (filterData.length > 0) {
+                  const selectedFilterPage = selected.selected + 1;
+                  console.log('====================================');
+                  console.log(selectedFilterPage);
+                  console.log('====================================');
                   setCurrentFilterPage(selectedFilterPage)
-                  handleFilterSubmit(selectedFilterPage); // Pass the selected page to the function
+                  handleFilterSubmit(); 
                 } else {
+                  const selectedPage = selected.selected + 1;
+
                   setCurrentPage(selectedPage);
-                  // Handle pagination for the non-filtered data if needed
                 }
               }}
               containerClassName={"pagination"}
