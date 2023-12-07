@@ -45,19 +45,21 @@ const FilterComponent = () => {
 
   const handleFilterSubmit = async (page) => {
     try {
-      const response = await dataFilter({
-        implementedBy: state,
-        incomeLimit: additionalFilter,
-        genderEligibility: gender,
-        percentageOfDisability: disabilities,
-        age: Age,
-      },page);
-      console.log(page);
+      const response = await dataFilter(
+        {
+          implementedBy: state,
+          incomeLimit: additionalFilter,
+          genderEligibility: gender,
+          percentageOfDisability: disabilities,
+          age: Age,
+        },
+        page
+      );
       console.log(response?.data.totalPages);
       if (response?.data) {
         console.log(response?.data);
         setFilterData(response?.data.data);
-        setCurrentFilterPage(page);
+        setCurrentFilterPage(response?.data.currentPage);
         setTotalFilterPage(response?.data.totalPages);
         console.log(data);
       } else {
@@ -296,7 +298,7 @@ const FilterComponent = () => {
                 Next
               </Button> */}
           <div className="text-center">
-            <strong>Page</strong> {currentPage} of{" "}
+            <strong>Page</strong> {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
             {filterData.length > 0 ? totalFilterPage : totalPage}
           </div>
           <div className="my-4">
@@ -311,7 +313,7 @@ const FilterComponent = () => {
                 const selectedFilterPage = selected.selected + 1;
 
                 if (filterData.length > 0) {
-                  setCurrentFilterPage(selectedFilterPage);
+                  setCurrentFilterPage(selectedFilterPage)
                   handleFilterSubmit(selectedFilterPage); // Pass the selected page to the function
                 } else {
                   setCurrentPage(selectedPage);
@@ -326,7 +328,7 @@ const FilterComponent = () => {
               disabledClassName={"disabled"}
               breakLinkClassName={"page-link"}
               initialPage={
-                filterData.length > 0 ? currentFilterPage -1 : currentPage - 1
+                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
               }
             />
           </div>

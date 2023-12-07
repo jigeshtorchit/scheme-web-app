@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, ListGroup, Form,} from "react-bootstrap";
+import { Button, Card, ListGroup, Form } from "react-bootstrap";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
@@ -222,11 +222,9 @@ const ChatBot = () => {
         suggestion === "Female" ||
         suggestion === "Other"
       ) {
-        setSuggestions(["0-6", "0-18", "6-18", "18-24","18-55"]);
+        setSuggestions(["0-6", "0-18", "6-18", "18-24", "18-55"]);
       }
-    } else if (
-      ["0-6", "0-18", "6-18", "18-24","18-55"].includes(suggestion)
-    ) {
+    } else if (["0-6", "0-18", "6-18", "18-24", "18-55"].includes(suggestion)) {
       const newMessages = [
         {
           id: Date.now(),
@@ -253,9 +251,8 @@ const ChatBot = () => {
         suggestion === "0-6" ||
         suggestion === "0-18" ||
         suggestion === "6-18" ||
-        suggestion === "18-24"||
+        suggestion === "18-24" ||
         suggestion === "18-55"
-
       ) {
         // Fetch and set the list of Indian states as suggestions
         setSuggestions(indianStates);
@@ -341,23 +338,19 @@ const ChatBot = () => {
 
         console.log(response);
         if (response?.data) {
-
-          const responseData =response?.data;
-          responseData.data.map((data,index) => {
-            
-            const dataMessage = `${index+1}. `+data.schemeName;
+          const responseData = response?.data;
+          responseData.data.forEach((data, index) => {
+            const dataMessage = `${index + 1}. ` + data.schemeName;
             addMessage(dataMessage, "bot");
-            
           });
-      
-          console.log(responseData.data)
+
+          console.log(responseData.data);
         } else {
           console.log("else part");
           const responseData = response?.error.data;
           const dataMessage = responseData;
 
-        
-        addMessage(dataMessage, "bot");
+          addMessage(dataMessage, "bot");
           console.log(response?.error.data);
           console.log(dataMessage);
         }
@@ -372,7 +365,7 @@ const ChatBot = () => {
   //   // Customize this function based on the structure of your data
   //   // For example, you might want to loop through the data and create a formatted message
   //   const formattedMessage =  JSON.stringify(data);
-  
+
   //   return formattedMessage;
   // };
 
@@ -380,10 +373,8 @@ const ChatBot = () => {
     // if (msg.trim() !== "") {
     //   // Add the user's message
     //   addMessage(msg, "You");
-
     //   // Get and add the OpenAI response
     //   getOpenAiResponse(msg);
-
     //   // Clear the input field
     //   setNewMessage("");
     // }
@@ -468,7 +459,7 @@ const ChatBot = () => {
                 {allMessages.map((message) => (
                   <>
                     <ListGroup.Item
-                    className="text-wrap"
+                      className="text-wrap"
                       key={message.id}
                       style={
                         message.sender === "You"
@@ -560,7 +551,7 @@ const ChatBot = () => {
                 {/* {isLoading ? (
                   <Spinner animation="border" size="sm" />
                 ) : ( */}
-                  <FiSend size={20} />
+                <FiSend size={20} />
                 {/* )} */}
               </Button>
             </Card.Footer>
