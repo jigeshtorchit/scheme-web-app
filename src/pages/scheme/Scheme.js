@@ -7,11 +7,11 @@ import BasicTable from "../../components/BasicTable";
 import Header from "../../components/Header";
 import DeleteModel from "../../components/DeleteModel";
 import Loader from "../loader/Loader";
-import {
-  useGetSchemeQuery,
-  useDeleteSchemeMutation,
-} from "../../redux/api/SchemeApi";
+import { useGetSchemeQuery, useDeleteSchemeMutation } from "../../redux/api/SchemeApi";
 import { toast } from "react-toastify";
+
+
+
 
 const Scheme = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Scheme = () => {
   const { data: getSchemeData, isLoading } = useGetSchemeQuery(currentPage);
   const [deleteSchemeMutation] = useDeleteSchemeMutation();
   const handleNavigateAddForm = () => navigate("/admin/add-scheme");
-console.log(getSchemeData);
+
   useEffect(() => {
     if (getSchemeData && getSchemeData.data) {
       setData(getSchemeData.data);
@@ -38,7 +38,6 @@ console.log(getSchemeData);
 
   const deleteHandleShow = (id) => {
     setIdToDelete(id);
-    console.log(id);
     setDeleteShow(true);
   };
 
@@ -59,84 +58,87 @@ console.log(getSchemeData);
   };
 
   const COLUMNS = [
-    {
-      Header: "ID",
-      accessor: (d, i) => i + 1,
-    },
-    {
-      Header: "NI Provider",
-      accessor: "niProvider",
-      width: 'auto', // Set width to auto or adjust as needed
-      minWidth: 100,
     
-    },
-    {
-      Header: "Schemes for PWDS",
-      accessor: "domainDescription",
-      width: 'auto', // Set width to auto
-    minWidth: 100,
-    },
-    {
-      Header: "Shemes",
-      accessor: "schemeName",
-    },
-    {
-      Header: "Eligible",
-      accessor: "genderEligibility",
-    },
-   
-    {
-      Header: "Website Link",
-      accessor: "comments",
-      Cell: props => (
-        <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
-          {props.value}
-        </a>
-      )    },
-    {
-      Header: "State",
-      accessor: "implementedBy",
-    },
-    {
-      Header: "Disablities",
-      accessor: "eligibleDisabilities",
-    },
-    {
-      Header: "Disablitiy Percentage",
-      accessor: "disabilityPercentage",
-    },
-    {
-      Header: "Annual Income",
-      accessor: "annualIncome",
-    },
-    {
-      Header: " Age",
-      accessor: "age",
-    },
-    {
-      Header: "Email Address",
-      accessor: "emailAddress",
-    },
-    {
-      Header: "ACTIONS",
-      accessor: "action",
-      fixed:"right",
-      Cell: (props) => {
-        const rowIdx = props.row.original._id;
-
-        return (
-          <div className="d-flex align-items-center justify-content-center flex-row">
-            <Link to={`/admin/edit-scheme/${rowIdx}`}>
-              <FaEdit size={20} color="#5046e5" />
-            </Link>
-            <span className="m-1" onClick={() => deleteHandleShow(rowIdx)}>
-              <MdDelete size={20} color="#5046e5" />
-            </span>
-          </div>
-        );
+      {
+        Header: "ID",
+        accessor: (d, i) => i + 1,
       },
-    },
-  ];
+      {
+        Header: "NI Provider",
+        accessor: "niProvider",
+        width: 'auto', // Set width to auto or adjust as needed
+        minWidth: 100,
+      
+      },
+      {
+        Header: "Schemes for PWDS",
+        accessor: "domainDescription",
+        width: 'auto', // Set width to auto
+      minWidth: 100,
+      },
+      {
+        Header: "Shemes",
+        accessor: "schemeName",
+      },
+      {
+        Header: "Eligible",
+        accessor: "genderEligibility",
+      },
+     
+      {
+        Header: "Website Link",
+        accessor: "comments",
+        Cell: props => (
+          <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
+            {props.value}
+          </a>
+        )    },
+      {
+        Header: "State",
+        accessor: "implementedBy",
+      },
+      {
+        Header: "Disablities",
+        accessor: "eligibleDisabilities",
+      },
+      {
+        Header: "Disablitiy Percentage",
+        accessor: "disabilityPercentage",
+      },
+      {
+        Header: "Annual Income",
+        accessor: "annualIncome",
+      },
+      {
+        Header: " Age",
+        accessor: "age",
+      },
+      {
+        Header: "Email Address",
+        accessor: "emailAddress",
+      },
+       
+      {
+        Header: "ACTIONS",
+        accessor: "action",
+        fixed: 'right',
+        Cell: (props) => {
+          const rowIdx = props.row.original._id;
+    
+          return (
+            <div className="d-flex align-items-center justify-content-center flex-row">
+              <Link to={`/admin/edit-scheme/${rowIdx}`}>
+                <FaEdit size={20} color="#5046e5" />
+              </Link>
+              <span className="m-1" onClick={() => deleteHandleShow(rowIdx)}>
+                <MdDelete size={20} color="#5046e5" />
+              </span>
+            </div>
+          );
+        },
+      },
+    ]
+
 
   return (
     <>
@@ -144,12 +146,12 @@ console.log(getSchemeData);
         <>
           <Container fluid className="my-4">
             <Row>
-              <Col  className="m-4">
+              <Col className="m-4">
                 <Header
                   ONCLICK={handleNavigateAddForm}
                   HEADING="Schemes"
                   BUTTON_NAME="Add Scheme"
-                  headingClassName="text-center text-md-start m-md-4 m-xl-2"
+                  headingClassName="text-center text-md-start m-md-4 m-xl-2 p-4"
                 />
               </Col>
             </Row>
@@ -182,3 +184,15 @@ console.log(getSchemeData);
 };
 
 export default Scheme;
+
+
+
+
+
+
+
+
+
+
+
+
