@@ -1,5 +1,9 @@
+
+.bg-white{
+  background-color: white;
+}
 .ml-10{
-  margin-left: 160px;
+  margin-left: 110px;
 }
 .pointer{
   cursor: pointer;
