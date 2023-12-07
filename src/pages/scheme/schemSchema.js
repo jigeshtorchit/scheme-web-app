@@ -28,21 +28,14 @@ export const schemSchema = Yup.object().shape({
     .required("Websites Link is required"),
   state: Yup.mixed().required("State is required"),
   percentofDisability: Yup.number()
-    .required("% of Disability is required")
+    .required("Disability Percentage is required")
     .integer("Min Age must be an integer")
-    .min(40, "% of Disability must be greater than or equal to 40%")
-    .max(100, "% of Disability must be less than or equal to 100%"),
+    .min(40, "Disability Percentage must be greater than or equal to 40%")
+    .max(100, "Disability Percentage must be less than or equal to 100%"),
   disabilities: Yup.string()
     .transform((value) => value.trim())
     .required("Disabilities is required"),
   annualIncome: Yup.number().required("Annual Income is required"),
-  minAge: Yup.number()
-    .required("Min Age is required")
-    .integer("Min Age must be an integer")
-    .min(0, "Min Age must be greater than or equal to 0"),
-
-  maxAge: Yup.number()
-    .required("Max Age is required")
-    .integer("Max Age must be an integer")
-    .min(Yup.ref("minAge"), "Max Age must be greater than or equal to Min Age"),
-});
+ 
+  Age:Yup.mixed().required(" Age must be required..!")
+    })

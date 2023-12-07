@@ -19,8 +19,7 @@ const SchemeAddForm = () => {
   const [state, setState] = useState("");
   const [percentofDisability, setPercentofDisability] = useState("");
   const [annualIncome, setAnnualIncome] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  const [Age, setAge] = useState("");
   const [disabilities, setDisabilities] = useState("");
   const [addSchemeData, { isLoading }] = useAddSchemeMutation();
   const handleCancel = () => {
@@ -38,8 +37,7 @@ const SchemeAddForm = () => {
     percentofDisability: "",
     websitesLink: "",
     annualIncome: "",
-    minAge: "",
-    maxAge: "",
+    Age: "",
     disabilities: "",
   };
   const handleAddData = async () => {
@@ -53,10 +51,9 @@ const SchemeAddForm = () => {
         attachments: attachmentLink,
         comments: websitesLink,
         implementedBy: state,
-        percentageOfDisability: percentofDisability,
-        incomeLimit: annualIncome,
-        minAge: minAge,
-        maxAge: maxAge,
+        disabilityPercentage: percentofDisability,
+        annualIncome: annualIncome,
+        age: Age,
         eligibleDisabilities: disabilities,
       });
       console.log(response);
@@ -66,8 +63,7 @@ const SchemeAddForm = () => {
         setDisabilities("");
         setEligible("");
         setEmail("");
-        setMaxAge("");
-        setMinAge("");
+        setAge("");
         setNi("");
         setPercentofDisability("");
         setPwds("");
@@ -105,24 +101,24 @@ const SchemeAddForm = () => {
             isSubmitting,
           }) => (
             <>
-              <Form>
-                <Row className="d-flex flex-row justify-content-between align-items-center mt-2">
-                  <Col className="d-flex justify-content-start align-items-center">
-                    <h4 className="fw-bold" style={{ marginLeft: "-15px" }}>
-                      Add Scheme Details
-                    </h4>
-                  </Col>
-                  <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
-                    <Button
-                      className="m-1"
-                      variant="secondary"
-                      onClick={handleCancel}
+                          <Form>
+                          <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
+    <Col className="text-center mb-2 mb-sm-1">
+      <h4 className="fw-bold mt-1">Add Scheme Details</h4>
+    </Col>
+    <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
+      <Button
+        className="m-2 d-flex justify-content-start align-items-center"
+        variant="secondary"
+        onClick={handleCancel}
+    
                     >
+                      
                       Cancel
                     </Button>
 
                     <BasicButton
-                     
+                     className=" m-2 d-flex justify-content-start align-items-center"
                       variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
@@ -137,8 +133,7 @@ const SchemeAddForm = () => {
                         state === "" ||
                         percentofDisability === "" ||
                         annualIncome === "" ||
-                        minAge === "" ||
-                        maxAge === "" ||
+                        Age === "" ||
                         disabilities === "" ||
                         (touched.ni && errors.ni) ||
                         (touched.pwds && errors.pwds) ||
@@ -146,13 +141,12 @@ const SchemeAddForm = () => {
                         (touched.email && errors.email) ||
                         (touched.eligible && errors.eligible) ||
                         (touched.attachmentLink && errors.attachmentLink) ||
+                        (touched.websitesLink && errors.websitesLink) ||
                         (touched.state && errors.state) ||
                         (touched.percentofDisability &&
                           errors.percentofDisability) ||
-                        (touched.websitesLink && errors.websitesLink) ||
-                        (touched.annualIncome && errors.annualIncome) ||
-                        (touched.minAge && errors.minAge) ||
-                        (touched.maxAge && errors.maxAge)
+                          (touched.Age && errors.Age)||
+                         (touched.annualIncome && errors.annualIncome) 
                           ? handleSubmit
                           : handleAddData
                       }
@@ -161,7 +155,7 @@ const SchemeAddForm = () => {
                     />
                   </Col>
                 </Row>
-                <Row className="d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5">
+                <Row className=" m-md-5 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5 justify-content-center">
                   <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
@@ -171,6 +165,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Name of the respective NI"}
+                        placeholder={"Enter your NI"}
                         htmlFor={"ni"}
                         name={"ni"}
                         id={"ni"}
@@ -195,6 +190,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Scheme for PwDs"}
+                         placeholder={"Enter your pwDs"}
                         htmlFor={"pwds"}
                         name={"pwds"}
                         id={"pwds"}
@@ -219,6 +215,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Schemes"}
+                        placeholder={"Enter your Schemes"}
                         htmlFor={"schemes"}
                         name={"schemes"}
                         id={"schemes"}
@@ -243,6 +240,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Eligible"}
+                        placeholder={"Enter your Eligible"}
                         htmlFor={"eligible"}
                         name={"eligible"}
                         id={"eligible"}
@@ -269,6 +267,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Attachment Link"}
+                        placeholder={"Enter your Link"}
                         htmlFor={"attachmentLink"}
                         name={"attachmentLink"}
                         id={"attachmentLink"}
@@ -297,6 +296,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Websites Link"}
+                        placeholder={"Enter your web Link"}
                         htmlFor={"websitesLink"}
                         name={"websitesLink"}
                         id={"websitesLink"}
@@ -325,6 +325,7 @@ const SchemeAddForm = () => {
                         <Form.Label>State</Form.Label>
                         <Form.Select
                           name="state"
+                          placeholder={"Enter your State"}
                           className={`form-control ${
                             touched.state && errors.state ? "is-invalid" : ""
                           }`}
@@ -399,6 +400,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Disabilities"}
+                        placeholder={"Enter Disabilities"}
                         htmlFor={"disabilities"}
                         name={"disabilities"}
                         id={"disabilities"}
@@ -424,7 +426,8 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <TextInput
-                        label={"% of Disability"}
+                        label={"Disability Percentage"}
+                        placeholder={"Enter percentage"}
                         htmlFor={"percentofDisability"}
                         name={"percentofDisability"}
                         id={"percentofDisability"}
@@ -455,6 +458,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Annual Income"}
+                        placeholder={"Enter Annul Income"}
                         htmlFor={"annualIncome"}
                         name={"annualIncome"}
                         id={"annualIncome"}
@@ -480,57 +484,40 @@ const SchemeAddForm = () => {
                     </Col>
 
                     <Col className="m-2">
-                      <TextInput
-                        label={"Min Age"}
-                        htmlFor={"minAge"}
-                        name={"minAge"}
-                        id={"minAge"}
-                        type={"number"}
-                        onChange={(e) => {
-                          setMinAge(e.target.value);
-                          handleChange(e);
-                        }}
-                        onBlur={handleBlur}
-                        className={`form-control ${
-                          touched.minAge && errors.minAge ? "is-invalid" : ""
-                        }`}
-                        validation={
-                          touched.minAge && errors.minAge ? (
-                            <p className="text-danger">{errors.minAge}</p>
-                          ) : (
-                            ""
-                          )
-                        }
-                      />
-                    </Col>
-
-                    <Col className="m-2">
-                      <TextInput
-                        label={"Max Age"}
-                        htmlFor={"maxAge"}
-                        name={"maxAge"}
-                        id={"maxAge"}
-                        type={"number"}
-                        onChange={(e) => {
-                          setMaxAge(e.target.value);
-                          handleChange(e);
-                        }}
-                        onBlur={handleBlur}
-                        className={`form-control ${
-                          touched.maxAge && errors.maxAge ? "is-invalid" : ""
-                        }`}
-                        validation={
-                          touched.maxAge && errors.maxAge ? (
-                            <p className="text-danger">{errors.maxAge}</p>
-                          ) : (
-                            ""
-                          )
-                        }
-                      />
+                    <Form.Group controlId="Age">
+                  <Form.Label>Age:</Form.Label>
+                  <Form.Select
+                    as="select"
+                    value={Age}
+                    placeholder={"Enter your Age"}
+                    onChange={(e) => {
+                      setAge(e.target.value);
+                      handleChange(e);
+                    }}
+                    className={`form-control ${
+                      touched.Age && errors.Age ? "is-invalid" : ""
+                    }`}
+                    onBlur={handleBlur}
+                  >
+                    <option value="">Select Age</option>
+                    <option value="0">0</option>
+                    <option value="0-6">0-6</option>
+                    <option value="0-18">0-18</option>
+                    <option value="6-18">6-18</option>
+                    <option value="18-24">18-24</option>
+                    <option value="18-55">18-55</option>
+                    
+                 
+                  </Form.Select>
+                  {touched.Age && errors.Age && (
+                    <p className="text-danger">{errors.Age}</p>
+                  )}
+                </Form.Group>
                     </Col>
                     <Col className="m-2">
                       <TextInput
                         label={"Email Address"}
+                        placeholder={"Enter your Email"}
                         htmlFor={"email"}
                         name={"email"}
                         id={"email"}
@@ -554,7 +541,7 @@ const SchemeAddForm = () => {
                     </Col>
                   </Col>
                 </Row>
-                <Row className="d-sm-flex d-flex d-md-flex d-lg-none d-xxl-none d-xl-none flex-row justify-content-between align-items-center">
+                <Row className=" mt-3d-sm-flex d-flex d-md-flex d-lg-none d-xxl-none d-xl-none flex-row justify-content-between align-items-center">
                   <Col className="d-flex justify-content-start align-items-center">
                     <Button
                       className="m-1"
@@ -570,7 +557,7 @@ const SchemeAddForm = () => {
                       type="button"
                       disabled={isSubmitting}
                       onClick={
-                        ni === "" ||
+                        (ni === "" ||
                         pwds === "" ||
                         schemes === "" ||
                         email === "" ||
@@ -580,9 +567,8 @@ const SchemeAddForm = () => {
                         state === "" ||
                         percentofDisability === "" ||
                         annualIncome === "" ||
-                        minAge === "" ||
-                        maxAge === "" ||
-                        disabilities === "" ||
+                        Age === "" ||
+                        disabilities === "" )||
                         (touched.ni && errors.ni) ||
                         (touched.pwds && errors.pwds) ||
                         (touched.schemes && errors.schemes) ||
@@ -594,8 +580,7 @@ const SchemeAddForm = () => {
                           errors.percentofDisability) ||
                         (touched.websitesLink && errors.websitesLink) ||
                         (touched.annualIncome && errors.annualIncome) ||
-                        (touched.minAge && errors.minAge) ||
-                        (touched.maxAge && errors.maxAge)
+                        (touched.Age && errors.Age)
                           ? handleSubmit
                           : handleAddData
                       }

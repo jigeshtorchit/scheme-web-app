@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -66,8 +66,9 @@ console.log(getSchemeData);
     {
       Header: "NI Provider",
       accessor: "niProvider",
-      width: 'auto', // Set width to auto
-    minWidth: 800,
+      width: 'auto', // Set width to auto or adjust as needed
+      minWidth: 100,
+    
     },
     {
       Header: "Schemes for PWDS",
@@ -101,20 +102,16 @@ console.log(getSchemeData);
       accessor: "eligibleDisabilities",
     },
     {
-      Header: "% of Disablitiy",
-      accessor: "percentageOfDisability",
+      Header: "Disablitiy Percentage",
+      accessor: "disabilityPercentage",
     },
     {
       Header: "Annual Income",
-      accessor: "incomeLimit",
+      accessor: "annualIncome",
     },
     {
-      Header: "Min Age",
-      accessor: "minAge",
-    },
-    {
-      Header: "Max Age",
-      accessor: "maxAge",
+      Header: " Age",
+      accessor: "age",
     },
     {
       Header: "Email Address",
@@ -123,6 +120,7 @@ console.log(getSchemeData);
     {
       Header: "ACTIONS",
       accessor: "action",
+      fixed:"right",
       Cell: (props) => {
         const rowIdx = props.row.original._id;
 
@@ -144,34 +142,37 @@ console.log(getSchemeData);
     <>
       {!isLoading ? (
         <>
-          <div>
-            <Container fluid className="">
-              <Row>
+          <Container fluid className="my-4">
+            <Row>
+              <Col  className="m-4">
                 <Header
                   ONCLICK={handleNavigateAddForm}
                   HEADING="Schemes"
                   BUTTON_NAME="Add Scheme"
+                  headingClassName="text-center text-md-start m-md-4 m-xl-2"
                 />
-              </Row>
-              <hr className="bg-primary" />
-              <Row className="">
+              </Col>
+            </Row>
+            <hr className="bg-primary" />
+            <Row>
+              <Col xs={12} className="table-responsive m-md-3 m-xl-2">
                 <BasicTable
                   COLUMNS={COLUMNS}
                   MOCK_DATA={data}
                   currentPage={currentPage}
                   totalPages={totalPages}
                   setCurrentPage={setCurrentPage}
-                />{" "}
-              </Row>
-            </Container>
-            <DeleteModel
-              DELETESTATE={deleteShow}
-              ONCLICK={deleteHandleClose}
-              YES={delTimeSheetData}
-              DESCRIPTION="Scheme"
-              DELETETITLE="Schemes"
-            />
-          </div>
+                />
+              </Col>
+            </Row>
+          </Container>
+          <DeleteModel
+            DELETESTATE={deleteShow}
+            ONCLICK={deleteHandleClose}
+            YES={delTimeSheetData}
+            DESCRIPTION="Scheme"
+            DELETETITLE="Schemes"
+          />
         </>
       ) : (
         <Loader />
