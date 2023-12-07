@@ -16,15 +16,15 @@ const Header = (props) => {
             size="sm"
             onClick={props.ONCLICK}
            >
-            <FaPlus className="m-2" />
+            <FaPlus  size={25}className="m-2" />
           </Button>
           <Button
             variant="primary"
-            className="d-lg-block d-xxl-block d-none d-sm-none rounded fw-bold m-2"
+            className="d-lg-block d-xxl-block d-none d-sm-none rounded fw-bold m-2 p-2"
             size="sm"
             onClick={props.ONCLICK}
           >
-            <FaPlus size={18} className="me-2 fw-bold" />
+            <FaPlus size={23} className="me-2 fw-bold" />
             {props.BUTTON_NAME}
           </Button>
         </Col>
