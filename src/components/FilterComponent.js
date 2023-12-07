@@ -6,6 +6,9 @@ import {
   useDataFilterMutation,
 } from "../redux/api/FilterApi";
 import { InfinitySpin } from "react-loader-spinner";
+import ReactPaginate from "react-paginate";
+import "./FilterComponent.css";
+import { toast } from "react-toastify";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -20,7 +23,7 @@ const FilterComponent = () => {
   const [totalFilterPage, setTotalFilterPage] = useState(1);
   const [currentFilterPage, setCurrentFilterPage] = useState(1);
   const { data: getFilterDataFunc, isLoading } = useGetFilterQuery(currentPage);
-const [dataFilter] = useDataFilterMutation({ page: currentFilterPage });
+  const [dataFilter] = useDataFilterMutation();
   useEffect(() => {
     if (getFilterDataFunc && getFilterDataFunc.data) {
       setData(getFilterDataFunc.data);
@@ -39,7 +42,8 @@ const [dataFilter] = useDataFilterMutation({ page: currentFilterPage });
     setCurrentPage(1);
     setTotalPage(1);
   };
-  const handleFilterSubmit = async () => {
+
+  const handleFilterSubmit = async (page) => {
     try {
       const response = await dataFilter({
         implementedBy: state,
@@ -47,18 +51,19 @@ const [dataFilter] = useDataFilterMutation({ page: currentFilterPage });
         genderEligibility: gender,
         percentageOfDisability: disabilities,
         age: Age,
-      });
-
-      console.log(response);
+      },page);
+      console.log(page);
+      console.log(response?.data.totalPages);
       if (response?.data) {
         console.log(response?.data);
         setFilterData(response?.data.data);
-        setCurrentFilterPage(response?.data.currentPage);
+        setCurrentFilterPage(page);
         setTotalFilterPage(response?.data.totalPages);
         console.log(data);
       } else {
         console.log("else part");
         console.log(response?.error.data);
+        toast.warning(response?.error.data);
       }
     } catch (error) {
       console.error(error);
@@ -242,30 +247,18 @@ const [dataFilter] = useDataFilterMutation({ page: currentFilterPage });
                 </Card.Body>
               </Card>
             ) : (
-              <>
-                {data.length > 0 ? (
-                  <Card className="mt-5">
-                    <Card.Body>
-                      <ListGroup variant="flush">
-                        {data.map((message) => (
-                          <DataCard key={message._id} {...message} />
-                        ))}
-                      </ListGroup>
-                    </Card.Body>
-                  </Card>
-                ) : (
-                  <div className="text-center mt-3">
-                    <Card className="mt-5">
-                      <Card.Body>
-                        <p>No data found</p>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                )}
-              </>
+              <div className="text-center  mt-3">
+                <Card className="mt-5">
+                  <Card.Body>
+                    <p>No data found</p>
+                  </Card.Body>
+                </Card>
+              </div>
             )}
-            <div className="mt-3 d-flex justify-content-center align-items-center">
-              <Button
+          </>
+        )}
+        <div className="d-flex flex-sm-column flex-md-row  flex-column justify-content-between flex-xxl-row  flex-xl-row flex-lg-row  align-items-center my-4 mx-2">
+          {/* <Button
                 disabled={
                   filterData.length > 0
                     ? currentFilterPage === 1
@@ -301,10 +294,43 @@ const [dataFilter] = useDataFilterMutation({ page: currentFilterPage });
                 className="ml-2 bg-ccfeff"
               >
                 Next
-              </Button>
-            </div>
-          </>
-        )}
+              </Button> */}
+          <div className="text-center">
+            <strong>Page</strong> {currentPage} of{" "}
+            {filterData.length > 0 ? totalFilterPage : totalPage}
+          </div>
+          <div className="my-4">
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
+              marginPagesDisplayed={-1}
+              pageRangeDisplayed={-1}
+              onPageChange={(selected) => {
+                const selectedPage = selected.selected + 1;
+                const selectedFilterPage = selected.selected + 1;
+
+                if (filterData.length > 0) {
+                  setCurrentFilterPage(selectedFilterPage);
+                  handleFilterSubmit(selectedFilterPage); // Pass the selected page to the function
+                } else {
+                  setCurrentPage(selectedPage);
+                  // Handle pagination for the non-filtered data if needed
+                }
+              }}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageLinkClassName={"page-link"}
+              previousLinkClassName={"page-link custom-prev-next"}
+              nextLinkClassName={"page-link custom-prev-next"}
+              disabledClassName={"disabled"}
+              breakLinkClassName={"page-link"}
+              initialPage={
+                filterData.length > 0 ? currentFilterPage -1 : currentPage - 1
+              }
+            />
+          </div>
+        </div>
       </Card.Body>
     </>
   );
