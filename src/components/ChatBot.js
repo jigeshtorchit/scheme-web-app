@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, ListGroup, Form, Spinner } from "react-bootstrap";
+import { Button, Card, ListGroup, Form,} from "react-bootstrap";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
-import axios from "axios";
 import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
 import notificationSound from "../assets/images/notification.mp3";
 import { useDataFilterMutation } from "../redux/api/FilterApi";
 
 const ChatBot = () => {
-  const [data, setData] = useState([]);
   const [showChat, setShowChat] = useState(false);
   const [selectedMessages, setSelectedMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [suggestions, setSuggestions] = useState(["View Scheme"]); // Initial suggestions
   const [selectedSuggestions, setSelectedSuggestions] = useState([]);
-  const [getFilterDataFunc] = useDataFilterMutation();
+  const [getFilterDataFunc] = useDataFilterMutation(1);
 
   const [audio] = useState(new Audio(notificationSound)); // Replace with the path to your sound file
 
@@ -26,8 +24,8 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     },
   ]);
-  const [openAiApiKey] = useState(); // Set your OpenAI API key here
-  const [isLoading, setIsLoading] = useState(false);
+  // const [openAiApiKey] = useState(); // Set your OpenAI API key here
+  // const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => {
     setShowChat(!showChat);
@@ -50,53 +48,53 @@ const ChatBot = () => {
     setAllMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
-  const getOpenAiResponse = async (userMessage) => {
-    setIsLoading(true);
-    if (!openAiApiKey) {
-      console.error("OpenAI API key is missing.");
-      setIsLoading(false);
-      return;
-    }
-console.log(allMessages);
-    const OPENAI_MODEL = "gpt-3.5-turbo";
+  // const getOpenAiResponse = async (userMessage) => {
+  //   setIsLoading(true);
+  //   if (!openAiApiKey) {
+  //     console.error("OpenAI API key is missing.");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+  //   console.log(allMessages);
+  //   const OPENAI_MODEL = "gpt-3.5-turbo";
 
-    try {
-      // Include the system message as "You" in the messagesForOpenAI array
-      const messagesForOpenAI = [
-        { role: "system", content: "You is your helpful assistant." },
-        ...selectedMessages.map((message) => ({
-          role: message.sender === "You" ? "user" : "assistant",
-          content: message.text,
-        })),
-        { role: "user", content: userMessage },
-      ];
+  //   try {
+  //     // Include the system message as "You" in the messagesForOpenAI array
+  //     const messagesForOpenAI = [
+  //       { role: "system", content: "You is your helpful assistant." },
+  //       ...selectedMessages.map((message) => ({
+  //         role: message.sender === "You" ? "user" : "assistant",
+  //         content: message.text,
+  //       })),
+  //       { role: "user", content: userMessage },
+  //     ];
 
-      const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          max_tokens: 50,
-          model: OPENAI_MODEL,
-          messages: messagesForOpenAI,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${openAiApiKey}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  //     const response = await axios.post(
+  //       "https://api.openai.com/v1/chat/completions",
+  //       {
+  //         max_tokens: 50,
+  //         model: OPENAI_MODEL,
+  //         messages: messagesForOpenAI,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${openAiApiKey}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-      const openAiResponse = response.data.choices[0]?.message?.content.trim();
-      if (openAiResponse) {
-        // Keep "bot" as the sender in your local state
-        addMessage(openAiResponse, "bot");
-      }
-    } catch (error) {
-      console.error("Error fetching OpenAI response:", error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const openAiResponse = response.data.choices[0]?.message?.content.trim();
+  //     if (openAiResponse) {
+  //       // Keep "bot" as the sender in your local state
+  //       addMessage(openAiResponse, "bot");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching OpenAI response:", error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     // Cleanup audio when component unmounts
@@ -224,10 +222,10 @@ console.log(allMessages);
         suggestion === "Female" ||
         suggestion === "Other"
       ) {
-        setSuggestions(["1 to 12", "12 to 18", "18 to 40", "40 above"]);
+        setSuggestions(["0-6", "0-18", "6-18", "18-24","18-55"]);
       }
     } else if (
-      ["1 to 12", "12 to 18", "18 to 40", "40 above"].includes(suggestion)
+      ["0-6", "0-18", "6-18", "18-24","18-55"].includes(suggestion)
     ) {
       const newMessages = [
         {
@@ -252,10 +250,12 @@ console.log(allMessages);
 
       // Update suggestions based on the user's age group selection
       if (
-        suggestion === "1 to 12" ||
-        suggestion === "12 to 18" ||
-        suggestion === "18 to 40" ||
-        suggestion === "40 above"
+        suggestion === "0-6" ||
+        suggestion === "0-18" ||
+        suggestion === "6-18" ||
+        suggestion === "18-24"||
+        suggestion === "18-55"
+
       ) {
         // Fetch and set the list of Indian states as suggestions
         setSuggestions(indianStates);
@@ -329,47 +329,64 @@ console.log(allMessages);
         },
         {}
       );
-
-      console.log(mergedSuggestions, "mergedSuggestions");
-      console.log(mergedSuggestions);
+      console.log(selectedMessages);
       try {
         // Modify this line to use your own API endpoint and data structure
         const response = await getFilterDataFunc({
           implementedBy: mergedSuggestions.Income,
-          genderEligibility: mergedSuggestions.age,
-          percentageOfDisability: mergedSuggestions.genderEligibility,
-          age: mergedSuggestions.State,
+          // genderEligibility: mergedSuggestions.age,
+          // percentageOfDisability: mergedSuggestions.genderEligibility,
+          // age: mergedSuggestions.State,
         });
-  
+
         console.log(response);
         if (response?.data) {
-          console.log(response?.data);
-          setData(response?.data.data);
-  
-          console.log(data);
+
+          const responseData =response?.data;
+          responseData.data.map((data,index) => {
+            
+            const dataMessage = `${index+1}. `+data.schemeName;
+            addMessage(dataMessage, "bot");
+            
+          });
+      
+          console.log(responseData.data)
         } else {
           console.log("else part");
+          const responseData = response?.error.data;
+          const dataMessage = responseData;
+
+        
+        addMessage(dataMessage, "bot");
           console.log(response?.error.data);
+          console.log(dataMessage);
         }
       } catch (error) {
         console.error(error);
       }
-  
+
       handleSendMessage(suggestion);
     }
   };
+  // const formatDataMessage = (data) => {
+  //   // Customize this function based on the structure of your data
+  //   // For example, you might want to loop through the data and create a formatted message
+  //   const formattedMessage =  JSON.stringify(data);
+  
+  //   return formattedMessage;
+  // };
 
   const handleSendMessage = (msg) => {
-    if (msg.trim() !== "") {
-      // Add the user's message
-      addMessage(msg, "You");
+    // if (msg.trim() !== "") {
+    //   // Add the user's message
+    //   addMessage(msg, "You");
 
-      // Get and add the OpenAI response
-      getOpenAiResponse(msg);
+    //   // Get and add the OpenAI response
+    //   getOpenAiResponse(msg);
 
-      // Clear the input field
-      setNewMessage("");
-    }
+    //   // Clear the input field
+    //   setNewMessage("");
+    // }
   };
 
   useEffect(() => {
@@ -382,24 +399,14 @@ console.log(allMessages);
   return (
     <div>
       <FilterComponent />
-      <div>
-        {data.length > 0 ? (
-          <div>
-            {data.map((scheme) => (
-              <p key={scheme._id}>{scheme.schemeName}</p>
-            ))}
-          </div>
-        ) : (
-          <p>Data Not Found</p>
-        )}
-      </div>
+
       <div
         className={`chat-bot-container ${showChat ? "open" : ""}`}
         style={{
           position: "fixed",
           bottom: "10px",
           right: "10px",
-          top: "55%", // Adjust the top position as needed
+          top: "55%",
         }}
       >
         {showChat && (
@@ -461,6 +468,7 @@ console.log(allMessages);
                 {allMessages.map((message) => (
                   <>
                     <ListGroup.Item
+                    className="text-wrap"
                       key={message.id}
                       style={
                         message.sender === "You"
@@ -519,7 +527,6 @@ console.log(allMessages);
                   </Button>
                 ))}
               </div>
-             
             </Card.Body>
 
             <Card.Footer
@@ -548,13 +555,13 @@ console.log(allMessages);
                 variant="success"
                 onClick={handleSendMessage}
                 style={{ borderRadius: "0 10px 10px 0", marginLeft: "-1px" }}
-                disabled={isLoading}
+                // disabled={isLoading}
               >
-                {isLoading ? (
+                {/* {isLoading ? (
                   <Spinner animation="border" size="sm" />
-                ) : (
+                ) : ( */}
                   <FiSend size={20} />
-                )}
+                {/* )} */}
               </Button>
             </Card.Footer>
           </Card>
