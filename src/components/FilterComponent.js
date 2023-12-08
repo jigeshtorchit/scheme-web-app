@@ -22,13 +22,13 @@ const FilterComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalFilterPage, setTotalFilterPage] = useState(1);
   const [currentFilterPage, setCurrentFilterPage] = useState(1);
-  const { data: getFilterDataFunc, isLoading } = useGetFilterQuery(currentPage);
-  const [dataFilter] = useDataFilterMutation();
+  const { data: getFilterDataFunc, isLoading: isLoadingGetFilter } = useGetFilterQuery(currentPage);
+  const [dataFilter,{isLoading: isLoadingDataFilter}] = useDataFilterMutation();
   useEffect(() => {
     if (getFilterDataFunc && getFilterDataFunc.data) {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
-      setCurrentPage(getFilterDataFunc.currentPage);
+      setCurrentPage(currentPage);
     }
   }, [getFilterDataFunc, currentPage]);
 
@@ -45,21 +45,27 @@ const FilterComponent = () => {
 
   const handleFilterSubmit = async (page) => {
     try {
-      const response = await dataFilter({
-        implementedBy: state,
-        incomeLimit: additionalFilter,
-        genderEligibility: gender,
-        percentageOfDisability: disabilities,
-        age: Age,
-      },page);
-      console.log(page);
-      console.log(response?.data.totalPages);
+      const response = await dataFilter(
+        {
+          data:{
+            implementedBy: state,
+            incomeLimit: additionalFilter,
+            genderEligibility: gender,
+            percentageOfDisability: disabilities,
+            age: Age,
+          },
+          page:page
+        }
+        
+      );
+      console.log(currentFilterPage);
       if (response?.data) {
         console.log(response?.data);
         setFilterData(response?.data.data);
-        setCurrentFilterPage(page);
         setTotalFilterPage(response?.data.totalPages);
+        setCurrentFilterPage(response?.data.currentPage)
         console.log(data);
+        console.log(response?.data.currentPage);
       } else {
         console.log("else part");
         console.log(response?.error.data);
@@ -79,8 +85,9 @@ const FilterComponent = () => {
           <Row className="mb-3">
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="Age">
-                <Form.Label>Age:</Form.Label>
+                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Age:</Form.Label>
                 <Form.Select
+                value={Age}
                   as="select"
                   onChange={(e) => {
                     setAge(e.target.value);
@@ -98,8 +105,9 @@ const FilterComponent = () => {
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="gender">
-                <Form.Label>Gender:</Form.Label>
+                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Gender:</Form.Label>
                 <Form.Select
+                value={gender}
                   as="select"
                   onChange={(e) => {
                     setGender(e.target.value);
@@ -114,7 +122,7 @@ const FilterComponent = () => {
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="state">
-                <Form.Label>State:</Form.Label>
+                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>State:</Form.Label>
                 <Form.Select
                   as="select"
                   value={state}
@@ -174,8 +182,9 @@ const FilterComponent = () => {
           <Row className="mb-3">
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="disabilities">
-                <Form.Label>Disabilities:</Form.Label>
+                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Disabilities:</Form.Label>
                 <Form.Select
+                value={disabilities}
                   as="select"
                   onChange={(e) => {
                     setDisabilities(e.target.value);
@@ -194,7 +203,7 @@ const FilterComponent = () => {
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="additionalFilter">
-                <Form.Label>Annual Income:</Form.Label>
+                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Annual Income:</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Income Limit"
@@ -230,9 +239,9 @@ const FilterComponent = () => {
           </Row>
         </Form>
 
-        {isLoading ? (
+        {(!filterData.length>0 ?isLoadingGetFilter : isLoadingDataFilter) ? (
           <div className="text-center mt-3">
-            <InfinitySpin width="200" color="#00d4ff" />
+            <InfinitySpin width="200" color="#007BFF"/>
           </div>
         ) : (
           <>
@@ -296,7 +305,7 @@ const FilterComponent = () => {
                 Next
               </Button> */}
           <div className="text-center">
-            <strong>Page</strong> {currentPage} of{" "}
+            <strong>Page</strong> {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
             {filterData.length > 0 ? totalFilterPage : totalPage}
           </div>
           <div className="my-4">
@@ -307,15 +316,16 @@ const FilterComponent = () => {
               marginPagesDisplayed={-1}
               pageRangeDisplayed={-1}
               onPageChange={(selected) => {
-                const selectedPage = selected.selected + 1;
-                const selectedFilterPage = selected.selected + 1;
-
                 if (filterData.length > 0) {
-                  setCurrentFilterPage(selectedFilterPage);
-                  handleFilterSubmit(selectedFilterPage); // Pass the selected page to the function
+                  const selectedFilterPage = selected.selected + 1;
+                  console.log('====================================');
+                  console.log(selectedFilterPage);
+                  console.log('====================================');
+                  handleFilterSubmit(selectedFilterPage); 
                 } else {
+                  const selectedPage = selected.selected + 1;
+
                   setCurrentPage(selectedPage);
-                  // Handle pagination for the non-filtered data if needed
                 }
               }}
               containerClassName={"pagination"}
@@ -326,7 +336,7 @@ const FilterComponent = () => {
               disabledClassName={"disabled"}
               breakLinkClassName={"page-link"}
               initialPage={
-                filterData.length > 0 ? currentFilterPage -1 : currentPage - 1
+                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
               }
             />
           </div>

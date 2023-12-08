@@ -8,7 +8,8 @@ import { Container } from "react-bootstrap";
     <Container className="vh-100 d-flex flex-column flex-wrap-wrap justify-content-center align-items-center">
   <InfinitySpin 
   width='200'
-  color="#5046e5"
+  color="#007BFF"
+  
 />
   </Container>
 );

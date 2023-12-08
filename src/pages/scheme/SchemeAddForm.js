@@ -101,24 +101,22 @@ const SchemeAddForm = () => {
             isSubmitting,
           }) => (
             <>
-                          <Form>
-                          <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
-    <Col className="text-center mb-2 mb-sm-1">
-      <h4 className="fw-bold mt-1">Add Scheme Details</h4>
-    </Col>
-    <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
-      <Button
-        className="m-2 d-flex justify-content-start align-items-center"
-        variant="secondary"
-        onClick={handleCancel}
-    
+              <Form>
+                <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4">
+                  <Col className="d-flex flex-row justify-content-start align-items-center m-0 p-0">
+                    <h4 className="fw-bold">Add Scheme Details</h4>
+                  </Col>
+                  <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
+                    <Button
+                      className="m-2 d-flex justify-content-start align-items-center"
+                      variant="secondary"
+                      onClick={handleCancel}
                     >
-                      
                       Cancel
                     </Button>
 
                     <BasicButton
-                     className=" m-2 d-flex justify-content-start align-items-center"
+                      className=" m-2 d-flex justify-content-start align-items-center"
                       variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
@@ -145,8 +143,8 @@ const SchemeAddForm = () => {
                         (touched.state && errors.state) ||
                         (touched.percentofDisability &&
                           errors.percentofDisability) ||
-                          (touched.Age && errors.Age)||
-                         (touched.annualIncome && errors.annualIncome) 
+                        (touched.Age && errors.Age) ||
+                        (touched.annualIncome && errors.annualIncome)
                           ? handleSubmit
                           : handleAddData
                       }
@@ -190,7 +188,7 @@ const SchemeAddForm = () => {
                     <Col className="m-2">
                       <TextInput
                         label={"Scheme for PwDs"}
-                         placeholder={"Enter your pwDs"}
+                        placeholder={"Enter your pwDs"}
                         htmlFor={"pwds"}
                         name={"pwds"}
                         id={"pwds"}
@@ -322,7 +320,7 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <Form.Group className="">
-                        <Form.Label>State</Form.Label>
+                        <Form.Label>State<span className="text-danger">*</span></Form.Label>
                         <Form.Select
                           name="state"
                           placeholder={"Enter your State"}
@@ -484,35 +482,33 @@ const SchemeAddForm = () => {
                     </Col>
 
                     <Col className="m-2">
-                    <Form.Group controlId="Age">
-                  <Form.Label>Age:</Form.Label>
-                  <Form.Select
-                    as="select"
-                    value={Age}
-                    placeholder={"Enter your Age"}
-                    onChange={(e) => {
-                      setAge(e.target.value);
-                      handleChange(e);
-                    }}
-                    className={`form-control ${
-                      touched.Age && errors.Age ? "is-invalid" : ""
-                    }`}
-                    onBlur={handleBlur}
-                  >
-                    <option value="">Select Age</option>
-                    <option value="0">0</option>
-                    <option value="0-6">0-6</option>
-                    <option value="0-18">0-18</option>
-                    <option value="6-18">6-18</option>
-                    <option value="18-24">18-24</option>
-                    <option value="18-55">18-55</option>
-                    
-                 
-                  </Form.Select>
-                  {touched.Age && errors.Age && (
-                    <p className="text-danger">{errors.Age}</p>
-                  )}
-                </Form.Group>
+                      <Form.Group controlId="Age">
+                        <Form.Label>Age<span className="text-danger">*</span></Form.Label>
+                        <Form.Select
+                          as="select"
+                          value={Age}
+                          placeholder={"Enter your Age"}
+                          onChange={(e) => {
+                            setAge(e.target.value);
+                            handleChange(e);
+                          }}
+                          className={`form-control ${
+                            touched.Age && errors.Age ? "is-invalid" : ""
+                          }`}
+                          onBlur={handleBlur}
+                        >
+                          <option value="">Select Age</option>
+                          <option value="0">0</option>
+                          <option value="0-6">0-6</option>
+                          <option value="0-18">0-18</option>
+                          <option value="6-18">6-18</option>
+                          <option value="18-24">18-24</option>
+                          <option value="18-55">18-55</option>
+                        </Form.Select>
+                        {touched.Age && errors.Age && (
+                          <p className="text-danger">{errors.Age}</p>
+                        )}
+                      </Form.Group>
                     </Col>
                     <Col className="m-2">
                       <TextInput
@@ -557,7 +553,7 @@ const SchemeAddForm = () => {
                       type="button"
                       disabled={isSubmitting}
                       onClick={
-                        (ni === "" ||
+                        ni === "" ||
                         pwds === "" ||
                         schemes === "" ||
                         email === "" ||
@@ -568,7 +564,7 @@ const SchemeAddForm = () => {
                         percentofDisability === "" ||
                         annualIncome === "" ||
                         Age === "" ||
-                        disabilities === "" )||
+                        disabilities === "" ||
                         (touched.ni && errors.ni) ||
                         (touched.pwds && errors.pwds) ||
                         (touched.schemes && errors.schemes) ||
