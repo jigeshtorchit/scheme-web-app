@@ -125,7 +125,7 @@ const SchemeAddForm = () => {
             <>
               <Form>
                 <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4">
-                  <Col className="d-flex flex-row justify-content-start align-items-center m-0 p-0">
+                <Col className="d-flex flex-row justify-content-xxl-start justify-content-xl-start justify-content-lg-start justify-content-md-center justify-content-sm-center justify-content-center align-items-center m-0 p-0">
                     <h4 className="fw-bold">Edit Scheme Details</h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
@@ -175,7 +175,7 @@ const SchemeAddForm = () => {
                     />
                   </Col>
                 </Row>
-                <Row className=" m-md-5 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-5">
+                <Row className=" m-md-5 d-flex flex-wrap flex-lg-row flex-xxl-row flex-xl-row flex-column flex-md-column flex-sm-column shadow rounded bg-white mt-2 justify-content-center ml-xxl-n2 ml-xl-n2 ml-lg-n2">
                   <Col className="p-4 d-flex w-100 h-100  flex-wrap flex-column ">
                     <Col>
                       <h6 className="fw-bold">
