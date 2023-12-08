@@ -5,16 +5,16 @@ import { FaPlus } from "react-icons/fa6";
 const Header = (props) => {
   return (
     <div>
-    <Row className="d-flex flex-row justify-content-between align-items-center  mb-2">
-      <Col className="d-flex flex-column flex-wrap-wrap align-content-center">
-        <h4 className="fw-bold">{props.HEADING}</h4>
-      </Col>
-      <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center">
-      <Button
+      <Row className="d-flex flex-row justify-content-between align-items-center  mb-2">
+        <Col className="d-flex flex-column flex-wrap-wrap align-content-center">
+          <h4 className="fw-bold">{props.HEADING}</h4>
+        </Col>
+        <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center">
+          <Button
             variant="primary"
             className="d-lg-none d-xxl-none d-flex d-sm-flex d-md-flex rounded fw-bold "
             onClick={props.ONCLICK}
-           >
+          >
             <FaPlus size={18} className=" fw-bold" />
           </Button>
           <Button

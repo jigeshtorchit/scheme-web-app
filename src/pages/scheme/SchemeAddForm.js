@@ -56,7 +56,6 @@ const SchemeAddForm = () => {
         age: Age,
         eligibleDisabilities: disabilities,
       });
-      console.log(response);
       if (response.error.originalStatus === 200) {
         setAnnualIncome("");
         setAttachmentLink("");
@@ -71,11 +70,8 @@ const SchemeAddForm = () => {
         setWebsitesLink("");
         toast.success(response.error.data, { autoClose: 2000 });
         setTimeout(() => navigate("/admin/scheme"), 3000);
-        console.log(response.error.data);
       } else {
         toast.error(response.error.data, { autoClose: 2000 });
-        console.log("else part");
-        console.log(response.error.data);
       }
     } catch (error) {
       console.error(error);
@@ -320,7 +316,9 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <Form.Group className="">
-                        <Form.Label>State<span className="text-danger">*</span></Form.Label>
+                        <Form.Label>
+                          State<span className="text-danger">*</span>
+                        </Form.Label>
                         <Form.Select
                           name="state"
                           placeholder={"Enter your State"}
@@ -483,7 +481,9 @@ const SchemeAddForm = () => {
 
                     <Col className="m-2">
                       <Form.Group controlId="Age">
-                        <Form.Label>Age<span className="text-danger">*</span></Form.Label>
+                        <Form.Label>
+                          Age<span className="text-danger">*</span>
+                        </Form.Label>
                         <Form.Select
                           as="select"
                           value={Age}

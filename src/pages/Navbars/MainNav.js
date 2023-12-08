@@ -66,14 +66,18 @@ const MainNav = () => {
             ></img>
           </Col>
         </Row>
-        
+
         <Row className="d-flex mt-1">
           <Col className="d-lg-none d-sm-flex">
             <Dropdown>
               <Dropdown.Toggle
                 className="mobile-view-dropdown"
                 id="dropdown-basic"
-                style={{ backgroundColor: "transparent", border: "none",color:"white" }}
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "white",
+                }}
               >
                 <BsThreeDotsVertical
                   size={25}
@@ -92,9 +96,13 @@ const MainNav = () => {
             <div>
               <Dropdown>
                 <Dropdown.Toggle
-                color="white"
+                  color="white"
                   id="dropdown-basic"
-                  style={{ backgroundColor: "transparent", border: "none",color:"white" }}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "white",
+                  }}
                 >
                   <img
                     src="https://p7.hiclipart.com/preview/636/702/321/computer-icons-user-profile-avatar-black-man.jpg"
@@ -113,15 +121,13 @@ const MainNav = () => {
         </Row>
       </Container>
 
-      {/* canvas */}
-
       <Row className="d-sm-flex d-lg-none d-xl-none d-xxl-none">
         <Offcanvas scroll={true} show={show} onHide={handleClose}>
           <Offcanvas.Header className="bg-mainColor" closeButton>
             <Offcanvas.Title
               className="custom-title"
               style={{
-                fontSize: "16px", // Adjust font sizes as needed
+                fontSize: "16px",
               }}
             >
               <img

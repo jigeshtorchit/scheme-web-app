@@ -4,11 +4,17 @@ import DataCard from "./DataCard";
 import {
   useGetFilterQuery,
   useDataFilterMutation,
+  useGetAgeQuery,
+  useGetGenderQuery,
+  useGetStatesQuery,
+  useGetDisablitiesQuery,
+  useGetIncomeQuery
 } from "../redux/api/FilterApi";
 import { InfinitySpin } from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
 import "./FilterComponent.css";
 import { toast } from "react-toastify";
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -22,15 +28,33 @@ const FilterComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalFilterPage, setTotalFilterPage] = useState(1);
   const [currentFilterPage, setCurrentFilterPage] = useState(1);
-  const { data: getFilterDataFunc, isLoading: isLoadingGetFilter } = useGetFilterQuery(currentPage);
-  const [dataFilter,{isLoading: isLoadingDataFilter}] = useDataFilterMutation();
+  const [ageData, setAgeData] = useState([]);
+  const [genderData, setGenderData] = useState([]);
+  const [statesData, setStatesData] = useState([]);
+  const [disabilityData, setDisabilityData] = useState([]);
+  const [incomeData, setIncomeData] = useState([]);
+  const { data: getFilterDataFunc, isLoading: isLoadingGetFilter } =
+    useGetFilterQuery(currentPage);
+  const [dataFilter, { isLoading: isLoadingDataFilter }] =
+    useDataFilterMutation();
+  const { data: getAge } = useGetAgeQuery();
+  const { data: getGender } = useGetGenderQuery();
+  const { data: getStates } = useGetStatesQuery();
+  const { data: getdisability } = useGetDisablitiesQuery();
+  const { data: getIncome } = useGetIncomeQuery();
+
   useEffect(() => {
+    setAgeData(getAge);
+    setGenderData(getGender)
+    setStatesData(getStates)
+    setDisabilityData(getdisability)
+    setIncomeData(getIncome)
     if (getFilterDataFunc && getFilterDataFunc.data) {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
     }
-  }, [getFilterDataFunc, currentPage]);
+  }, [getFilterDataFunc, currentPage, getAge,getGender,getStates,getdisability,getIncome]);
 
   const onClearFilter = () => {
     setAge("");
@@ -45,30 +69,21 @@ const FilterComponent = () => {
 
   const handleFilterSubmit = async (page) => {
     try {
-      const response = await dataFilter(
-        {
-          data:{
-            implementedBy: state,
-            incomeLimit: additionalFilter,
-            genderEligibility: gender,
-            percentageOfDisability: disabilities,
-            age: Age,
-          },
-          page:page
-        }
-        
-      );
-      console.log(currentFilterPage);
+      const response = await dataFilter({
+        data: {
+          implementedBy: state,
+          incomeLimit: additionalFilter,
+          genderEligibility: gender,
+          percentageOfDisability: disabilities,
+          age: Age,
+        },
+        page: page,
+      });
       if (response?.data) {
-        console.log(response?.data);
         setFilterData(response?.data.data);
         setTotalFilterPage(response?.data.totalPages);
-        setCurrentFilterPage(response?.data.currentPage)
-        console.log(data);
-        console.log(response?.data.currentPage);
+        setCurrentFilterPage(response?.data.currentPage);
       } else {
-        console.log("else part");
-        console.log(response?.error.data);
         toast.warning(response?.error.data);
       }
     } catch (error) {
@@ -85,44 +100,68 @@ const FilterComponent = () => {
           <Row className="mb-3">
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="Age">
-                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Age:</Form.Label>
+                <Form.Label
+                  className="text-dark"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  Age:
+                </Form.Label>
                 <Form.Select
-                value={Age}
+                  value={Age}
                   as="select"
                   onChange={(e) => {
                     setAge(e.target.value);
                   }}
                 >
-                  <option value="">Select Age</option>
-                  <option value="0">0</option>
-                  <option value="0-6">0-6</option>
-                  <option value="0-18">0-18</option>
-                  <option value="6-18">6-18</option>
-                  <option value="18-24">18-24</option>
-                  <option value="18-55">18-55</option>
+                  <option value="" disabled selected>Select Age</option>{" "}
+                  {ageData && ageData.length > 0 ? (
+                    ageData.map((data, index) => (
+                      <option key={index} value={data.option}>
+                        {data.option}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No age options available</option>
+                  )}
                 </Form.Select>
               </Form.Group>
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="gender">
-                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Gender:</Form.Label>
+                <Form.Label
+                  className="text-dark"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  Gender:
+                </Form.Label>
                 <Form.Select
-                value={gender}
+                  value={gender}
                   as="select"
                   onChange={(e) => {
                     setGender(e.target.value);
                   }}
                 >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Both Male and Female</option>
+                  <option value="" disabled selected>Select Gender</option>
+                  {genderData && genderData.length > 0 ? (
+                    genderData.map((data, index) => (
+                      <option key={index} value={data.option}>
+                        {data.option}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No Gender options available</option>
+                  )}
                 </Form.Select>
               </Form.Group>
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="state">
-                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>State:</Form.Label>
+                <Form.Label
+                  className="text-dark"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  State:
+                </Form.Label>
                 <Form.Select
                   as="select"
                   value={state}
@@ -132,48 +171,17 @@ const FilterComponent = () => {
                   className={`mb-2 `}
                 >
                   <option value="" selected disabled>
-                    select state
+                    Select State
                   </option>
-                  <option value="Andhra Pradesh">Andhra Pradesh</option>
-                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                  <option value="Assam">Assam</option>
-                  <option value="Bihar">Bihar</option>
-                  <option value="Chhattisgarh">Chhattisgarh</option>
-                  <option value="Goa">Goa</option>
-                  <option value="Gujarat">Gujarat</option>
-                  <option value="Haryana">Haryana</option>
-                  <option value="Himachal Pradesh">Himachal Pradesh</option>
-                  <option value="Jharkhand">Jharkhand</option>
-                  <option value="Karnataka">Karnataka</option>
-                  <option value="Kerala">Kerala</option>
-                  <option value="Madhya Pradesh">Madhya Pradesh</option>
-                  <option value="Maharashtra">Maharashtra</option>
-                  <option value="Manipur">Manipur</option>
-                  <option value="Meghalaya">Meghalaya</option>
-                  <option value="Mizoram">Mizoram</option>
-                  <option value="Nagaland">Nagaland</option>
-                  <option value="Odisha">Odisha</option>
-                  <option value="Punjab">Punjab</option>
-                  <option value="Rajasthan">Rajasthan</option>
-                  <option value="Sikkim">Sikkim</option>
-                  <option value="Tamil Nadu">Tamil Nadu</option>
-                  <option value="Telangana">Telangana</option>
-                  <option value="Tripura">Tripura</option>
-                  <option value="Uttar Pradesh">Uttar Pradesh</option>
-                  <option value="Uttarakhand">Uttarakhand</option>
-                  <option value="West Bengal">West Bengal</option>
-                  <option value="Andaman and Nicobar Islands">
-                    Andaman and Nicobar Islands
-                  </option>
-                  <option value="Chandigarh">Chandigarh</option>
-                  <option value="Dadra and Nagar Haveli and Daman and Diu">
-                    Dadra and Nagar Haveli and Daman and Diu
-                  </option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                  <option value="Ladakh">Ladakh</option>
-                  <option value="Lakshadweep">Lakshadweep</option>
-                  <option value="Puducherry">Puducherry</option>
+                  {statesData && statesData.length > 0 ? (
+                    statesData.map((data, index) => (
+                      <option key={index} value={data.option}>
+                        {data.option}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No State options available</option>
+                  )}
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -182,39 +190,63 @@ const FilterComponent = () => {
           <Row className="mb-3">
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="disabilities">
-                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Disabilities:</Form.Label>
+                <Form.Label
+                  className="text-dark"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  Disabilities:
+                </Form.Label>
                 <Form.Select
-                value={disabilities}
+                  value={disabilities}
                   as="select"
                   onChange={(e) => {
                     setDisabilities(e.target.value);
                   }}
                   className={` mb-2 form-control`}
                 >
-                  <option value="">Disability Percentage</option>
-                  <option value="100%">100%</option>
-                  <option value="Minimum 40%">Minimum 40%</option>
-                  <option value="Minimum 60%">Minimum 60%</option>
-                  <option value="Minimum 70%">Minimum 70%</option>
-                  <option value="Minimum 80%">Minimum 80%</option>
-                  <option value="Minimum 90%">Minimum 90%</option>
+                  <option value="" selected disabled>Select Disability </option>
+                  {disabilityData && disabilityData.length > 0 ? (
+                    disabilityData.map((data, index) => (
+                      <option key={index} value={data.option}>
+                        {data.option}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No Disabilities options available</option>
+                  )}
                 </Form.Select>
               </Form.Group>
             </Col>
             <Col xs={12} sm={6} md={4}>
               <Form.Group controlId="additionalFilter">
-                <Form.Label className="text-dark" style={{fontWeight:"bolder"}}>Annual Income:</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Income Limit"
+                <Form.Label
+                  className="text-dark"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  Income:
+                </Form.Label>
+                <Form.Select
                   value={additionalFilter}
+                  as="select"
                   onChange={(e) => {
                     setAdditionalFilter(e.target.value);
                   }}
-                  className={`mb-2`}
-                />
+                  className={` mb-2 form-control`}
+                >
+                  <option value="" selected disabled>Select Income </option>
+                  {incomeData && incomeData.length > 0 ? (
+                    incomeData.map((data, index) => (
+                      <option key={index} value={data.option}>
+                        {data.option}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No Income options available</option>
+                  )}
+                </Form.Select>
               </Form.Group>
             </Col>
+            
           </Row>
 
           <Row className="justify-content-end">
@@ -239,9 +271,9 @@ const FilterComponent = () => {
           </Row>
         </Form>
 
-        {(!filterData.length>0 ?isLoadingGetFilter : isLoadingDataFilter) ? (
+        {(!filterData.length > 0 ? isLoadingGetFilter : isLoadingDataFilter) ? (
           <div className="text-center mt-3">
-            <InfinitySpin width="200" color="#007BFF"/>
+            <InfinitySpin width="200" color="#007BFF" />
           </div>
         ) : (
           <>
@@ -266,49 +298,15 @@ const FilterComponent = () => {
             )}
           </>
         )}
-        <div className="d-flex flex-sm-column flex-md-row  flex-column justify-content-between flex-xxl-row  flex-xl-row flex-lg-row  align-items-center my-4 mx-2">
-          {/* <Button
-                disabled={
-                  filterData.length > 0
-                    ? currentFilterPage === 1
-                    : currentPage === 1
-                }
-                onClick={() =>
-                  filterData.length > 0
-                    ? setCurrentFilterPage(currentFilterPage - 1)
-                    : setCurrentPage(currentPage - 1)
-                }
-                className="mr-2 bg-ccfeff"
-              >
-                Previous
-              </Button>
-
-              <div className="mx-2">
-                Page {filterData.length > 0 ? currentFilterPage : currentPage}{" "}
-                of {filterData.length > 0 ? totalFilterPage : totalPage}
-              </div>
-
-              <Button
-                disabled={
-                  filterData.length > 0
-                    ? currentFilterPage ===
-                      (filterData.length > 0 ? totalFilterPage : totalPage)
-                    : currentPage === totalPage
-                }
-                onClick={() =>
-                  filterData.length > 0
-                    ? setCurrentFilterPage(currentFilterPage + 1)
-                    : setCurrentPage(currentPage + 1)
-                }
-                className="ml-2 bg-ccfeff"
-              >
-                Next
-              </Button> */}
-          <div className="text-center">
-            <strong>Page</strong> {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
-            {filterData.length > 0 ? totalFilterPage : totalPage}
+        <div className="d-flex  flex-row  text-center justify-content-between align-items-center my-4 mx-2">
+          <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
+            <p>
+              <strong>Page </strong>{" "}
+              {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
+              {filterData.length > 0 ? totalFilterPage : totalPage}
+            </p>
           </div>
-          <div className="my-4">
+          <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
             <ReactPaginate
               previousLabel={"Previous"}
               nextLabel={"Next"}
@@ -318,10 +316,37 @@ const FilterComponent = () => {
               onPageChange={(selected) => {
                 if (filterData.length > 0) {
                   const selectedFilterPage = selected.selected + 1;
-                  console.log('====================================');
-                  console.log(selectedFilterPage);
-                  console.log('====================================');
-                  handleFilterSubmit(selectedFilterPage); 
+
+                  handleFilterSubmit(selectedFilterPage);
+                } else {
+                  const selectedPage = selected.selected + 1;
+
+                  setCurrentPage(selectedPage);
+                }
+              }}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              pageLinkClassName={"page-link"}
+              previousLinkClassName={"page-link custom-prev-next"}
+              nextLinkClassName={"page-link custom-prev-next"}
+              disabledClassName={"disabled"}
+              breakLinkClassName={"page-link"}
+              initialPage={
+                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
+              }
+            />
+          </div>
+          <div className="my-4 d-flex d-lg-none d-xxl-none d-xl-none d-md-flex d-sm-flex justify-content-between align-items-center">
+            <ReactPaginate
+              previousLabel={<BiLeftArrow size={16} />}
+              nextLabel={<BiRightArrow size={16} />}
+              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
+              marginPagesDisplayed={-1}
+              pageRangeDisplayed={-1}
+              onPageChange={(selected) => {
+                if (filterData.length > 0) {
+                  const selectedFilterPage = selected.selected + 1;
+                  handleFilterSubmit(selectedFilterPage);
                 } else {
                   const selectedPage = selected.selected + 1;
 

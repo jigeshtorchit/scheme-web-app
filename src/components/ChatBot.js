@@ -8,13 +8,11 @@ import { useDataFilterMutation } from "../redux/api/FilterApi";
 
 const ChatBot = () => {
   const [showChat, setShowChat] = useState(false);
-  const [selectedMessages, setSelectedMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [suggestions, setSuggestions] = useState(["View Scheme"]); // Initial suggestions
+  const [suggestions, setSuggestions] = useState(["View Scheme"]);
   const [selectedSuggestions, setSelectedSuggestions] = useState([]);
   const [getFilterDataFunc] = useDataFilterMutation(1);
-
-  const [audio] = useState(new Audio(notificationSound)); // Replace with the path to your sound file
+  const [audio] = useState(new Audio(notificationSound));
 
   const [allMessages, setAllMessages] = useState([
     {
@@ -24,8 +22,6 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     },
   ]);
-  // const [openAiApiKey] = useState(); // Set your OpenAI API key here
-  // const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => {
     setShowChat(!showChat);
@@ -33,7 +29,6 @@ const ChatBot = () => {
 
   const closeChat = () => {
     setShowChat(false);
-    setSelectedMessages([]);
   };
 
   const addMessage = (text, sender) => {
@@ -44,60 +39,10 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     };
 
-    console.log(newMessage, "newMessage");
     setAllMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
-  // const getOpenAiResponse = async (userMessage) => {
-  //   setIsLoading(true);
-  //   if (!openAiApiKey) {
-  //     console.error("OpenAI API key is missing.");
-  //     setIsLoading(false);
-  //     return;
-  //   }
-  //   console.log(allMessages);
-  //   const OPENAI_MODEL = "gpt-3.5-turbo";
-
-  //   try {
-  //     // Include the system message as "You" in the messagesForOpenAI array
-  //     const messagesForOpenAI = [
-  //       { role: "system", content: "You is your helpful assistant." },
-  //       ...selectedMessages.map((message) => ({
-  //         role: message.sender === "You" ? "user" : "assistant",
-  //         content: message.text,
-  //       })),
-  //       { role: "user", content: userMessage },
-  //     ];
-
-  //     const response = await axios.post(
-  //       "https://api.openai.com/v1/chat/completions",
-  //       {
-  //         max_tokens: 50,
-  //         model: OPENAI_MODEL,
-  //         messages: messagesForOpenAI,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${openAiApiKey}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     const openAiResponse = response.data.choices[0]?.message?.content.trim();
-  //     if (openAiResponse) {
-  //       // Keep "bot" as the sender in your local state
-  //       addMessage(openAiResponse, "bot");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching OpenAI response:", error.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   useEffect(() => {
-    // Cleanup audio when component unmounts
     return () => {
       audio.pause();
       audio.currentTime = 0;
@@ -159,8 +104,7 @@ const ChatBot = () => {
 
       setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-      // Change the suggestions array when "View Scheme" is clicked
-      setSuggestions(["100%", "Minimum 40%", "Minimum 60%", "Minimum 80%"]); // Add more suggestions as needed
+      setSuggestions(["100%", "Minimum 40%", "Minimum 60%", "Minimum 80%"]);
     } else if (
       ["100%", "Minimum 40%", "Minimum 60%", "Minimum 80%"].includes(suggestion)
     ) {
@@ -185,7 +129,6 @@ const ChatBot = () => {
 
       setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-      // Update suggestions based on the user's selection
       if (
         suggestion === "100%" ||
         suggestion === "Minimum 40%" ||
@@ -216,7 +159,6 @@ const ChatBot = () => {
 
       setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-      // Update suggestions based on the user's gender selection
       if (
         suggestion === "Male" ||
         suggestion === "Female" ||
@@ -246,7 +188,6 @@ const ChatBot = () => {
 
       setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-      // Update suggestions based on the user's age group selection
       if (
         suggestion === "0-6" ||
         suggestion === "0-18" ||
@@ -254,7 +195,6 @@ const ChatBot = () => {
         suggestion === "18-24" ||
         suggestion === "18-55"
       ) {
-        // Fetch and set the list of Indian states as suggestions
         setSuggestions(indianStates);
       }
     } else if (indianStates.includes(suggestion)) {
@@ -280,7 +220,6 @@ const ChatBot = () => {
 
       setAllMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-      // Update suggestions based on the user's state selection
       if (
         suggestion === "Andhra Pradesh" ||
         suggestion === "Arunachal Pradesh" ||
@@ -326,33 +265,26 @@ const ChatBot = () => {
         },
         {}
       );
-      console.log(selectedMessages);
+
       try {
-        // Modify this line to use your own API endpoint and data structure
         const response = await getFilterDataFunc({
-          implementedBy: mergedSuggestions.Income,
-          // genderEligibility: mergedSuggestions.age,
-          // percentageOfDisability: mergedSuggestions.genderEligibility,
-          // age: mergedSuggestions.State,
+          data: {
+            implementedBy: mergedSuggestions.Income,
+          },
+          page: 1,
         });
 
-        console.log(response);
         if (response?.data) {
           const responseData = response?.data;
           responseData.data.forEach((data, index) => {
             const dataMessage = `${index + 1}. ` + data.schemeName;
             addMessage(dataMessage, "bot");
           });
-
-          console.log(responseData.data);
         } else {
-          console.log("else part");
           const responseData = response?.error.data;
           const dataMessage = responseData;
 
           addMessage(dataMessage, "bot");
-          console.log(response?.error.data);
-          console.log(dataMessage);
         }
       } catch (error) {
         console.error(error);
@@ -361,24 +293,8 @@ const ChatBot = () => {
       handleSendMessage(suggestion);
     }
   };
-  // const formatDataMessage = (data) => {
-  //   // Customize this function based on the structure of your data
-  //   // For example, you might want to loop through the data and create a formatted message
-  //   const formattedMessage =  JSON.stringify(data);
 
-  //   return formattedMessage;
-  // };
-
-  const handleSendMessage = (msg) => {
-    // if (msg.trim() !== "") {
-    //   // Add the user's message
-    //   addMessage(msg, "You");
-    //   // Get and add the OpenAI response
-    //   getOpenAiResponse(msg);
-    //   // Clear the input field
-    //   setNewMessage("");
-    // }
-  };
+  const handleSendMessage = (msg) => {};
 
   useEffect(() => {
     const chatBody = document.getElementById("chat-body");
@@ -424,7 +340,7 @@ const ChatBot = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "8px",
-                position: "relative", // Add this line
+                position: "relative",
               }}
             >
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -434,10 +350,10 @@ const ChatBot = () => {
                 variant="outline-light"
                 onClick={closeChat}
                 style={{
-                  position: "absolute", // Add this line
-                  right: "8px", // Add this line
-                  top: "50%", // Add this line
-                  transform: "translateY(-50%)", // Add this line
+                  position: "absolute",
+                  right: "8px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
                 }}
               >
                 <FaTimes size={20} />
@@ -446,13 +362,11 @@ const ChatBot = () => {
             <Card.Body
               id="chat-body"
               style={{
-                maxHeight: "300px", // Increase the height as needed
+                maxHeight: "300px",
                 overflowY: "auto",
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
                 flexDirection: "column-reverse",
-
-                // Align messages to the bottom
               }}
             >
               <ListGroup variant="flush">
@@ -466,7 +380,7 @@ const ChatBot = () => {
                           ? {
                               border: "0",
                               backgroundColor: "white",
-                              borderRadius: "10px",
+                              borderRadius: "20px 0px 30px 20px",
                               margin: "5px 0",
                               padding: "8px",
                               display: "flex",
@@ -477,7 +391,7 @@ const ChatBot = () => {
                           : {
                               border: "0",
                               backgroundColor: "lightgray",
-                              borderRadius: "10px",
+                              borderRadius: "0px 20px 20px 30px",
                               margin: "5px 0",
                               padding: "8px",
                               display: "flex",
@@ -546,13 +460,8 @@ const ChatBot = () => {
                 variant="success"
                 onClick={handleSendMessage}
                 style={{ borderRadius: "0 10px 10px 0", marginLeft: "-1px" }}
-                // disabled={isLoading}
               >
-                {/* {isLoading ? (
-                  <Spinner animation="border" size="sm" />
-                ) : ( */}
                 <FiSend size={20} />
-                {/* )} */}
               </Button>
             </Card.Footer>
           </Card>
@@ -576,7 +485,7 @@ const ChatBot = () => {
               width: "50px",
               height: "50px",
               animation: "blink 1s infinite",
-              background: showChat ? "#dc3545" : "green", // Red when open, green when closed
+              background: showChat ? "#dc3545" : "green",
               borderRadius: "50%",
               border: "none",
               color: "#fff",

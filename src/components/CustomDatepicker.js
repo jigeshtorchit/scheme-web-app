@@ -1,8 +1,6 @@
-// DatePicker.js
-
 import React from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import the styles
+import "react-datepicker/dist/react-datepicker.css";
 import { useField, useFormikContext } from "formik";
 import { Form, Col } from "react-bootstrap";
 
@@ -17,12 +15,12 @@ const CustomDatePicker = ({
   borderColor,
   ...props
 }) => {
-  const { setFieldValue,setFieldTouched } = useFormikContext();
+  const { setFieldValue, setFieldTouched } = useFormikContext();
   const [field] = useField(props);
 
   const isWeekday = (date) => {
     const day = date.getDay();
-    return day !== 0 && day !== 0; // Assuming you want to allow only weekdays
+    return day !== 0 && day !== 0;
   };
   const handleChange = (date) => {
     setFieldValue(field.name, date);
@@ -31,14 +29,13 @@ const CustomDatePicker = ({
   };
 
   return (
-    <Form.Group as={Col} controlId={field.name} className="d-flex flex-column" >
+    <Form.Group as={Col} controlId={field.name} className="d-flex flex-column">
       <Form.Label>
         {label}
         <span className={`text-danger ${star === "none" ? `d-${star}` : ""}`}>
           *
         </span>
       </Form.Label>{" "}
-      
       <DatePicker
         {...field}
         {...props}

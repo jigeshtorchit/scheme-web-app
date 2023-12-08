@@ -23,12 +23,11 @@ const Scheme = () => {
   const { data: getSchemeData, isLoading } = useGetSchemeQuery(currentPage);
   const [deleteSchemeMutation] = useDeleteSchemeMutation();
   const handleNavigateAddForm = () => navigate("/admin/add-scheme");
-console.log(getSchemeData);
   useEffect(() => {
     if (getSchemeData && getSchemeData.data) {
       setData(getSchemeData.data);
       setTotalPages(getSchemeData.totalPages);
-      setCurrentPage(getSchemeData.currentPage);
+      setCurrentPage(currentPage);
     }
   }, [getSchemeData, currentPage]);
 
@@ -38,7 +37,6 @@ console.log(getSchemeData);
 
   const deleteHandleShow = (id) => {
     setIdToDelete(id);
-    console.log(id);
     setDeleteShow(true);
   };
 
@@ -53,7 +51,6 @@ console.log(getSchemeData);
         toast.error(response.error.data, { autoClose: 1000 });
       }
     } catch (error) {
-      console.error(error);
       toast.error("Internal Server Error");
     }
   };
@@ -66,15 +63,14 @@ console.log(getSchemeData);
     {
       Header: "NI Provider",
       accessor: "niProvider",
-      width: 'auto', // Set width to auto or adjust as needed
+      width: "auto",
       minWidth: 100,
-    
     },
     {
       Header: "Schemes for PWDS",
       accessor: "domainDescription",
-      width: 'auto', // Set width to auto
-    minWidth: 100,
+      width: "auto",
+      minWidth: 100,
     },
     {
       Header: "Shemes",
@@ -84,15 +80,16 @@ console.log(getSchemeData);
       Header: "Eligible",
       accessor: "genderEligibility",
     },
-   
+
     {
       Header: "Website Link",
       accessor: "comments",
-      Cell: props => (
+      Cell: (props) => (
         <a href={`${props.value}`} target="_blank" rel="noopener noreferrer">
           {props.value}
         </a>
-      )    },
+      ),
+    },
     {
       Header: "State",
       accessor: "implementedBy",
@@ -120,7 +117,7 @@ console.log(getSchemeData);
     {
       Header: "ACTIONS",
       accessor: "action",
-      fixed:"right",
+      fixed: "right",
       Cell: (props) => {
         const rowIdx = props.row.original._id;
 
@@ -144,7 +141,7 @@ console.log(getSchemeData);
         <>
           <Container fluid className="my-4">
             <Row>
-              <Col  className="m-4">
+              <Col className="m-4">
                 <Header
                   ONCLICK={handleNavigateAddForm}
                   HEADING="Schemes"

@@ -3,7 +3,6 @@ import { Mutex } from "async-mutex";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const baseUrl = process.env.REACT_APP_BASE_URL;
-// Create a new mutex
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: `${baseUrl}`,
@@ -20,12 +19,9 @@ const baseQuery = fetchBaseQuery({
   },
 });
 const CustomFetchBase = async (args, api, extraOptions) => {
-  // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  // wait until the mutex is available without locking it
-  // await mutex.waitForUnlock();
-  // result = await baseQuery(args, api, extraOptions);
+
   if (result.error?.status === 401) {
     toast.warning("UnAuthorized", {
       position: toast.POSITION.BOTTOM_LEFT,

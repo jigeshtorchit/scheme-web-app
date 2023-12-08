@@ -1,7 +1,6 @@
 .mobile-view-dropdown::after {
-    display: none; 
-  }
-  .dropdown-toggle::after {
-    color: #fff;
-    
+  display: none;
+}
+.dropdown-toggle::after {
+  color: #fff;
 }

@@ -6,12 +6,16 @@ import { FilterApi } from "./api/FilterApi";
 
 export const store = configureStore({
   reducer: {
-    User: UserReducer, // UserReducer slice
-    [AuthApi.reducerPath]: AuthApi.reducer, // AuthApi slice
+    User: UserReducer,
+    [AuthApi.reducerPath]: AuthApi.reducer,
     [SchemeApi.reducerPath]: SchemeApi.reducer,
-    [FilterApi.reducerPath]:FilterApi.reducer,// FilterApi slice
+    [FilterApi.reducerPath]: FilterApi.reducer,
   },
-  devTools: process.env.NODE_ENV === "development", // Enable Redux DevTools in development
+  devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([AuthApi.middleware, SchemeApi.middleware,FilterApi.middleware]),
+    getDefaultMiddleware().concat([
+      AuthApi.middleware,
+      SchemeApi.middleware,
+      FilterApi.middleware,
+    ]),
 });

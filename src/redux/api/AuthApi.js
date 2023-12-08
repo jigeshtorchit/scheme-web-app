@@ -4,7 +4,7 @@ import customFetchBase from "./CustomFetchBase";
 
 export const AuthApi = createApi({
   reducerPath: "AuthApi",
-  baseQuery: customFetchBase, // Provide your API base URL here
+  baseQuery: customFetchBase,
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (data) => ({
@@ -20,9 +20,7 @@ export const AuthApi = createApi({
           const { data } = await queryFulfilled;
 
           dispatch(setUser(data));
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       },
     }),
   }),
