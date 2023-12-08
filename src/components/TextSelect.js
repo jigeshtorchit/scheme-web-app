@@ -26,12 +26,13 @@ const TextSelect = ({
 
   return (
     <Form.Group as={Col} controlId={field.name}>
- <Form.Label>
+      <Form.Label>
         {label}
         <span className={`text-danger ${star === "none" ? `d-${star}` : ""}`}>
           *
         </span>
-      </Form.Label>{" "}      <Select
+      </Form.Label>{" "}
+      <Select
         {...field}
         {...props}
         onChange={handleChange}

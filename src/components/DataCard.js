@@ -13,23 +13,23 @@ const DataCard = ({
   female,
   website,
   genderEligibility,
-  schemeName, // Added schemeName
-  implementedBy, // Added implementedBy
-  domainDescription, // Added domainDescription
-  eligibleDisabilities, // Added eligibleDisabilities
-  percentageOfDisability, // Added percentageOfDisability
-  minAge, // Added minAge
-  maxAge, // Added maxAge
-  incomeLimit, // Added incomeLimit
-  comments, // Added comments
+  schemeName,
+  implementedBy,
+  domainDescription,
+  eligibleDisabilities,
+  percentageOfDisability,
+  minAge,
+  maxAge,
+  incomeLimit,
+  comments,
 }) => {
   return (
     <Card className="mb-4 shadow mt-4">
       <Card.Body>
         <Card.Title className="mb-3 h4">{schemeName}</Card.Title>
-       
+
         <Card.Text className="mb-3">{servicesProvided}</Card.Text>
-      
+
         <Card.Text>
           <strong>Gender:</strong> {genderEligibility}
         </Card.Text>
@@ -58,19 +58,17 @@ const DataCard = ({
           <strong>Income Limit:</strong> {incomeLimit}
         </Card.Text>
         <Card.Text>
-          <strong>Comments: </strong> 
+          <strong>Comments: </strong>
           <a
             href={comments}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary"
           >
-          {comments}
+            {comments}
           </a>
         </Card.Text>
-       
       </Card.Body>
-     
     </Card>
   );
 };

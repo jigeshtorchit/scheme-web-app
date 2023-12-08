@@ -9,7 +9,7 @@ import TextInput from "../../components/TextInput";
 import { useLoginUserMutation } from "../../redux/api/AuthApi";
 import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
-import Loginimage from "../../assets/images/image.png";
+import Loginimage from "../../assets/images/login.png";
 
 const Login = () => {
   const [passwordIcon, setPasswordIcon] = useState(false);
@@ -53,26 +53,40 @@ const Login = () => {
   };
 
   return (
-    <Container fluid className="vh-100 d-flex flex-column justify-content-center align-items-center bg-white">
-      <Row className="mb-3 justify-content-center align-items-center">
-        <Col xs={12} md={6} lg={6} xl={6} className="justify-content-center align-items-center">
+    <Container
+      fluid
+      className="vh-100 w-100 d-flex flex-column justify-content-center align-items-center bg-white"
+      style={{ overflow: "hidden" }}
+    >
+      <Row className="justify-content-center align-items-center">
+        <Col
+          xs={12}
+          md={6}
+          lg={6}
+          xl={6}
+          className="justify-content-center align-items-center "
+        >
           <img
             className="img-fluid d-none d-md-none d-sm-none d-lg-flex d-xl-flex d-xxl-flex d-lg-block ml-10 mt-md-4 justify-content-center align-items-center"
             src={Loginimage}
             alt="Img"
-            width={"68%"}
-            height={"100%"}
           />
         </Col>
 
-        <Col xs={12} md={12} lg={6} xl={6} className="d-flex flex-column justify-content-center align-items-center p-md-1">
+        <Col
+          xs={12}
+          md={12}
+          lg={6}
+          xl={6}
+          className="d-flex flex-column justify-content-center align-items-center "
+        >
           <img
             src={MainLogo}
-            width={80}
+            width={100}
             className="rounded-circle mb-3"
             alt="..."
           />
-          <Row className="shadow p-4 mb-5 bg-body rounded d-flex flex-column justify-content-center align-items-center">
+          <Row className="shadow p-4  bg-body rounded d-flex flex-column justify-content-center align-items-center">
             <Col className="d-flex flex-column justify-content-center align-items-center">
               <h5>Login</h5>
               <p className="text-secondary text-noWarp">

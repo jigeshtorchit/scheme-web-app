@@ -36,6 +36,6 @@ export const schemSchema = Yup.object().shape({
     .transform((value) => value.trim())
     .required("Disabilities is required"),
   annualIncome: Yup.number().required("Annual Income is required"),
- 
-  Age:Yup.mixed().required(" Age must be required..!")
-    })
+
+  Age: Yup.mixed().required(" Age must be required..!"),
+});

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../pages/loader/Loader";
 import GuestGuard from "../guards/GuestGuard";
 import AuthGuard from "../guards/AuthGuard";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
