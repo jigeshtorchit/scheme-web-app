@@ -80,6 +80,9 @@
 .color-white{
   color:white;
 }
+.custom-select-arrow{
+  font-size: 30px;
+}
 /* .btn{
   text-decoration: none;	
    opacity:1.0;

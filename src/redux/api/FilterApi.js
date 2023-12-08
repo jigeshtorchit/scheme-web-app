@@ -17,7 +17,7 @@ export const FilterApi = createApi({
       providesTags: ["FILTER"],
     }),
     dataFilter: builder.mutation({
-      query: (data,page) => ({
+      query: ({data,page}) => ({
         url: `/filterFacilities?page=${page}`,
         method: "POST",
         body: data,

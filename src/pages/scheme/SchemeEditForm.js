@@ -4,7 +4,10 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { schemSchema } from "./schemSchema";
 import TextInput from "../../components/TextInput";
-import { useEditSchemeMutation,useGetSchemeByIdQuery } from "../../redux/api/SchemeApi";
+import {
+  useEditSchemeMutation,
+  useGetSchemeByIdQuery,
+} from "../../redux/api/SchemeApi";
 import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
 import { useEffect } from "react";
@@ -25,25 +28,25 @@ const SchemeAddForm = () => {
   const { id } = useParams();
   const Id = id.startsWith(":") ? id.slice(1) : id;
   const [EditSchemeData, { isLoading }] = useEditSchemeMutation();
-  const { data: schemeData,} = useGetSchemeByIdQuery(Id);
+  const { data: schemeData } = useGetSchemeByIdQuery(Id);
 
   const handleCancel = () => {
     navigate("/admin/scheme");
   };
   useEffect(() => {
     if (schemeData) {
-      setAnnualIncome(schemeData.incomeLimit)
-      setAttachmentLink(schemeData.attachments)
-      setDisabilities(schemeData.eligibleDisabilities)
-      setEligible(schemeData.genderEligibility)
-      setEmail(schemeData.emailAddress)
-      setAge(schemeData.Age)
-      setNi(schemeData.niProvider)
-      setPercentofDisability(schemeData.percentageOfDisability)
-      setPwds(schemeData.domainDescription)
-      setSchemes(schemeData.schemeName)
-      setState(schemeData.implementedBy)
-      setWebsitesLink(schemeData.comments)
+      setAnnualIncome(schemeData.incomeLimit);
+      setAttachmentLink(schemeData.attachments);
+      setDisabilities(schemeData.eligibleDisabilities);
+      setEligible(schemeData.genderEligibility);
+      setEmail(schemeData.emailAddress);
+      setAge(schemeData.Age);
+      setNi(schemeData.niProvider);
+      setPercentofDisability(schemeData.percentageOfDisability);
+      setPwds(schemeData.domainDescription);
+      setSchemes(schemeData.schemeName);
+      setState(schemeData.implementedBy);
+      setWebsitesLink(schemeData.comments);
     }
   }, [schemeData]);
   const initialValues = {
@@ -63,21 +66,22 @@ const SchemeAddForm = () => {
   const handleEditData = async () => {
     try {
       const response = await EditSchemeData({
-        id:Id,
-        data:{
-        niProvider: ni,
-        domainDescription: pwds,
-        schemeName: schemes,
-        emailAddress: email,
-        genderEligibility: eligible,
-        attachments: attachmentLink,
-        comments: websitesLink,
-        implementedBy: state,
-        percentageOfDisability: percentofDisability,
-        incomeLimit: annualIncome,
-        age: Age,
-        eligibleDisabilities: disabilities,
-    }});
+        id: Id,
+        data: {
+          niProvider: ni,
+          domainDescription: pwds,
+          schemeName: schemes,
+          emailAddress: email,
+          genderEligibility: eligible,
+          attachments: attachmentLink,
+          comments: websitesLink,
+          implementedBy: state,
+          percentageOfDisability: percentofDisability,
+          incomeLimit: annualIncome,
+          age: Age,
+          eligibleDisabilities: disabilities,
+        },
+      });
       console.log(response);
       if (response.error.originalStatus === 200) {
         setAnnualIncome("");
@@ -124,10 +128,10 @@ const SchemeAddForm = () => {
           }) => (
             <>
               <Form>
-              <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
-              <Col className="text-center mb-2 mb-sm-1">
-      <h4 className="fw-bold mt-1">Edit Scheme Details</h4>
-    </Col>
+                <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4">
+                  <Col className="d-flex flex-row justify-content-start align-items-center m-0 p-0">
+                    <h4 className="fw-bold">Edit Scheme Details</h4>
+                  </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
                     <Button
                       className="m-2 d-flex justify-content-start align-items-center"
@@ -138,8 +142,8 @@ const SchemeAddForm = () => {
                     </Button>
 
                     <BasicButton
-                       className="m-2 d-flex justify-content-start align-items-center"
-                       variant={"primary"}
+                      className="m-2 d-flex justify-content-start align-items-center"
+                      variant={"primary"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -286,7 +290,7 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <TextInput
-                      value={attachmentLink}
+                        value={attachmentLink}
                         label={"Attachment Link"}
                         htmlFor={"attachmentLink"}
                         name={"attachmentLink"}
@@ -342,9 +346,9 @@ const SchemeAddForm = () => {
                     </Col>
                     <Col className="m-2">
                       <Form.Group className="">
-                        <Form.Label>State</Form.Label>
+                        <Form.Label>State<span className="text-danger">*</span></Form.Label>
                         <Form.Select
-                        value={state}
+                          value={state}
                           name="state"
                           className={`form-control ${
                             touched.state && errors.state ? "is-invalid" : ""
@@ -504,37 +508,34 @@ const SchemeAddForm = () => {
                     </Col>
 
                     <Col className="m-2">
-                    <Form.Group controlId="Age">
-                  <Form.Label>Age:</Form.Label>
-                  <Form.Select
-                    as="select"
-                    value={Age}
-                    onChange={(e) => {
-                      setAge(e.target.value);
-                      handleChange(e);
-                    }}
-                    className={`form-control ${
-                      touched.Age && errors.Age ? "is-invalid" : ""
-                    }`}
-                    onBlur={handleBlur}
-                  >
-                   <option value="">Select Age</option>
-                    <option value="0">0</option>
-                    <option value="0-6">0-6</option>
-                    <option value="0-18">0-18</option>
-                    <option value="6-18">6-18</option>
-                    <option value="18-24">18-24</option>
-                    <option value="18-55">18-55</option>
-                    
-                 
-                 
-                  </Form.Select>
-                  {touched.Age && errors.Age && (
-                    <p className="text-danger">{errors.Age}</p>
-                  )}
-                </Form.Group>
+                      <Form.Group controlId="Age">
+                        <Form.Label>Age<span className="text-danger">*</span></Form.Label>
+                        <Form.Select
+                          as="select"
+                          value={Age}
+                          onChange={(e) => {
+                            setAge(e.target.value);
+                            handleChange(e);
+                          }}
+                          className={`form-control ${
+                            touched.Age && errors.Age ? "is-invalid" : ""
+                          }`}
+                          onBlur={handleBlur}
+                        >
+                          <option value="">Select Age</option>
+                          <option value="0">0</option>
+                          <option value="0-6">0-6</option>
+                          <option value="0-18">0-18</option>
+                          <option value="6-18">6-18</option>
+                          <option value="18-24">18-24</option>
+                          <option value="18-55">18-55</option>
+                        </Form.Select>
+                        {touched.Age && errors.Age && (
+                          <p className="text-danger">{errors.Age}</p>
+                        )}
+                      </Form.Group>
                     </Col>
-                  <Col className="m-2">
+                    <Col className="m-2">
                       <TextInput
                         label={"Email Address"}
                         htmlFor={"email"}

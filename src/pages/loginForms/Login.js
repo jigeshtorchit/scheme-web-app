@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import BasicButton from "../../components/BasicButton";
 import Loginimage from "../../assets/images/image.png";
 
-const Login = ({ setAuthenticated }) => {
+const Login = () => {
   const [passwordIcon, setPasswordIcon] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
