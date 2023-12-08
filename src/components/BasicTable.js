@@ -33,7 +33,7 @@ const BasicTable = (props) => {
 
   return (
     <div>
-      <Container fluid>
+      <Container fluid className="ml-xxl-n4 ml-xl-n4 ml-lg-n4">
         <Row className="d-flex  flex-lg-row flex-column flex-xxl-row flex-xl-row flex-sm-column flex-md-row">
           <Col className="my-4" xxl={3} xl={3} lg={3} sm={6} md={6}>
             <Form.Control
@@ -63,7 +63,14 @@ const BasicTable = (props) => {
           </Col>
         </Row>
         <Row>
-          <Table striped bordered hover {...getTableProps()} responsive={true} style={{ width: '100%' }}>
+          <Table
+            striped
+            bordered
+            hover
+            {...getTableProps()}
+            responsive={true}
+            style={{ width: "100%" }}
+          >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
@@ -72,7 +79,10 @@ const BasicTable = (props) => {
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                       key={column.id}
                       className="text-dark"
-                      style={{ width: `${column.width}px`, whiteSpace: 'nowrap' }}
+                      style={{
+                        width: `${column.width}px`,
+                        whiteSpace: "nowrap",
+                      }}
                     >
                       {column.render("Header") === "ACTIONS" ? (
                         <>{column.render("Header")}</>
@@ -94,7 +104,17 @@ const BasicTable = (props) => {
                   return (
                     <tr {...row.getRowProps()} key={row.id}>
                       {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} key={cell.column.id} className="text-secondary text-center " style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '20ch' }}>
+                        <td
+                          {...cell.getCellProps()}
+                          key={cell.column.id}
+                          className="text-secondary text-center "
+                          style={{
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            maxWidth: "20ch",
+                          }}
+                        >
                           {cell.render("Cell")}
                         </td>
                       ))}
@@ -118,7 +138,7 @@ const BasicTable = (props) => {
               page.length > 0 ? "d-flex" : "d-none"
             } flex-row justify-content-center align-items-center`}
           >
-            <span className="m-1 d-flex justify-content-start align-items-center">
+            <span className="m-1 d-flex justify-content-start flex-noWrap align-items-center">
               Page
               <strong className="m-2">
                 {props.currentPage} of {props.totalPages}
@@ -157,7 +177,6 @@ const BasicTable = (props) => {
               </Button>
             </Col>
           </Col>
-          
         </Row>
       </Container>
     </div>

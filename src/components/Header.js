@@ -4,12 +4,12 @@ import { FaPlus } from "react-icons/fa6";
 
 const Header = (props) => {
   return (
-    <div>
+    <div className="ml-xxl-n3 ml-xl-n3 ml-lg-n3">
       <Row className="d-flex flex-row justify-content-between align-items-center  mb-2">
-        <Col className="d-flex flex-column flex-wrap-wrap align-content-center">
-          <h4 className="fw-bold">{props.HEADING}</h4>
+        <Col className="d-flex flex-column flex-wrap-wrap align-content-center ">
+          <h4 className="fw-bold ">{props.HEADING}</h4>
         </Col>
-        <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center">
+        <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center mr-lg-4 mr-xxl-4 mr-xl-4">
           <Button
             variant="primary"
             className="d-lg-none d-xxl-none d-flex d-sm-flex d-md-flex rounded fw-bold "

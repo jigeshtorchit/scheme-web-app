@@ -141,7 +141,7 @@ const Scheme = () => {
         <>
           <Container fluid className="my-4">
             <Row>
-              <Col className="m-4">
+              <Col className="">
                 <Header
                   ONCLICK={handleNavigateAddForm}
                   HEADING="Schemes"
@@ -150,9 +150,16 @@ const Scheme = () => {
                 />
               </Col>
             </Row>
-            <hr className="bg-primary" />
-            <Row>
-              <Col xs={12} className="table-responsive m-md-3 m-xl-2">
+            <hr className="bg-primary ml-xxl-n2 ml-xl-n2 ml-lg-n2 " />
+            <Row className="d-flex flex-column align-items-center justift-content-center">
+              <Col
+                xs={12}
+                lg={12}
+                xl={12}
+                xxl={12}
+                md={12}
+                className="table-responsive"
+              >
                 <BasicTable
                   COLUMNS={COLUMNS}
                   MOCK_DATA={data}
@@ -167,7 +174,7 @@ const Scheme = () => {
             DELETESTATE={deleteShow}
             ONCLICK={deleteHandleClose}
             YES={delTimeSheetData}
-            DESCRIPTION="Scheme"
+            DESCRIPTION="Confirm to Delete this Scheme"
             DELETETITLE="Schemes"
           />
         </>

@@ -10,13 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 import { sidebarItems } from "./SIDEMENU_DATA";
 import ReactSidebar from "./ReactSidebar";
+import DeleteModel from "../../components/DeleteModel";
 
 const MainNav = () => {
   const [show, setShow] = useState(false);
+  const [logoutShow, setlogoutShow] = useState(false);
   const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleNavigateAddForm = () => setShow(true);
+  const handleModelClose = () => setlogoutShow(false);
   const handleLogin = () => {
     localStorage.clear();
     navigate("/auth/login");
@@ -87,7 +90,9 @@ const MainNav = () => {
 
               <Dropdown.Menu>
                 <Dropdown.Item></Dropdown.Item>{" "}
-                <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
+                <Dropdown.Item onClick={() => setlogoutShow(true)}>
+                  Logout
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
@@ -113,7 +118,9 @@ const MainNav = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={handleLogin}>Logout</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setlogoutShow(true)}>
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -144,6 +151,13 @@ const MainNav = () => {
           </Offcanvas.Body>
         </Offcanvas>
       </Row>
+      <DeleteModel
+        DELETESTATE={logoutShow}
+        ONCLICK={handleModelClose}
+        YES={handleLogin}
+        DESCRIPTION="Do You Want To Logout"
+        DELETETITLE="Logout"
+      />
     </>
   );
 };
