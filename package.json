@@ -16,10 +16,7 @@
     "bootstrap": "^4.6.2",
     "dotenv": "^16.3.1",
     "formik": "^2.4.5",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
     "npm": "^10.2.4",
-    "prettier": "^3.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-chatbot-kit": "^2.2.1",
@@ -50,7 +47,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "prettier"
     ]
   },
   "browserslist": {
@@ -64,5 +62,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0"
   }
 }
