@@ -8,7 +8,7 @@ import {
   useGetGenderQuery,
   useGetStatesQuery,
   useGetDisablitiesQuery,
-  useGetIncomeQuery
+  useGetIncomeQuery,
 } from "../redux/api/FilterApi";
 import { InfinitySpin } from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
@@ -45,16 +45,24 @@ const FilterComponent = () => {
 
   useEffect(() => {
     setAgeData(getAge);
-    setGenderData(getGender)
-    setStatesData(getStates)
-    setDisabilityData(getdisability)
-    setIncomeData(getIncome)
+    setGenderData(getGender);
+    setStatesData(getStates);
+    setDisabilityData(getdisability);
+    setIncomeData(getIncome);
     if (getFilterDataFunc && getFilterDataFunc.data) {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
     }
-  }, [getFilterDataFunc, currentPage, getAge,getGender,getStates,getdisability,getIncome]);
+  }, [
+    getFilterDataFunc,
+    currentPage,
+    getAge,
+    getGender,
+    getStates,
+    getdisability,
+    getIncome,
+  ]);
 
   const onClearFilter = () => {
     setAge("");
@@ -113,7 +121,9 @@ const FilterComponent = () => {
                     setAge(e.target.value);
                   }}
                 >
-                  <option value="" disabled selected>Select Age</option>{" "}
+                  <option value="" disabled selected>
+                    Select Age
+                  </option>{" "}
                   {ageData && ageData.length > 0 ? (
                     ageData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -141,7 +151,9 @@ const FilterComponent = () => {
                     setGender(e.target.value);
                   }}
                 >
-                  <option value="" disabled selected>Select Gender</option>
+                  <option value="" disabled selected>
+                    Select Gender
+                  </option>
                   {genderData && genderData.length > 0 ? (
                     genderData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -204,7 +216,9 @@ const FilterComponent = () => {
                   }}
                   className={` mb-2 form-control`}
                 >
-                  <option value="" selected disabled>Select Disability </option>
+                  <option value="" selected disabled>
+                    Select Disability{" "}
+                  </option>
                   {disabilityData && disabilityData.length > 0 ? (
                     disabilityData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -233,7 +247,9 @@ const FilterComponent = () => {
                   }}
                   className={` mb-2 form-control`}
                 >
-                  <option value="" selected disabled>Select Income </option>
+                  <option value="" selected disabled>
+                    Select Income{" "}
+                  </option>
                   {incomeData && incomeData.length > 0 ? (
                     incomeData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -246,7 +262,6 @@ const FilterComponent = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-            
           </Row>
 
           <Row className="justify-content-end">
@@ -278,15 +293,93 @@ const FilterComponent = () => {
         ) : (
           <>
             {renderData.length > 0 ? (
-              <Card className="mt-5">
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    {renderData.map((message) => (
-                      <DataCard key={message._id} {...message} />
-                    ))}
-                  </ListGroup>
-                </Card.Body>
-              </Card>
+              <>
+                <Card className="mt-5">
+                  <Card.Body>
+                    <ListGroup variant="flush">
+                      {renderData.map((message) => (
+                        <DataCard key={message._id} {...message} />
+                      ))}
+                    </ListGroup>
+                  </Card.Body>
+                </Card>
+                <div className="d-flex  flex-row  text-center justify-content-between align-items-center my-4 mx-2">
+                  <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
+                    <p>
+                      <strong>Page </strong>{" "}
+                      {filterData.length > 0 ? currentFilterPage : currentPage}{" "}
+                      of {filterData.length > 0 ? totalFilterPage : totalPage}
+                    </p>
+                  </div>
+                  <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
+                    <ReactPaginate
+                      previousLabel={"Previous"}
+                      nextLabel={"Next"}
+                      pageCount={
+                        filterData.length > 0 ? totalFilterPage : totalPage
+                      }
+                      marginPagesDisplayed={-1}
+                      pageRangeDisplayed={-1}
+                      onPageChange={(selected) => {
+                        if (filterData.length > 0) {
+                          const selectedFilterPage = selected.selected + 1;
+
+                          handleFilterSubmit(selectedFilterPage);
+                        } else {
+                          const selectedPage = selected.selected + 1;
+
+                          setCurrentPage(selectedPage);
+                        }
+                      }}
+                      containerClassName={"pagination"}
+                      activeClassName={"active"}
+                      pageLinkClassName={"page-link"}
+                      previousLinkClassName={"page-link custom-prev-next"}
+                      nextLinkClassName={"page-link custom-prev-next"}
+                      disabledClassName={"disabled"}
+                      breakLinkClassName={"page-link"}
+                      initialPage={
+                        filterData.length > 0
+                          ? currentFilterPage - 1
+                          : currentPage - 1
+                      }
+                    />
+                  </div>
+                  <div className="my-4 d-flex d-lg-none d-xxl-none d-xl-none d-md-flex d-sm-flex justify-content-between align-items-center">
+                    <ReactPaginate
+                      previousLabel={<BiLeftArrow size={16} />}
+                      nextLabel={<BiRightArrow size={16} />}
+                      pageCount={
+                        filterData.length > 0 ? totalFilterPage : totalPage
+                      }
+                      marginPagesDisplayed={-1}
+                      pageRangeDisplayed={-1}
+                      onPageChange={(selected) => {
+                        if (filterData.length > 0) {
+                          const selectedFilterPage = selected.selected + 1;
+                          handleFilterSubmit(selectedFilterPage);
+                        } else {
+                          const selectedPage = selected.selected + 1;
+
+                          setCurrentPage(selectedPage);
+                        }
+                      }}
+                      containerClassName={"pagination"}
+                      activeClassName={"active"}
+                      pageLinkClassName={"page-link"}
+                      previousLinkClassName={"page-link custom-prev-next"}
+                      nextLinkClassName={"page-link custom-prev-next"}
+                      disabledClassName={"disabled"}
+                      breakLinkClassName={"page-link"}
+                      initialPage={
+                        filterData.length > 0
+                          ? currentFilterPage - 1
+                          : currentPage - 1
+                      }
+                    />
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="text-center  mt-3">
                 <Card className="mt-5">
@@ -298,74 +391,6 @@ const FilterComponent = () => {
             )}
           </>
         )}
-        <div className="d-flex  flex-row  text-center justify-content-between align-items-center my-4 mx-2">
-          <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
-            <p>
-              <strong>Page </strong>{" "}
-              {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
-              {filterData.length > 0 ? totalFilterPage : totalPage}
-            </p>
-          </div>
-          <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
-            <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
-              marginPagesDisplayed={-1}
-              pageRangeDisplayed={-1}
-              onPageChange={(selected) => {
-                if (filterData.length > 0) {
-                  const selectedFilterPage = selected.selected + 1;
-
-                  handleFilterSubmit(selectedFilterPage);
-                } else {
-                  const selectedPage = selected.selected + 1;
-
-                  setCurrentPage(selectedPage);
-                }
-              }}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-              pageLinkClassName={"page-link"}
-              previousLinkClassName={"page-link custom-prev-next"}
-              nextLinkClassName={"page-link custom-prev-next"}
-              disabledClassName={"disabled"}
-              breakLinkClassName={"page-link"}
-              initialPage={
-                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
-              }
-            />
-          </div>
-          <div className="my-4 d-flex d-lg-none d-xxl-none d-xl-none d-md-flex d-sm-flex justify-content-between align-items-center">
-            <ReactPaginate
-              previousLabel={<BiLeftArrow size={16} />}
-              nextLabel={<BiRightArrow size={16} />}
-              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
-              marginPagesDisplayed={-1}
-              pageRangeDisplayed={-1}
-              onPageChange={(selected) => {
-                if (filterData.length > 0) {
-                  const selectedFilterPage = selected.selected + 1;
-                  handleFilterSubmit(selectedFilterPage);
-                } else {
-                  const selectedPage = selected.selected + 1;
-
-                  setCurrentPage(selectedPage);
-                }
-              }}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-              pageLinkClassName={"page-link"}
-              previousLinkClassName={"page-link custom-prev-next"}
-              nextLinkClassName={"page-link custom-prev-next"}
-              disabledClassName={"disabled"}
-              breakLinkClassName={"page-link"}
-              initialPage={
-                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
-              }
-            />
-          </div>
-        </div>
       </Card.Body>
     </>
   );
