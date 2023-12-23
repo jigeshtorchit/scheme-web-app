@@ -16,6 +16,7 @@ import "./FilterComponent.css";
 import { toast } from "react-toastify";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import CopyRights from "../pages/copyright/CopyRights";
+import banner from "../assets/images/banner.jpg";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -104,7 +105,8 @@ const FilterComponent = () => {
 
   return (
     <>
-      <Card.Body style={{ marginTop: "300px" }}>
+      <img src={banner} alt="Banner" className="img-fluid" />
+      <Card.Body>
         <Form className="mb-5 ">
           <Row className="mb-3">
             <Col xs={12} sm={6} md={4}>
