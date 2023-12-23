@@ -105,7 +105,7 @@ const FilterComponent = () => {
 
   return (
     <>
-      <img src={banner} alt="Banner" className="img-fluid" />
+      <img src={banner} alt="Banner" className="img-fluid" width={"100%"} />
       <Card.Body>
         <Form className="mb-5 ">
           <Row className="mb-3">
