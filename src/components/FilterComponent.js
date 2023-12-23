@@ -8,13 +8,15 @@ import {
   useGetGenderQuery,
   useGetStatesQuery,
   useGetDisablitiesQuery,
-  useGetIncomeQuery
+  useGetIncomeQuery,
 } from "../redux/api/FilterApi";
 import { InfinitySpin } from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
 import "./FilterComponent.css";
 import { toast } from "react-toastify";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import CopyRights from "../pages/copyright/CopyRights";
+import banner from "../assets/images/banner.jpg";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -45,16 +47,24 @@ const FilterComponent = () => {
 
   useEffect(() => {
     setAgeData(getAge);
-    setGenderData(getGender)
-    setStatesData(getStates)
-    setDisabilityData(getdisability)
-    setIncomeData(getIncome)
+    setGenderData(getGender);
+    setStatesData(getStates);
+    setDisabilityData(getdisability);
+    setIncomeData(getIncome);
     if (getFilterDataFunc && getFilterDataFunc.data) {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
     }
-  }, [getFilterDataFunc, currentPage, getAge,getGender,getStates,getdisability,getIncome]);
+  }, [
+    getFilterDataFunc,
+    currentPage,
+    getAge,
+    getGender,
+    getStates,
+    getdisability,
+    getIncome,
+  ]);
 
   const onClearFilter = () => {
     setAge("");
@@ -95,6 +105,7 @@ const FilterComponent = () => {
 
   return (
     <>
+      <img src={banner} alt="Banner" className="img-fluid" width={"100%"} />
       <Card.Body>
         <Form className="mb-5 ">
           <Row className="mb-3">
@@ -113,7 +124,9 @@ const FilterComponent = () => {
                     setAge(e.target.value);
                   }}
                 >
-                  <option value="" disabled selected>Select Age</option>{" "}
+                  <option value="" disabled selected>
+                    Select Age
+                  </option>{" "}
                   {ageData && ageData.length > 0 ? (
                     ageData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -141,7 +154,9 @@ const FilterComponent = () => {
                     setGender(e.target.value);
                   }}
                 >
-                  <option value="" disabled selected>Select Gender</option>
+                  <option value="" disabled selected>
+                    Select Gender
+                  </option>
                   {genderData && genderData.length > 0 ? (
                     genderData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -204,7 +219,9 @@ const FilterComponent = () => {
                   }}
                   className={` mb-2 form-control`}
                 >
-                  <option value="" selected disabled>Select Disability </option>
+                  <option value="" selected disabled>
+                    Select Disability{" "}
+                  </option>
                   {disabilityData && disabilityData.length > 0 ? (
                     disabilityData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -233,7 +250,9 @@ const FilterComponent = () => {
                   }}
                   className={` mb-2 form-control`}
                 >
-                  <option value="" selected disabled>Select Income </option>
+                  <option value="" selected disabled>
+                    Select Income{" "}
+                  </option>
                   {incomeData && incomeData.length > 0 ? (
                     incomeData.map((data, index) => (
                       <option key={index} value={data.option}>
@@ -246,7 +265,6 @@ const FilterComponent = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-            
           </Row>
 
           <Row className="justify-content-end">
@@ -367,6 +385,7 @@ const FilterComponent = () => {
           </div>
         </div>
       </Card.Body>
+      <CopyRights />
     </>
   );
 };
