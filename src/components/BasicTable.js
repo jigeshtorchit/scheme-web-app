@@ -8,6 +8,9 @@ import {
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { FaSort } from "react-icons/fa";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import ReactPaginate from "react-paginate";
+import { IconContext } from "react-icons/lib";
 
 const BasicTable = (props) => {
   const columns = useMemo(() => props.COLUMNS, [props.COLUMNS]);
@@ -28,7 +31,7 @@ const BasicTable = (props) => {
     },
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
   );
 
   return (
@@ -145,19 +148,37 @@ const BasicTable = (props) => {
               </strong>{" "}
             </span>
             <Col className="d-none d-sm-none d-md-none d-xxl-flex d-xl-flex d-lg-flex justify-content-end align-items-center">
-              <Button
-                onClick={() => props.setCurrentPage(props.currentPage - 1)}
-                disabled={props.currentPage === 1}
-                className="m-2"
-              >
-                Previous
-              </Button>
-              <Button
-                onClick={() => props.setCurrentPage(props.currentPage + 1)}
-                disabled={props.currentPage === props.totalPages}
-              >
-                Next
-              </Button>
+              <ReactPaginate
+                breakLabel="..."
+                onPageChange={(selectedPage) =>
+                  props.setCurrentPage(selectedPage.selected + 1)
+                }
+                pageRangeDisplayed={5}
+                pageCount={props.totalPages}
+                renderOnZeroPageCount={null}
+                activeClassName={"active"}
+                pageClassName={"page-item"}
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                containerClassName="pagination"
+                previousLabel={
+                  <IconContext.Provider
+                    value={{ color: "#B8C1CC", size: "36px" }}
+                  >
+                    <AiFillLeftCircle />
+                  </IconContext.Provider>
+                }
+                nextLabel={
+                  <IconContext.Provider
+                    value={{ color: "#B8C1CC", size: "36px" }}
+                  >
+                    <AiFillRightCircle />
+                  </IconContext.Provider>
+                }
+              />
             </Col>
             <Col className="d-flex d-sm-flex d-md-flex d-xxl-none d-xl-none d-lg-none justify-content-end align-items-center">
               <Button
