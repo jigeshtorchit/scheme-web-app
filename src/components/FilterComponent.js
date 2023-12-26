@@ -10,13 +10,16 @@ import {
   useGetDisablitiesQuery,
   useGetIncomeQuery,
 } from "../redux/api/FilterApi";
-import { InfinitySpin } from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
 import "./FilterComponent.css";
 import { toast } from "react-toastify";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import CopyRights from "../pages/copyright/CopyRights";
 import banner from "../assets/images/banner.jpg";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { IconContext } from "react-icons/lib";
+import Loader from "./Loader";
+import ScrollToTop from "react-scroll-to-top";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -291,7 +294,8 @@ const FilterComponent = () => {
 
         {(!filterData.length > 0 ? isLoadingGetFilter : isLoadingDataFilter) ? (
           <div className="text-center mt-3">
-            <InfinitySpin width="200" color="#007BFF" />
+            <Loader />
+            <p className="">Loading Please Wait</p>
           </div>
         ) : (
           <>
@@ -309,7 +313,7 @@ const FilterComponent = () => {
               <div className="text-center  mt-3">
                 <Card className="mt-5">
                   <Card.Body>
-                    <p>No data found</p>
+                    <Loader />
                   </Card.Body>
                 </Card>
               </div>
@@ -326,11 +330,7 @@ const FilterComponent = () => {
           </div>
           <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
             <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
-              marginPagesDisplayed={-1}
-              pageRangeDisplayed={-1}
+              breakLabel="..."
               onPageChange={(selected) => {
                 if (filterData.length > 0) {
                   const selectedFilterPage = selected.selected + 1;
@@ -342,15 +342,30 @@ const FilterComponent = () => {
                   setCurrentPage(selectedPage);
                 }
               }}
-              containerClassName={"pagination"}
+              pageRangeDisplayed={5}
+              pageCount={filterData.length > 0 ? totalFilterPage : totalPage}
+              renderOnZeroPageCount={null}
               activeClassName={"active"}
-              pageLinkClassName={"page-link"}
-              previousLinkClassName={"page-link custom-prev-next"}
-              nextLinkClassName={"page-link custom-prev-next"}
-              disabledClassName={"disabled"}
-              breakLinkClassName={"page-link"}
-              initialPage={
-                filterData.length > 0 ? currentFilterPage - 1 : currentPage - 1
+              pageClassName={"page-item"}
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              containerClassName="pagination"
+              previousLabel={
+                <IconContext.Provider
+                  value={{ color: "#B8C1CC", size: "36px" }}
+                >
+                  <AiFillLeftCircle />
+                </IconContext.Provider>
+              }
+              nextLabel={
+                <IconContext.Provider
+                  value={{ color: "#B8C1CC", size: "36px" }}
+                >
+                  <AiFillRightCircle />
+                </IconContext.Provider>
               }
             />
           </div>
@@ -385,6 +400,13 @@ const FilterComponent = () => {
           </div>
         </div>
       </Card.Body>
+      <ScrollToTop
+        style={{ bottom: 12, right: 100, backgroundColor: "#007bff" }}
+        width="28"
+        height="28"
+        color="white"
+        smooth
+      />
       <CopyRights />
     </>
   );
