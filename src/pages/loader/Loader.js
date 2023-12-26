@@ -1,11 +1,22 @@
 import * as React from "react";
 
-import { InfinitySpin } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import { Container } from "react-bootstrap";
 
 const Loader = () => (
   <Container className="vh-100 d-flex flex-column flex-wrap-wrap justify-content-center align-items-center">
-    <InfinitySpin width="200" color="#007BFF" />
+    <RotatingLines
+      visible={true}
+      height="96"
+      width="96"
+      strokeColor="blue"
+      strokeWidth="5"
+      animationDuration="0.75"
+      ariaLabel="rotating-lines-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+    <p className="">Loading Please Wait</p>
   </Container>
 );
 
