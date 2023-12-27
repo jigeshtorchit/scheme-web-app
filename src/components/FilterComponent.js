@@ -20,6 +20,7 @@ import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
 import Loader from "./Loader";
 import ScrollToTop from "react-scroll-to-top";
+import { useNavigate } from "react-router-dom";
 
 const FilterComponent = () => {
   const [Age, setAge] = useState("");
@@ -47,6 +48,7 @@ const FilterComponent = () => {
   const { data: getStates } = useGetStatesQuery();
   const { data: getdisability } = useGetDisablitiesQuery();
   const { data: getIncome } = useGetIncomeQuery();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAgeData(getAge);
@@ -105,6 +107,9 @@ const FilterComponent = () => {
   };
 
   const renderData = filterData.length > 0 ? filterData : data;
+  const handleCardDetails = (id) =>{
+    navigate(`/schemeDetails/${id}`)
+  }
 
   return (
     <>
@@ -304,7 +309,7 @@ const FilterComponent = () => {
                 <Card.Body>
                   <ListGroup variant="flush">
                     {renderData.map((message) => (
-                      <DataCard key={message._id} {...message} />
+                      <DataCard key={message._id} {...message} handleCardDetails={()=>handleCardDetails(message._id)}/>
                     ))}
                   </ListGroup>
                 </Card.Body>
