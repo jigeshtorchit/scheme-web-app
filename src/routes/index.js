@@ -5,6 +5,7 @@ import GuestGuard from "../guards/GuestGuard";
 import AuthGuard from "../guards/AuthGuard";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 
+
 const Loadable = (Component) => (props) => {
   return (
     <Suspense fallback={<Loader />}>
@@ -26,8 +27,17 @@ export default function Router() {
             </GuestGuard>
           ),
         },
+        {
+          path: "/schemeDetails/:id",
+          element: (
+            <GuestGuard>
+              <SchemeDetails/>
+            </GuestGuard>
+          ),
+        },
       ],
     },
+    
     {
       path: "auth",
       children: [
@@ -93,3 +103,4 @@ const AddScheme = Loadable(lazy(() => import("../pages/scheme/SchemeAddForm")));
 const EditScheme = Loadable(
   lazy(() => import("../pages/scheme/SchemeEditForm"))
 );
+const SchemeDetails = Loadable(lazy(() => import("../pages/scheme/SchemeDetails")));
