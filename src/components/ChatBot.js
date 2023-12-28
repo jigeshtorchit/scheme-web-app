@@ -24,6 +24,7 @@ const ChatBot = () => {
 
   const [allMessages, setAllMessages] = useState([]);
   const [phone,setPhone] = useState("");
+  const [sendInput,setSendInput] = useState(false);
   const initialValues = {
     phone: "",
   };
@@ -318,6 +319,7 @@ const ChatBot = () => {
       },
     ]);
     setSuggestions(["View Scheme"]);
+    setSendInput(true)
   };
 
   return (
@@ -393,7 +395,7 @@ const ChatBot = () => {
                   isSubmitting,
                 }) => (
                   <>
-                    <Form className="mb-4">
+                    <Form className={`mb-4 ${sendInput ? "d-none" : ""}`}>
                       <Form.Group className="mb-4">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -506,6 +508,7 @@ const ChatBot = () => {
             </Card.Body>
 
             <Card.Footer
+            className={`${!sendInput ? "d-none" : "d-flex"}`}
               style={{
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
