@@ -8,7 +8,6 @@ const TextArea = (props) => {
     name,
     value,
     onChange,
-    required,
     htmlFor,
     validation,
     className,

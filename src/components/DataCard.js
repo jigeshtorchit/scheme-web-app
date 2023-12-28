@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const DataCard = ({
   date,
@@ -27,7 +28,7 @@ const DataCard = ({
   return (
     <Card className="mb-4 shadow mt-4 pointer" onClick={handleCardDetails}>
       <Card.Body>
-        <Card.Title className="mb-3 h4">{schemeName}</Card.Title>
+        <Link onClick={handleCardDetails}><Card.Title className="mb-3 h4">{schemeName}</Card.Title></Link>
 
         <Card.Text className="mb-3">{servicesProvided}</Card.Text>
 
