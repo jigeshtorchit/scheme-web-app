@@ -395,7 +395,7 @@ const ChatBot = () => {
                   isSubmitting,
                 }) => (
                   <>
-                    <Form className={`mb-4 ${sendInput ? "d-none" : ""}`}>
+                    <Form className={`mb-4 ${sendInput ? "d-none" : null}`}>
                       <Form.Group className="mb-4">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -508,7 +508,7 @@ const ChatBot = () => {
             </Card.Body>
 
             <Card.Footer
-            className={`${!sendInput ? "d-none" : "d-flex"}`}
+            className={`${!sendInput ? "d-none" : null}`}
               style={{
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
