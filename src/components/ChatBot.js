@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, ListGroup, Form } from "react-bootstrap";
+import { Button, Card, ListGroup, Form, Row } from "react-bootstrap";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
 import notificationSound from "../assets/images/notification.mp3";
 import { useDataFilterMutation } from "../redux/api/FilterApi";
+import * as Yup from "yup";
+import { Formik } from "formik";
+
+export const schema = Yup.object().shape({
+  phone: Yup.string()
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits")
+    .required("Phone number is required"),
+});
 
 const ChatBot = () => {
   const [showChat, setShowChat] = useState(false);
   const [newMessage, setNewMessage] = useState("");
-  const [suggestions, setSuggestions] = useState(["View Scheme"]);
+  const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestions, setSelectedSuggestions] = useState([]);
   const [getFilterDataFunc] = useDataFilterMutation(1);
   const [audio] = useState(new Audio(notificationSound));
 
-  const [allMessages, setAllMessages] = useState([
-    {
-      id: Date.now(),
-      text: "Hello, how are you doing? How can I help you today?",
-      sender: "bot",
-      time: new Date().toLocaleTimeString(),
-    },
-  ]);
+  const [allMessages, setAllMessages] = useState([]);
+  const [phone,setPhone] = useState("");
+  const initialValues = {
+    phone: "",
+  };
 
   const toggleChat = () => {
     setShowChat(!showChat);
@@ -263,7 +268,7 @@ const ChatBot = () => {
         (acc, suggestion) => {
           return { ...acc, ...suggestion };
         },
-        {}
+        {},
       );
 
       try {
@@ -303,6 +308,18 @@ const ChatBot = () => {
     }
   }, [allMessages]);
 
+  const handleStartChart = () => {
+    setAllMessages([
+      {
+        id: Date.now(),
+        text: "Hello, how are you doing? How can I help you today?",
+        sender: "bot",
+        time: new Date().toLocaleTimeString(),
+      },
+    ]);
+    setSuggestions(["View Scheme"]);
+  };
+
   return (
     <div>
       <FilterComponent />
@@ -324,10 +341,10 @@ const ChatBot = () => {
               flexDirection: "column",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               bottom: "100px",
-              height: "350px",
+              height: "450px",
               position: "fixed",
               right: "10px",
-              width: "45%",
+              width: "35%",
             }}
             className="card-res"
           >
@@ -346,29 +363,83 @@ const ChatBot = () => {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span className="text-center">ChatBot</span>
               </div>
-              <Button
-                variant="outline-light"
-                onClick={closeChat}
-                style={{
-                  position: "absolute",
-                  right: "8px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                }}
-              >
+              <div onClick={closeChat} className="pointer">
                 <FaTimes size={20} />
-              </Button>
+              </div>
+              {/* </Button> */}
             </Card.Header>
             <Card.Body
               id="chat-body"
               style={{
-                maxHeight: "300px",
+                // maxHeight: "300px",
                 overflowY: "auto",
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
                 flexDirection: "column-reverse",
               }}
             >
+              <Formik
+                initialValues={initialValues}
+                validationSchema={schema}
+                onSubmit={handleStartChart}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <>
+                    <Form className="mb-4">
+                      <Form.Group className="mb-4">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Type your Name"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-4">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          type="email"
+                          placeholder="Type your Email"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-4">
+                        <Form.Label>
+                          Phone<span className="text-danger">*</span>
+                        </Form.Label>
+                        <Form.Control
+                          size="md"
+                          type="number"
+                          placeholder="Type your Phone No."
+                          name="phone"
+                          value={phone}
+                          onChange={(e) => {
+                            setPhone(e.target.value);
+                            handleChange(e);
+                          }}
+                          onBlur={handleBlur}
+                        />
+                        {touched.phone && errors.phone ? (
+                          <p className="text-danger">{errors.phone}</p>
+                        ) : (
+                          ""
+                        )}
+                      </Form.Group>
+                      <Row className="m-0">
+                        <Button size="md" onClick={phone === "" ||(touched.phone && errors.phone)? handleSubmit : handleStartChart}>
+                          Start Chatting
+                        </Button>
+                      </Row>
+                    </Form>
+                  </>
+                )}
+              </Formik>
+
               <ListGroup variant="flush">
                 {allMessages.map((message) => (
                   <>

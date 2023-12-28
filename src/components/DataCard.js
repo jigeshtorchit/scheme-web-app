@@ -12,6 +12,7 @@ const DataCard = ({
   male,
   female,
   website,
+  handleCardDetails,
   genderEligibility,
   schemeName,
   implementedBy,
@@ -24,7 +25,7 @@ const DataCard = ({
   comments,
 }) => {
   return (
-    <Card className="mb-4 shadow mt-4">
+    <Card className="mb-4 shadow mt-4" onClick={handleCardDetails}>
       <Card.Body>
         <Card.Title className="mb-3 h4">{schemeName}</Card.Title>
 
