@@ -17,7 +17,13 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import DeleteModel from "./DeleteModel";
 import TextArea from "./TextArea";
-import { BsEmojiAngry, BsEmojiExpressionless, BsEmojiFrown, BsEmojiLaughing, BsEmojiSmile } from "react-icons/bs";
+import {
+  BsEmojiAngry,
+  BsEmojiExpressionless,
+  BsEmojiFrown,
+  BsEmojiLaughing,
+  BsEmojiSmile,
+} from "react-icons/bs";
 
 export const schema = Yup.object().shape({
   phone: Yup.string()
@@ -339,7 +345,7 @@ const ChatBot = () => {
     ]);
     setSuggestions(["View Scheme"]);
     setSendInput(true);
-    setPhone("")
+    setPhone("");
   };
 
   const chatBotHandleClose = () => {
@@ -350,10 +356,10 @@ const ChatBot = () => {
     setShowChat(false);
     setShowFeedBack(true);
   };
-  const handleSendFeedBack = () =>{
+  const handleSendFeedBack = () => {
     setSendInput(false);
-    setShowFeedBack(false)
-  }
+    setShowFeedBack(false);
+  };
   return (
     <div>
       <FilterComponent />
@@ -637,11 +643,13 @@ const ChatBot = () => {
               <Col className="d-flex flex-row justify-content-center align-items-center">
                 {[...Array(5)].map((emoji, index) => {
                   const currentRate = index + 1;
-                  const emojiList = [ <BsEmojiAngry key="1" color="red" />,
-                  <BsEmojiFrown key="2" color="lightcoral"/>,
-                  <BsEmojiExpressionless color="orange" key="3" />,
-                  <BsEmojiSmile key="4" color="yellow" />,
-                  <BsEmojiLaughing key="5" color="lightgreen"/>,];
+                  const emojiList = [
+                    <BsEmojiAngry key="1" color="red" />,
+                    <BsEmojiFrown key="2" color="lightcoral" />,
+                    <BsEmojiExpressionless color="orange" key="3" />,
+                    <BsEmojiSmile key="4" color="yellow" />,
+                    <BsEmojiLaughing key="5" color="lightgreen" />,
+                  ];
 
                   return (
                     <label
@@ -656,8 +664,8 @@ const ChatBot = () => {
                           style={{
                             fontSize: "50px",
                             cursor: "pointer",
-                            marginRight:"2px",
-                            marginLeft:"2px"
+                            marginRight: "2px",
+                            marginLeft: "2px",
                           }}
                         >
                           {emojiList[index]}
