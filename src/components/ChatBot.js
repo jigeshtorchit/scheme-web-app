@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  ListGroup,
-  Form,
-  Row,
-  Modal,
-  Col,
-} from "react-bootstrap";
+import { Button, Card, ListGroup, Form, Row, Col } from "react-bootstrap";
 import { FaWhatsapp, FaTimes, FaAngleDown } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
 import FilterComponent from "./FilterComponent";
@@ -15,7 +7,6 @@ import notificationSound from "../assets/images/notification.mp3";
 import { useDataFilterMutation } from "../redux/api/FilterApi";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import DeleteModel from "./DeleteModel";
 import TextArea from "./TextArea";
 import {
   BsEmojiAngry,
@@ -42,7 +33,7 @@ const ChatBot = () => {
   const [allMessages, setAllMessages] = useState([]);
   const [phone, setPhone] = useState("");
   const [sendInput, setSendInput] = useState(false);
-  const [chatBotShow, setChatBotShow] = useState(false);
+  const [startChat, setStartChat] = useState(true);
   const [showFeedBack, setShowFeedBack] = useState(false);
   const [rating, setRating] = useState(null);
   const [feedback, setFeedback] = useState("");
@@ -59,7 +50,11 @@ const ChatBot = () => {
   };
 
   const closeChat = () => {
-    setChatBotShow(true);
+    setShowFeedBack(true);
+    setSuggestions([]);
+    setAllMessages([]);
+    setSendInput(false)
+    setStartChat(false)
   };
 
   const addMessage = (text, sender) => {
@@ -345,20 +340,16 @@ const ChatBot = () => {
     ]);
     setSuggestions(["View Scheme"]);
     setSendInput(true);
+    setStartChat(false) 
     setPhone("");
   };
 
-  const chatBotHandleClose = () => {
-    setChatBotShow(false);
-  };
-  const chatBotHandle = () => {
-    setChatBotShow(false);
-    setShowChat(false);
-    setShowFeedBack(true);
-  };
   const handleSendFeedBack = () => {
     setSendInput(false);
     setShowFeedBack(false);
+    setShowChat(false);
+    setRating(null);
+    setStartChat(true)
   };
   return (
     <div>
@@ -411,7 +402,6 @@ const ChatBot = () => {
             <Card.Body
               id="chat-body"
               style={{
-                // maxHeight: "300px",
                 overflowY: "auto",
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
@@ -433,7 +423,7 @@ const ChatBot = () => {
                   isSubmitting,
                 }) => (
                   <>
-                    <Form className={`mb-4 ${sendInput ? "d-none" : null}`}>
+                    <Form className={`mb-4 ${!startChat ? "d-none" : null}`}>
                       <Form.Group className="mb-4">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -478,6 +468,7 @@ const ChatBot = () => {
                               ? handleSubmit
                               : handleStartChart
                           }
+                          disabled={isSubmitting}
                         >
                           Start Chatting
                         </Button>
@@ -554,15 +545,92 @@ const ChatBot = () => {
                   </Button>
                 ))}
               </div>
+              <div className={`${!showFeedBack ? "d-none" : null}`}>
+                <Card>
+                  <Card.Header>
+                  <Card.Title>
+                  FeedBack :
+                  </Card.Title>
+                  </Card.Header>
+                  <Card.Body>
+                    <Row className="d-flex flex-column">
+                      <Col className="d-flex flex-row justify-content-center align-items-center">
+                        {[...Array(5)].map((emoji, index) => {
+                          const currentRate = index + 1;
+                          const emojiList = [
+                            <BsEmojiAngry key="1" color="red" />,
+                            <BsEmojiFrown key="2" color="lightcoral" />,
+                            <BsEmojiExpressionless color="orange" key="3" />,
+                            <BsEmojiSmile key="4" color="yellow" />,
+                            <BsEmojiLaughing key="5" color="lightgreen" />,
+                          ];
+
+                          return (
+                            <label
+                              key={index}
+                              className="d-flex flex-column align-items-center justify-content-center"
+                              style={{ marginBottom: "10px" }}
+                            >
+                              <div>
+                                <span
+                                  role="img"
+                                  aria-label="emoji"
+                                  style={{
+                                    fontSize: "50px",
+                                    cursor: "pointer",
+                                    marginRight: "2px",
+                                    marginLeft: "2px",
+                                  }}
+                                >
+                                  {emojiList[index]}
+                                </span>
+                              </div>
+                              <div className="form-check pointer m d-flex align-items-center justify-content-center">
+                                <input
+                                  type="checkbox"
+                                  className="form-check-input pointer"
+                                  checked={currentRate === rating}
+                                  onChange={() => {
+                                    setRating(currentRate);
+                                  }}
+                                  style={{ width: "20px", height: "20px" }}
+                                />
+                              </div>
+                            </label>
+                          );
+                        })}
+                      </Col>
+                      <Col>
+                        <TextArea
+                          rows={4}
+                          onChange={handleFeedbackChange}
+                          value={feedback}
+                          label={"Comments :"}
+                        />
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Row className="m-0">
+                      <Button
+                        variant="primary"
+                        size="md"
+                        onClick={handleSendFeedBack}
+                      >
+                        Send FeedBack
+                      </Button>
+                    </Row>
+                  </Card.Footer>
+                </Card>
+              </div>
             </Card.Body>
 
             <Card.Footer
-              className={`${!sendInput ? "d-none" : null}`}
+              className={`${!sendInput ? "d-none" : "d-flex"}`}
               style={{
                 backgroundColor: "#f4f4f4",
                 borderRadius: "0 0 15px 15px",
                 padding: "8px",
-                display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
@@ -621,88 +689,6 @@ const ChatBot = () => {
             )}
           </Button>
         </div>
-      </div>
-      <DeleteModel
-        DELETESTATE={chatBotShow}
-        ONCLICK={chatBotHandleClose}
-        YES={chatBotHandle}
-        DESCRIPTION="Are you sure want quit the chat"
-        DELETETITLE="Chat Bot"
-      />
-      <div>
-        <Modal
-          show={showFeedBack}
-          onHide={() => setShowFeedBack(false)}
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>FeedBack</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Row className="d-flex flex-column">
-              <Col className="d-flex flex-row justify-content-center align-items-center">
-                {[...Array(5)].map((emoji, index) => {
-                  const currentRate = index + 1;
-                  const emojiList = [
-                    <BsEmojiAngry key="1" color="red" />,
-                    <BsEmojiFrown key="2" color="lightcoral" />,
-                    <BsEmojiExpressionless color="orange" key="3" />,
-                    <BsEmojiSmile key="4" color="yellow" />,
-                    <BsEmojiLaughing key="5" color="lightgreen" />,
-                  ];
-
-                  return (
-                    <label
-                      key={index}
-                      className="d-flex flex-column align-items-center justify-content-center"
-                      style={{ marginBottom: "10px" }}
-                    >
-                      <div>
-                        <span
-                          role="img"
-                          aria-label="emoji"
-                          style={{
-                            fontSize: "50px",
-                            cursor: "pointer",
-                            marginRight: "2px",
-                            marginLeft: "2px",
-                          }}
-                        >
-                          {emojiList[index]}
-                        </span>
-                      </div>
-                      <div className="form-check pointer m d-flex align-items-center justify-content-center">
-                        <input
-                          type="checkbox"
-                          className="form-check-input pointer"
-                          checked={currentRate === rating}
-                          onChange={() => {
-                            setRating(currentRate);
-                          }}
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      </div>
-                    </label>
-                  );
-                })}
-              </Col>
-              <Col>
-                <TextArea
-                  rows={4}
-                  onChange={handleFeedbackChange}
-                  value={feedback}
-                  label={"Comments :"}
-                />
-              </Col>
-            </Row>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleSendFeedBack}>
-              Send FeedBack
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );
