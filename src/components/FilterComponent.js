@@ -34,8 +34,6 @@ const FilterComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalFilterPage, setTotalFilterPage] = useState(1);
   const [currentFilterPage, setCurrentFilterPage] = useState(1);
-  const [currentPageData, setCurrentPageData] = useState(1);
-  const [currentFilterPageData, setCurrentFilterPageData] = useState(1);
   const [totalEntries, setTotalEntries] = useState(1);
   const [totalFilterEntries, setTotalFilterEntries] = useState(1);
   const [ageData, setAgeData] = useState([]);
@@ -64,7 +62,6 @@ const FilterComponent = () => {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
-      setCurrentPageData(getFilterDataFunc.pageSize)
       setTotalEntries(getFilterDataFunc.totalData)
     }
   }, [
@@ -86,7 +83,6 @@ const FilterComponent = () => {
     setFilterData([]);
     setCurrentPage(1);
     setTotalPage(1);
-    setCurrentPageData(1)
   };
 
   const handleFilterSubmit = async (page) => {
@@ -106,7 +102,6 @@ const FilterComponent = () => {
         setTotalFilterPage(response?.data.totalPages);
         setTotalFilterEntries(response?.data.totalData);
         setCurrentFilterPage(response?.data.currentPage);
-        setCurrentFilterPageData(response?.data.pageSize);
       } else {
         toast.warning(response?.error.data);
       }
@@ -338,7 +333,7 @@ const FilterComponent = () => {
           <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
             <strong className="fs-6">
               <strong>Showing</strong>{" "}
-              {filterData.length > 0 ? currentFilterPage : currentPage} to {filterData.length > 0 ? currentFilterPageData*currentFilterPage : currentPageData*currentPage} of{" "}
+              {filterData.length > 0 ? currentFilterPage : currentPage} to {filterData.length > 0 ? filterData.length : data.length} of{" "}
               {filterData.length > 0 ? totalFilterEntries : totalEntries} <strong> entities</strong>
             </strong>
           </div>
