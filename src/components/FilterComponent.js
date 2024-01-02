@@ -34,6 +34,10 @@ const FilterComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalFilterPage, setTotalFilterPage] = useState(1);
   const [currentFilterPage, setCurrentFilterPage] = useState(1);
+  const [currentPageData, setCurrentPageData] = useState(1);
+  const [currentFilterPageData, setCurrentFilterPageData] = useState(1);
+  const [totalEntries, setTotalEntries] = useState(1);
+  const [totalFilterEntries, setTotalFilterEntries] = useState(1);
   const [ageData, setAgeData] = useState([]);
   const [genderData, setGenderData] = useState([]);
   const [statesData, setStatesData] = useState([]);
@@ -60,6 +64,8 @@ const FilterComponent = () => {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
+      setCurrentPageData(getFilterDataFunc.pageSize)
+      setTotalEntries(getFilterDataFunc.totalData)
     }
   }, [
     getFilterDataFunc,
@@ -80,6 +86,7 @@ const FilterComponent = () => {
     setFilterData([]);
     setCurrentPage(1);
     setTotalPage(1);
+    setCurrentPageData(1)
   };
 
   const handleFilterSubmit = async (page) => {
@@ -97,7 +104,9 @@ const FilterComponent = () => {
       if (response?.data) {
         setFilterData(response?.data.data);
         setTotalFilterPage(response?.data.totalPages);
+        setTotalFilterEntries(response?.data.totalData);
         setCurrentFilterPage(response?.data.currentPage);
+        setCurrentFilterPageData(response?.data.pageSize);
       } else {
         toast.warning(response?.error.data);
       }
@@ -110,7 +119,7 @@ const FilterComponent = () => {
   const handleCardDetails = (id) =>{
     navigate(`/schemeDetails/${id}`)
   }
-
+  console.log(getFilterDataFunc);
   return (
     <>
       <img src={banner} alt="Banner" className="img-fluid" width={"100%"} />
@@ -325,13 +334,13 @@ const FilterComponent = () => {
             )}
           </>
         )}
-        <div className="d-flex  flex-row  text-center justify-content-between align-items-center my-4 mx-2">
+        <div className="d-flex  flex-column flex-xxl-row flex-lg-row flex-md-row flex-xl-row flex-sm-column  text-center justify-content-between align-items-center my-4 mx-2">
           <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
-            <p>
-              <strong>Page </strong>{" "}
-              {filterData.length > 0 ? currentFilterPage : currentPage} of{" "}
-              {filterData.length > 0 ? totalFilterPage : totalPage}
-            </p>
+            <strong className="fs-6">
+              <strong>Showing</strong>{" "}
+              {filterData.length > 0 ? currentFilterPage : currentPage} to {filterData.length > 0 ? currentFilterPageData*currentFilterPage : currentPageData*currentPage} of{" "}
+              {filterData.length > 0 ? totalFilterEntries : totalEntries} <strong> entities</strong>
+            </strong>
           </div>
           <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
             <ReactPaginate
