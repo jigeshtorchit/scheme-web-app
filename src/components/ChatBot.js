@@ -362,6 +362,7 @@ const ChatBot = () => {
           bottom: "10px",
           right: "10px",
           top: "55%",
+          zIndex: 1001
         }}
       >
         {showChat && (
@@ -394,7 +395,7 @@ const ChatBot = () => {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span className="text-center">ChatBot</span>
               </div>
-              <div onClick={closeChat} className="pointer">
+              <div onClick={closeChat} className={`pointer ${showFeedBack ? "d-none" : null}`}>
                 <FaTimes size={20} />
               </div>
               {/* </Button> */}
