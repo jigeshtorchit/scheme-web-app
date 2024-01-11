@@ -125,7 +125,7 @@ const SchemeAddForm = () => {
             <>
               <Form>
                 <Row className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4">
-                <Col className="d-flex flex-row justify-content-xxl-start justify-content-xl-start justify-content-lg-start justify-content-md-center justify-content-sm-center justify-content-center align-items-center m-0 p-0">
+                  <Col className="d-flex flex-row justify-content-xxl-start justify-content-xl-start justify-content-lg-start justify-content-md-center justify-content-sm-center justify-content-center align-items-center m-0 p-0">
                     <h4 className="fw-bold">Edit Scheme Details</h4>
                   </Col>
                   <Col className="d-sm-none d-none d-md-none d-lg-flex d-xxl-flex d-xl-flex flex-row justify-content-end align-items-center">
@@ -138,8 +138,8 @@ const SchemeAddForm = () => {
                     </Button>
 
                     <BasicButton
-                      className="m-2 d-flex justify-content-start align-items-center"
-                      variant={"primary"}
+                      className="m-2 d-flex justify-content-start align-items-center text-light"
+                      variant={"warning"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -574,7 +574,8 @@ const SchemeAddForm = () => {
                   </Col>
                   <Col className="d-flex justify-content-end align-items-center">
                     <BasicButton
-                      variant={"primary"}
+                      className={"text-light"}
+                      variant={"warning"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={

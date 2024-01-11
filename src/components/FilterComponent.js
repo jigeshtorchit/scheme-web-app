@@ -62,7 +62,7 @@ const FilterComponent = () => {
       setData(getFilterDataFunc.data);
       setTotalPage(getFilterDataFunc.totalPages);
       setCurrentPage(currentPage);
-      setTotalEntries(getFilterDataFunc.totalData)
+      setTotalEntries(getFilterDataFunc.totalData);
     }
   }, [
     getFilterDataFunc,
@@ -111,9 +111,9 @@ const FilterComponent = () => {
   };
 
   const renderData = filterData.length > 0 ? filterData : data;
-  const handleCardDetails = (id) =>{
-    navigate(`/schemeDetails/${id}`)
-  }
+  const handleCardDetails = (id) => {
+    navigate(`/schemeDetails/${id}`);
+  };
   console.log(getFilterDataFunc);
   return (
     <>
@@ -282,8 +282,8 @@ const FilterComponent = () => {
           <Row className="justify-content-end">
             <Col xs={12} sm={6} md={4} lg={2} className="mb-3">
               <Button
-                className="w-100 mt-3"
-                variant="primary"
+                className="w-100 mt-3 text-light"
+                variant="warning"
                 onClick={handleFilterSubmit}
               >
                 Submit
@@ -313,7 +313,11 @@ const FilterComponent = () => {
                 <Card.Body>
                   <ListGroup variant="flush">
                     {renderData.map((message) => (
-                      <DataCard key={message._id} {...message} handleCardDetails={()=>handleCardDetails(message._id)}/>
+                      <DataCard
+                        key={message._id}
+                        {...message}
+                        handleCardDetails={() => handleCardDetails(message._id)}
+                      />
                     ))}
                   </ListGroup>
                 </Card.Body>
@@ -333,8 +337,10 @@ const FilterComponent = () => {
           <div className="d-flex  flex-row  text-center justify-content-center align-items-center">
             <strong className="fs-6">
               <strong>Showing</strong>{" "}
-              {filterData.length > 0 ? currentFilterPage : currentPage} to {filterData.length > 0 ? filterData.length : data.length} of{" "}
-              {filterData.length > 0 ? totalFilterEntries : totalEntries} <strong> entities</strong>
+              {filterData.length > 0 ? currentFilterPage : currentPage} to{" "}
+              {filterData.length > 0 ? filterData.length : data.length} of{" "}
+              {filterData.length > 0 ? totalFilterEntries : totalEntries}{" "}
+              <strong> entities</strong>
             </strong>
           </div>
           <div className="d-none d-lg-flex d-xxl-flex d-xl-flex d-md-none d-sm-none justify-content-center align-items-center">
@@ -364,14 +370,14 @@ const FilterComponent = () => {
               containerClassName="pagination"
               previousLabel={
                 <IconContext.Provider
-                  value={{ color: "#B8C1CC", size: "36px" }}
+                  value={{ color: "#ffc107", size: "36px" }}
                 >
                   <AiFillLeftCircle />
                 </IconContext.Provider>
               }
               nextLabel={
                 <IconContext.Provider
-                  value={{ color: "#B8C1CC", size: "36px" }}
+                  value={{ color: "#ffc107", size: "36px" }}
                 >
                   <AiFillRightCircle />
                 </IconContext.Provider>
@@ -410,7 +416,7 @@ const FilterComponent = () => {
         </div>
       </Card.Body>
       <ScrollToTop
-        style={{ bottom: 12, right: 100, backgroundColor: "#007bff" }}
+        style={{ bottom: 12, right: 100, backgroundColor: "#ffc107" }}
         width="28"
         height="28"
         color="white"

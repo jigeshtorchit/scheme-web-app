@@ -11,15 +11,15 @@ const Header = (props) => {
         </Col>
         <Col className="d-flex flex-row flex-wrap-wrap justify-content-end align-items-center mr-lg-4 mr-xxl-4 mr-xl-4">
           <Button
-            variant="primary"
+            variant="warning"
             className="d-lg-none d-xxl-none d-flex d-sm-flex d-md-flex rounded fw-bold "
             onClick={props.ONCLICK}
           >
-            <FaPlus size={18} className=" fw-bold" />
+            <FaPlus size={18} color="white" className=" fw-bold" />
           </Button>
           <Button
-            variant="primary"
-            className="d-lg-block d-xxl-block d-none d-sm-none rounded fw-bold "
+            variant="warning"
+            className="d-lg-block d-xxl-block d-none d-sm-none rounded fw-bold text-light"
             onClick={props.ONCLICK}
           >
             <FaPlus size={20} className="mr-2 fw-bold" />
