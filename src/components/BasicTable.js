@@ -11,6 +11,7 @@ import { FaSort } from "react-icons/fa";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import { IconContext } from "react-icons/lib";
+import "./FilterComponent.css";
 
 const BasicTable = (props) => {
   const columns = useMemo(() => props.COLUMNS, [props.COLUMNS]);
@@ -55,7 +56,7 @@ const BasicTable = (props) => {
             md={3}
           >
             <Button
-              className=" text-white fw-bold bg-primary"
+              className=" text-white fw-bold bg-warning"
               style={{
                 outline: "none",
                 border: "none",
@@ -166,14 +167,14 @@ const BasicTable = (props) => {
                 containerClassName="pagination"
                 previousLabel={
                   <IconContext.Provider
-                    value={{ color: "#B8C1CC", size: "36px" }}
+                    value={{ color: "#ffc107", size: "36px" }}
                   >
                     <AiFillLeftCircle />
                   </IconContext.Provider>
                 }
                 nextLabel={
                   <IconContext.Provider
-                    value={{ color: "#B8C1CC", size: "36px" }}
+                    value={{ color: "#ffc107", size: "36px" }}
                   >
                     <AiFillRightCircle />
                   </IconContext.Provider>
@@ -182,6 +183,7 @@ const BasicTable = (props) => {
             </Col>
             <Col className="d-flex d-sm-flex d-md-flex d-xxl-none d-xl-none d-lg-none justify-content-end align-items-center">
               <Button
+                variant="warning"
                 onClick={() => props.setCurrentPage(props.currentPage - 1)}
                 disabled={props.currentPage === 1}
                 className="m-2"
@@ -189,6 +191,7 @@ const BasicTable = (props) => {
                 <BiLeftArrow size={16} />
               </Button>
               <Button
+                variant="warning"
                 onClick={() => {
                   props.setCurrentPage(props.currentPage + 1);
                 }}

@@ -12,19 +12,24 @@
   line-height: 1.5;
   border-radius: 0.25rem;
   margin-left: 10px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }
-
+.page-link {
+  color: #ffc107;
+}
 .custom-prev-next:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #ffc107;
   border-color: #dee2e6;
 }
 
 .custom-prev-next:active {
-  color: #0056b3;
+  color: #ffc107;
   background-color: #dee2e6;
   border-color: #dee2e6;
 }

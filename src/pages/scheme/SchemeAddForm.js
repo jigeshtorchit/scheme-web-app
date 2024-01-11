@@ -112,8 +112,8 @@ const SchemeAddForm = () => {
                     </Button>
 
                     <BasicButton
-                      className=" m-2 d-flex justify-content-start align-items-center"
-                      variant={"primary"}
+                      className=" m-2 d-flex justify-content-start align-items-center text-light"
+                      variant={"warning"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={
@@ -549,7 +549,8 @@ const SchemeAddForm = () => {
                   </Col>
                   <Col className="d-flex justify-content-end align-items-center">
                     <BasicButton
-                      variant={"primary"}
+                      className={"text-light"}
+                      variant={"warning"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={

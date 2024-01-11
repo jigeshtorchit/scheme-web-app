@@ -110,9 +110,10 @@
   align-items: center;
   margin-top: 2px;
   cursor: pointer;
+  color: #ffc107;
 }
 .active {
-  background-color: #1e50ff !important;
+  background-color: #ffc107 !important;
   border-radius: 50%;
 }
 .page-item {
