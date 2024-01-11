@@ -80,12 +80,7 @@ const Login = () => {
           xl={6}
           className="d-flex flex-column justify-content-center align-items-center "
         >
-          <img
-            src={MainLogo}
-            width={100}
-            className="rounded-circle mb-3"
-            alt="..."
-          />
+          <img src={MainLogo} width={150} className="mb-3" alt="..." />
           <Row className="shadow p-4  bg-body rounded d-flex flex-column justify-content-center align-items-center">
             <Col className="d-flex flex-column justify-content-center align-items-center">
               <h5>Login</h5>
@@ -186,7 +181,7 @@ const Login = () => {
 
                     <BasicButton
                       className="mt-3"
-                      variant={"primary"}
+                      variant={"warning"}
                       type="button"
                       disabled={isSubmitting}
                       onClick={

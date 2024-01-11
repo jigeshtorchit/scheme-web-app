@@ -44,18 +44,14 @@ const MainNav = () => {
               size={25}
               onClick={handleNavigateAddForm}
               className="pointer"
+              color="white"
             />
           </Col>
           <Col
             className="d-lg-flex d-none d-sm-none flex-row flex-wrap-wrap justify-content-between align-items-center"
             style={{ marginRight: "100px" }}
           >
-            <img
-              src={MainLogo}
-              width={40}
-              className="rounded-circle pointer"
-              alt="..."
-            ></img>
+            <img src={MainLogo} width={100} className="pointer" alt="..."></img>
           </Col>
         </Row>
 
@@ -63,8 +59,8 @@ const MainNav = () => {
           <Col className='d-lg-none d-sm-flex flex-row flex-wrap-wrap justify-content-between"align-items-center '>
             <img
               src={MainLogo}
-              width={60}
-              className="rounded-circle p-2 pointer"
+              width={100}
+              className="p-2 pointer"
               alt="..."
             ></img>
           </Col>
